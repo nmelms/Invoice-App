@@ -1,13 +1,59 @@
-
 body {
   margin: 0;
   display: block;
+}
+.App{
 
+}
+.NavBar{
+  grid-area: NavBar;
+  border: 1px solid gold;
+  max-height: 10vh;
+}
+.InvoiceTitle{
+  grid-area: InvoiceTitle;
+  border: 1px solid gold
+}
+.Filter{
+  grid-area: Filter;
+  border: 1px solid gold
+}
+.NewButton{
+  grid-area: NewButton;
+  border: 1px solid gold
+}
+.InvoiceList{
+  grid-area: InvoiceList;
+  color: black
+}
+.BackButton{
+  background-color: purple;
+  display: flex
+
+}
+.Invoice{
+  display: flex;
+  border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+  text-align: start;
+  font-size: .75rem;
+}
+.Invoice>div{
+  width: 20vw;
+  border: 1px solid black;
+}
+.App{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: 
+  'NavBar NavBar NavBar'
+  'InvoiceTitle Filter NewButton'
+  'InvoiceList InvoiceList InvoiceList'
 }
 .NavBar{
   background-color: #252945;
   display: flex;
-
 }
 .logo{
   display: flex;
@@ -15,17 +61,15 @@ body {
   align-items: center;
   justify-content: center;
   background: #7C5DFA;
-
   border-radius: 0px 20px 20px 0px;
 }
 .logo>img{
   padding-top: auto
 }
-
 .theme{
   margin-left: auto;
   padding-right: 1rem;
   align-self: center;
-  
 }
+
 
