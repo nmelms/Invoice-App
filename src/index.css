@@ -2,8 +2,55 @@ body {
   margin: 0;
   display: block;
 }
-.App{
+.street{
+  grid-area: street;
+}
+.city{
+  grid-area: city;
+}
+.zip{
+  grid-area: zip;
+}
+.country{
+  grid-area: country;
+}
+.clientsName{
+  grid-area: clientsName;
+}
+.clientsEmail{
+  grid-area: clientsEmail;
+}
 
+.BillTo{
+  display: grid;
+  grid-template-columns: 50vw 50vw;
+  grid-template-areas: 
+  'clientsName clientsEmail'
+}
+.BillTo>div{
+  padding: 1rem;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.AddressForm{
+  grid-area: AddressForm;
+  gap: 1rem;
+  display: grid;
+  grid-template-columns: 40vw 40vw;
+  justify-content: center;
+  grid-template-areas: 
+  'clientsName clientsName'
+  'clientsEmail clientsEmail'
+  'street street'
+  'city zip'
+  'country country'
+
+}
+.AddressForm>div{
+  display: flex;
+  flex-direction: column;
 }
 .NavBar{
   grid-area: NavBar;
@@ -22,14 +69,22 @@ body {
   grid-area: NewButton;
   border: 1px solid gold
 }
+
 .InvoiceList{
   grid-area: InvoiceList;
   color: black
 }
 .BackButton{
-  background-color: purple;
-  display: flex
-
+  display: flex;
+  gap: 1rem;
+}
+.BackButton:hover{
+  cursor: pointer;
+}
+.BackButton img{
+  transform: scale(.3);
+  width: 5vw;
+  height: auto;
 }
 .Invoice{
   display: flex;
@@ -43,14 +98,14 @@ body {
   width: 20vw;
   border: 1px solid black;
 }
-.App{
+/* .App{
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas: 
   'NavBar NavBar NavBar'
   'InvoiceTitle Filter NewButton'
   'InvoiceList InvoiceList InvoiceList'
-}
+} */
 .NavBar{
   background-color: #252945;
   display: flex;
