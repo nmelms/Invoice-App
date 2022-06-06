@@ -10,7 +10,9 @@ import AddressForm from './components/AddressForm.js';
 function App() {
   return (
     <div className="App">
-      <NewInvoice />
+
+      <InvoiceList  />
+
 
     </div>
   );

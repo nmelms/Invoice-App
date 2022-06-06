@@ -98,6 +98,9 @@ body {
   width: 20vw;
   border: 1px solid black;
 }
+.formData{
+  color: black
+}
 /* .App{
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;

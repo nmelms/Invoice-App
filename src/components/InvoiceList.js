@@ -1,26 +1,34 @@
-  import React from 'react'
+  import React, {useEffect, useState, } from 'react'
   import Invoice from './Invoice.js'
   import data from '../data/data.json'
+  import { doc, getDoc, getDocs, collection } from "firebase/firestore";
   import empty from '../assets/illustration-empty.svg'
+  import {db} from '../firebase'
+  
+  export default function InvoiceList() { 
+    const [list, setList] = useState([])
+    const dataRef = collection(db, 'form')
 
-  
-  export default function InvoiceList() {    
-    return (
-      <div className="InvoiceList">
-        {data === 0 && <img src={empty} />}
-        {data != 0 && data.map((item, index) => {
-          let data = 0
-          return(
-            <Invoice 
-              id={item.id} 
-              paymentDue={item.paymentDue}
-              clientName={item.clientName}
-              total={item.total}
-              status={item.status}
-            />               
-          )
-        })}
-      </div>
-    )
-  }
-  
+    useEffect(() => {
+      const fetchData = async () => {
+        const data = await getDocs(dataRef)
+        setList(data.docs.map((doc) => ({...doc.data(), id: doc.id })))
+        console.log(list)
+      }
+      fetchData()
+    }, [])
+
+
+
+
+return (
+  <div>
+    {list.map((item) => {
+      return(
+        <Invoice id={'hwmm'} clientName={item.clientsName}/>
+      )
+    })}
+  </div>
+)
+
+};  
