@@ -7,6 +7,7 @@
   
   export default function InvoiceList() { 
     const [list, setList] = useState([])
+    const [loading, setLoading] =useState(true)
     const dataRef = collection(db, 'form')
 
     useEffect(() => {
@@ -14,6 +15,7 @@
         const data = await getDocs(dataRef)
         setList(data.docs.map((doc) => ({...doc.data(), id: doc.id })))
         console.log(list)
+        setLoading(false)
       }
       fetchData()
     }, [])
@@ -23,11 +25,13 @@
 
 return (
   <div>
-    {list.map((item) => {
+
+    {loading ? <h1>loading...</h1> : list.map((item) => {
       return(
         <Invoice id={'hwmm'} clientName={item.clientsName}/>
       )
     })}
+
   </div>
 )
 

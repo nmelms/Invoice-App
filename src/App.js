@@ -7,11 +7,12 @@ import BackButton from './components/BackButton.js';
 import NewInvoice from './components/NewInvoice.js';
 import ListMovies from './components/ListMovies.js'
 import AddressForm from './components/AddressForm.js';
+import Item from './components/Item.js';
 function App() {
   return (
     <div className="App">
 
-      <InvoiceList  />
+      <Item  />
 
 
     </div>

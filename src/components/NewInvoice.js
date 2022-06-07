@@ -90,8 +90,22 @@ export default function NewInvoice() {
         <div className="country">
           <label htmlFor="ccountry">Country:</label>
           <input className="input"  onChange={(e) => setCCountry(e.target.value)} type="text" id="ccountry" />
-        </div>    
-      </form>
+        </div>
+        <div className="invoiceDate">
+          <label htmlFor="invoiceDate">invoiceDate:</label>
+          <input className="input"  onChange={(e) => setCCountry(e.target.value)} type="text" id="invoiceDate" />
+        </div>
+        <div className="paymentTerms">
+          <label htmlFor="paymentTerms">paymentTerms:</label>
+          <input className="input"  onChange={(e) => setCCountry(e.target.value)} type="text" id="paymentTerms" />
+        </div>   
+        <div className="productDescription">
+          <label htmlFor="productDescription">productDescription:</label>
+          <input className="input"  onChange={(e) => setCCountry(e.target.value)} type="text" id="productDescription" />
+        </div>
+      </form>        
+      <h2>itemList</h2>           
+
       <input type="submit" onClick={(e) => handleSubmit(e)} />
     </div>
   )

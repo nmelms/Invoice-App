@@ -2,6 +2,9 @@ body {
   margin: 0;
   display: block;
 }
+p{
+  margin: 0
+}
 .street{
   grid-area: street;
 }
@@ -100,6 +103,31 @@ body {
 }
 .formData{
   color: black
+}
+.Item{
+  gap: 1rem;
+  border: 2px solid black;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.Item>div{
+  display:flex;
+  flex-direction: column;
+}
+.total{
+  height:min-content;
+  margin: 0;
+}
+.Item .itemName{
+  flex-basis: 100%;
+}
+.Item .qty{
+  width: 20vw
+}
+.Item .price{
+  width: 20vw
 }
 /* .App{
   display: grid;
