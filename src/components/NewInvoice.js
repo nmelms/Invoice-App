@@ -5,6 +5,7 @@ import AddressForm from './AddressForm'
 import BillTo from './BillTo.js'
 import {collection, doc, setDoc}  from 'firebase/firestore'
 import { db } from '../firebase'
+import Item  from './Item.js'
 export default function NewInvoice() {
   const formRef = useRef([]);
   const clientFormRef = useRef([]);
@@ -18,6 +19,11 @@ export default function NewInvoice() {
   const [cCity, setCCity] = useState('')
   const [cZip, setCZip] = useState('')
   const [cCountry, setCCountry] = useState('')
+  const [items, setItems] = useState([])
+
+  const handleAddClick = () => {
+    setItems([...items, <Item  />])
+  }
 
   const handleSubmit = (e) => {
      e.preventDefault()
@@ -104,7 +110,13 @@ export default function NewInvoice() {
           <input className="input"  onChange={(e) => setCCountry(e.target.value)} type="text" id="productDescription" />
         </div>
       </form>        
-      <h2>itemList</h2>           
+      <h2>itemList</h2>
+      {items.map((item) => {
+        return(
+          item
+        )
+      })} 
+      <button onClick={() => handleAddClick()}>add item</button>        
 
       <input type="submit" onClick={(e) => handleSubmit(e)} />
     </div>
