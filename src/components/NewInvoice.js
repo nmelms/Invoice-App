@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import BackButton from './BackButton.js'
 import NavBar from './NavBar.js'
 import AddressForm from './AddressForm'
@@ -8,6 +8,7 @@ import { db } from '../firebase'
 import Item  from './Item.js'
 export default function NewInvoice() {
   const formRef = useRef([]);
+  const itemRef = useRef([])
   const clientFormRef = useRef([]);
   const [street, setStreet] = useState('')
   const [city, setCity] = useState('')
@@ -20,31 +21,70 @@ export default function NewInvoice() {
   const [cZip, setCZip] = useState('')
   const [cCountry, setCCountry] = useState('')
   const [items, setItems] = useState([])
+  const [userData, setUserData] = useState()
+  const [itemName, setItemName] = useState()
+  const [qty, setQty] = useState()
+  const [price, setPrice] = useState()
+
+  
+  const [itemsArr, setItemsArr] = useState([])
+
+
+  let data = {
+    street,
+    city,
+    zip,
+    country,
+    clientsName,
+    clientsEmail,
+    cStreet,
+    cCity,
+    cZip,
+    cCountry,
+    items: itemsArr,
+  }
 
   const handleAddClick = () => {
-    setItems([...items, <Item  />])
+    let newArray = [...itemsArr]
+    newArray.push({
+      itemName: itemName,
+      qty: qty,
+      price: price,
+    })
+    setItemsArr(newArray)
+    console.log(itemsArr)
+  }
+
+  const onChange = (e, index) => {
+    let value = e.target.value
+    let id = e.target.id
+    let name = ''
+    let newArr = [...itemsArr]
+    let item = newArr[index]
+    if(id === "itemName"){
+      console.log(item)
+      setItemName(value)
+      item.itemName = value
+    }else if(id === 'qty'){
+      console.log(item)
+      setQty(value)
+      item.qty = value
+    }else{
+      setPrice(value)
+      item.price = value
+    }
+    newArr[index] = item
+    setItemsArr(newArr)
   }
 
   const handleSubmit = (e) => {
      e.preventDefault()
-    const data ={
-      street,
-      city,
-      zip,
-      country,
-      clientsName,
-      clientsEmail,
-      cStreet,
-      cCity,
-      cZip,
-      cCountry
-    }
     const dbRef = doc(collection(db, 'form'))
-   setDoc(dbRef, data)
-   formRef.current.reset()
-   clientFormRef.current.reset()
-
+    setDoc(dbRef, data)
+    formRef.current.reset()
+    clientFormRef.current.reset()
   }
+  
   return (
     <div>
       <NavBar />
@@ -111,13 +151,13 @@ export default function NewInvoice() {
         </div>
       </form>        
       <h2>itemList</h2>
-      {items.map((item) => {
+      {itemsArr.map((item, index) => {
         return(
-          item
+            <Item ref={itemRef} id={index} key={index} onChange={onChange} itemName={itemName} setItemName={setItemName} setQty={setQty}  setPrice={setPrice} itemsArr={itemsArr} setItemsArr={setItemsArr} />
         )
-      })} 
+      }) }
+      
       <button onClick={() => handleAddClick()}>add item</button>        
-
       <input type="submit" onClick={(e) => handleSubmit(e)} />
     </div>
   )
