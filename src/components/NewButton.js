@@ -1,11 +1,11 @@
 import React from 'react'
 import plusIcon from '../assets/icon-plus.svg'
 
-export default function NewButton() {
+export default function NewButton({ setPage }) {
   return (
-    <div className="NewButton">
+    <button onClick={() => setPage('newInvoice')} className="NewButton">
       <img src={plusIcon} />
       <h2>New Invoice</h2>
-    </div>
+    </button>
   )
 }

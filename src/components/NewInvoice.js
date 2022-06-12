@@ -6,7 +6,8 @@ import BillTo from './BillTo.js'
 import {collection, doc, setDoc}  from 'firebase/firestore'
 import { db } from '../firebase'
 import Item  from './Item.js'
-export default function NewInvoice() {
+
+export default function NewInvoice({setPage}) {
   const formRef = useRef([]);
   const itemRef = useRef([])
   const clientFormRef = useRef([]);
@@ -25,10 +26,7 @@ export default function NewInvoice() {
   const [itemName, setItemName] = useState()
   const [qty, setQty] = useState()
   const [price, setPrice] = useState()
-
-  
   const [itemsArr, setItemsArr] = useState([])
-
 
   let data = {
     street,
@@ -84,11 +82,11 @@ export default function NewInvoice() {
     formRef.current.reset()
     clientFormRef.current.reset()
   }
-  
+
   return (
     <div>
       <NavBar />
-      <BackButton />
+      <BackButton setPage={setPage} />
       <h1>New Invoice</h1>
       <p>bill from</p>
       <form ref={formRef} className="AddressForm">

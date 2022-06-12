@@ -28,7 +28,7 @@ return (
 
     {loading ? <h1>loading...</h1> : list.map((item) => {
       return(
-        <Invoice id={'hwmm'} clientName={item.clientsName}/>
+        <Invoice id={'#88765'} total={'100'} status={'pending'} paymentDue={'dec 31st'}clientName={item.clientsName}/>
       )
     })}
 
