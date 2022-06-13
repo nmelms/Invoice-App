@@ -7,7 +7,7 @@ import {collection, doc, setDoc}  from 'firebase/firestore'
 import { db } from '../firebase'
 import Item  from './Item.js'
 
-export default function NewInvoice({setPage}) {
+export default function NewInvoice({setPage, itemsArr, setItemsArr}) {
   const formRef = useRef([]);
   const itemRef = useRef([])
   const clientFormRef = useRef([]);
@@ -26,7 +26,7 @@ export default function NewInvoice({setPage}) {
   const [itemName, setItemName] = useState()
   const [qty, setQty] = useState()
   const [price, setPrice] = useState()
-  const [itemsArr, setItemsArr] = useState([])
+  
 
   let data = {
     street,
@@ -76,7 +76,7 @@ export default function NewInvoice({setPage}) {
   }
 
   const handleSubmit = (e) => {
-     e.preventDefault()
+    e.preventDefault()
     const dbRef = doc(collection(db, 'form'))
     setDoc(dbRef, data)
     formRef.current.reset()

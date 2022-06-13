@@ -5,16 +5,16 @@ import Filter from './Filter'
 import NewButton from './NewButton'
 import InvoiceList from './InvoiceList'
 
-export default function Home({ setPage }) {
+export default function Home({ setPage, itemsArr,loading, list }) {
   return (
     <>
     <NavBar />
     <div className='homeHeader'>
-      <InvoiceTitle />
+      <InvoiceTitle itemsArr={itemsArr}/>
       <Filter />
       <NewButton setPage={setPage} />
     </div>
-    <InvoiceList />
+    <InvoiceList setPage={setPage} loading={loading} list={list} />
     </>
 
   )

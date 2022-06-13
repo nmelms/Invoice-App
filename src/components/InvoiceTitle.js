@@ -1,10 +1,10 @@
 import React from 'react'
 
-export default function InvoiceTitle () {
+export default function InvoiceTitle ({ itemsArr }) {
   return (
     <div className="InvoiceTitle">
       <h1>INVOCIES</h1>
-      <h3>7 invoices</h3>    
+      <h3>7 {console.log(itemsArr)}</h3>    
     </div>
   )
 }

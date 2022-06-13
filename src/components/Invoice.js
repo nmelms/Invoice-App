@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function Invoice({id, paymentDue, clientName, total, status}) {
+export default function Invoice({id, paymentDue, clientName, total, status, setPage}) {
   return (
-    <div className="Invoice">
+    <div onClick={() => setPage('viewInvoice')} className="Invoice">
       <div className="invoiceID">{id}</div>
       <div className="clientsName">{clientName}</div>
       <div className="paymentDue">{paymentDue}</div>
