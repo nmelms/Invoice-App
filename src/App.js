@@ -16,6 +16,7 @@ import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 function App() {
   const [itemsArr, setItemsArr] = useState([])
   const [page, setPage] = useState('home')
+  const [clickedIndex, setClickedIndex] = useState()
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(true)
   const dataRef = collection(db, 'form')
@@ -36,9 +37,9 @@ function App() {
 
   return (
     <div className="App">
-      {page == 'home' &&  <Home list={list} loading={loading} itemsArr={itemsArr} setPage={setPage} />}
+      {page == 'home' &&  <Home setClickedIndex={setClickedIndex}list={list} loading={loading} itemsArr={itemsArr} setPage={setPage} />}
       {page == 'newInvoice' &&  <NewInvoice setItemsArr={setItemsArr} itemsArr={itemsArr} setPage={setPage} />}
-      {page == 'viewInvoice' && <ViewInvoice />}
+      {page == 'viewInvoice' && <ViewInvoice clickedIndex={clickedIndex} setPage={setPage} data={list}/>}
     </div>
   );
 }

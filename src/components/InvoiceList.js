@@ -4,14 +4,14 @@
   import empty from '../assets/illustration-empty.svg'
 
   
-  export default function InvoiceList({ loading, list, setPage }) { 
+  export default function InvoiceList({ setClickedIndex, loading, list, setPage }) { 
 
 return (
   <div>
 
-    {loading ? <h1>loading...</h1> : list.map((item) => {
+    {loading ? <h1>loading...</h1> : list.map((item, index) => {
       return(
-        <Invoice setPage={setPage} id={'#88765'} total={'100'} status={'pending'} paymentDue={'dec 31st'} clientName={item.clientsName}/>
+        <Invoice setClickedIndex={setClickedIndex} setPage={setPage} id={index} total={'100'} status={'pending'} paymentDue={'dec 31st'} clientName={item.clientsName}/>
       )
     })}
 

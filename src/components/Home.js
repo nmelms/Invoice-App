@@ -5,7 +5,7 @@ import Filter from './Filter'
 import NewButton from './NewButton'
 import InvoiceList from './InvoiceList'
 
-export default function Home({ setPage, itemsArr,loading, list }) {
+export default function Home({ setClickedIndex, setPage, itemsArr,loading, list }) {
   return (
     <>
     <NavBar />
@@ -14,7 +14,7 @@ export default function Home({ setPage, itemsArr,loading, list }) {
       <Filter />
       <NewButton setPage={setPage} />
     </div>
-    <InvoiceList setPage={setPage} loading={loading} list={list} />
+    <InvoiceList setClickedIndex={setClickedIndex} setPage={setPage} loading={loading} list={list} />
     </>
 
   )
