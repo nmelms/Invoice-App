@@ -28,10 +28,9 @@ function App() {
       const data = await getDocs(dataRef)
       setList(data.docs.map((doc) => ({...doc.data(), id: doc.id })))
       setLoading(false)
-      console.log(list)
     }
     fetchData()
-  }, [])
+  }, [page])
 
 
 

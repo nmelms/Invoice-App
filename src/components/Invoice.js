@@ -5,8 +5,6 @@ export default function Invoice({id, paymentDue, clientName, total, status, setP
   const handleClick = (e) => {
     setPage('viewInvoice')
     setClickedIndex(id)
-    console.log(id)
-
   }
   return (
     <div onClick={(e) => handleClick(e)} className="Invoice">
