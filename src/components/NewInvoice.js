@@ -13,12 +13,14 @@ export default function NewInvoice({setPage, itemsArr, setItemsArr}) {
   const clientFormRef = useRef([]);
   const [street, setStreet] = useState('')
   const [city, setCity] = useState('')
+  const [state, setState] = useState('')
   const [zip, setZip] = useState('')
   const [country, setCountry] = useState('')
   const [clientsName, setClientsName] = useState('')
   const [clientsEmail, setClientsEmail] = useState('')
   const [cStreet, setCStreet] = useState('')
   const [cCity, setCCity] = useState('')
+  const [cState, setCState] = useState('')
   const [cZip, setCZip] = useState('')
   const [cCountry, setCCountry] = useState('')
   const [items, setItems] = useState([])
@@ -26,6 +28,9 @@ export default function NewInvoice({setPage, itemsArr, setItemsArr}) {
   const [itemName, setItemName] = useState()
   const [qty, setQty] = useState()
   const [price, setPrice] = useState()
+  const [invoiceDate, setInvoiceDate] = useState('')
+  const [paymentTerms, setPaymentTerms] = useState('')
+  const [prodDes, setProdDes] = useState('')
   
 
   let data = {
@@ -39,6 +44,9 @@ export default function NewInvoice({setPage, itemsArr, setItemsArr}) {
     cCity,
     cZip,
     cCountry,
+    invoiceDate,
+    paymentTerms,
+    prodDes,
     items: itemsArr,
   }
 
@@ -98,6 +106,10 @@ export default function NewInvoice({setPage, itemsArr, setItemsArr}) {
           <label htmlFor="city">City:</label>
           <input className="input"  onChange={(e) => setCity(e.target.value)} type="text" id="city" />
         </div>
+        <div className="state">
+          <label htmlFor="state">State:</label>
+          <input className="input" onChange={(e) => setState(e.target.value)} type="text" id="state" />
+        </div>
         <div className="zip">
           <label htmlFor="zip">Zip:</label>
           <input className="input"  onChange={(e) => setZip(e.target.value)} type="text" id="zip" />          
@@ -127,6 +139,10 @@ export default function NewInvoice({setPage, itemsArr, setItemsArr}) {
           <label htmlFor="ccity">City:</label>
           <input className="input"  onChange={(e) => setCCity(e.target.value)} type="text" id="ccity" />
         </div>
+        <div className="state">
+          <label htmlFor="cstate">State:</label>
+          <input className="input"  onChange={(e) => setCState(e.target.value)} type="text" id="cstate" />
+        </div>
         <div className="zip">
           <label htmlFor="czip">Zip:</label>
           <input className="input"  onChange={(e) => setCZip(e.target.value)}type="text" id="czip" />          
@@ -135,17 +151,23 @@ export default function NewInvoice({setPage, itemsArr, setItemsArr}) {
           <label htmlFor="ccountry">Country:</label>
           <input className="input"  onChange={(e) => setCCountry(e.target.value)} type="text" id="ccountry" />
         </div>
-        <div className="invoiceDate">
-          <label htmlFor="invoiceDate">invoiceDate:</label>
-          <input className="input"  onChange={(e) => setCCountry(e.target.value)} type="text" id="invoiceDate" />
-        </div>
-        <div className="paymentTerms">
-          <label htmlFor="paymentTerms">paymentTerms:</label>
-          <input className="input"  onChange={(e) => setCCountry(e.target.value)} type="text" id="paymentTerms" />
-        </div>   
-        <div className="productDescription">
-          <label htmlFor="productDescription">productDescription:</label>
-          <input className="input"  onChange={(e) => setCCountry(e.target.value)} type="text" id="productDescription" />
+        <div className="bottomInvoice">
+          <div className="invoiceDate">
+            <label htmlFor="invoiceDate">Invoice Date:</label>
+            <input className="input"  onChange={(e) => setInvoiceDate(e.target.value)} type="date" id="invoiceDate" />
+          </div>
+          <div className="paymentTerms">
+            <label htmlFor="paymentTerms">Payment Terms:</label>
+            <select>
+              <option onClick={(e) => setPaymentTerms(e.target.value)} value={30}>30 days</option>
+              <option onClick={(e) => setPaymentTerms(e.target.value)} value={60}>60 days</option>
+              <option onClick={(e) => setPaymentTerms(e.target.value)} value={90}>90 days</option>
+            </select>
+          </div>   
+          <div className="productDescription">
+            <label htmlFor="productDescription">Product Description:</label>
+            <input className="input"  onChange={(e) => setProdDes(e.target.value)} type="text" id="productDescription" />
+          </div>
         </div>
       </form>        
       <h2>itemList</h2>

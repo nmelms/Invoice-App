@@ -23,6 +23,9 @@ p{
 .street{
   grid-area: street;
 }
+.state{
+  grid-area: state;
+}
 .city{
   grid-area: city;
 }
@@ -51,19 +54,30 @@ p{
   display: flex;
   flex-direction: column;
 }
+.bottomInvoice{
+  width: 88vw;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.bottomInvoice>div{
+  display: flex;
+  flex-direction: column;
+
+}
 
 .AddressForm{
   grid-area: AddressForm;
-  gap: 1rem;
+  gap: .5rem;
   display: grid;
-  grid-template-columns: 40vw 40vw;
+  grid-template-columns: 30vw 25vw 30vw;
   justify-content: center;
   grid-template-areas: 
-  'clientsName clientsName'
-  'clientsEmail clientsEmail'
-  'street street'
-  'city zip'
-  'country country'
+  'clientsName clientsName clientsName'
+  'clientsEmail clientsEmail clientsEmail'
+  'street street street'
+  'city state zip'
+  'country country country'
 
 }
 .AddressForm>div{
@@ -131,7 +145,6 @@ p{
 }
 .Invoice>div{
   width: 20vw;
-  border: 1px solid black;
 }
 .formData{
   color: black
