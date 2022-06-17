@@ -10,7 +10,7 @@ export default function Home({ setClickedIndex, setPage, itemsArr,loading, list 
     <>
     <NavBar />
     <div className='homeHeader'>
-      <InvoiceTitle itemsArr={itemsArr}/>
+      <InvoiceTitle list={list}/>
       <Filter />
       <NewButton setPage={setPage} />
     </div>

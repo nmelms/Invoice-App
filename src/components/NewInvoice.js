@@ -31,6 +31,7 @@ export default function NewInvoice({setPage, itemsArr, setItemsArr}) {
   const [invoiceDate, setInvoiceDate] = useState('')
   const [paymentTerms, setPaymentTerms] = useState('')
   const [prodDes, setProdDes] = useState('')
+  const [status, setStatus] = useState('pending')
   
 
   let data = {
@@ -44,9 +45,10 @@ export default function NewInvoice({setPage, itemsArr, setItemsArr}) {
     cCity,
     cZip,
     cCountry,
-    invoiceDate,
-    paymentTerms,
-    prodDes,
+    status,
+    // invoiceDate,
+    // paymentTerms,
+    // prodDes,
     items: itemsArr,
   }
 
