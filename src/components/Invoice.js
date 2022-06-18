@@ -20,14 +20,18 @@ export default function Invoice({setPage, index, page}) {
   const handleStatusClick = async (e) => {
     e.stopPropagation()
     setPage('home')
-    console.log(page)
+
+    if(list[index].status === 'pending'){
+      console.log('pending')
+      await updateDoc(doc(db, 'form', `${list[index].id}`), {
+        status: 'complete'
+      })}else{
+
     await updateDoc(doc(db, 'form', `${list[index].id}`), {
-      status: 'ccccc'
+      status: 'pending'
     })
+      }
     fetchData()
-
-    console.log('fetch')
-
   };
     // db.collection("form").doc(list[index].id).update({status: "fufffiled"});
 
