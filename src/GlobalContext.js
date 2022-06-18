@@ -72,7 +72,7 @@ export function GlobalProvider({ children}){
     const current = new Date(invoiceDate)
     current.setDate(current.getDate() + Number(paymentTerms) )
     setDueDate(current.toDateString().split(' ').splice(1).join(' '))
-  })
+  }, [paymentTerms])
 
 
   return(
