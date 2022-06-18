@@ -1,33 +1,33 @@
 import React, {useEffect, useState} from 'react'
+import {db} from '../firebase'
+import {doc} from 'firebase/firestore'
+import  GlobalContext  from '../GlobalContext.js'
+import {useContext} from 'react'
 
 
-export default function Invoice({id, paymentDue, clientName, total, status, setPage, setClickedIndex, data}) {
-  const [updatedDate, setUpdatedDate] = useState()
+export default function Invoice({setPage, index}) {
+  const { item,   paymentDue,list, clickedIndex, clientName, total, status, setClickedIndex, data, paymentTerms } = useContext(GlobalContext)
   
-  const handleClick = (e) => {
+  const current = new Date(list[index].invoiceDate)
+  const [updatedDate, setUpdatedDate] = useState()
+
+  const handleClick = (e) => { 
     setPage('viewInvoice')
-    setClickedIndex(id)
+    setClickedIndex(index)
   }
 
-  useEffect(() => {
-    let date = new Date(data[id].invoiceDate)
-    console.log(date )
-    date.setDate(date.getDate() + data[id].paymentTerms )
-    console.log(data)
-    setUpdatedDate(date.toDateString().split(' ').splice(1).join(' '))
-    console.log(date.toDateString().split(' ').splice(1).join(' '))
-  }, [])
-
-  const statusClick = () => {
-    setPage('home')
-  }
+  // const statusClick = () => {
+  //   setPage('home')
+  //   console.log('switch')
+  //   db.collection("form").doc(data[index].id).update({status: "fufffiled"});
+  // }
 
   return (
     <div onClick={(e) => handleClick(e)} className="Invoice">
-      <div className="invoiceID">{id}</div>
+      <div className="invoiceID">{index}</div>
       <div className="clientsName">{clientName}</div>
-      <div className="paymentDue">due {updatedDate}</div>
-       <div onClick={() => statusClick()} className="status">{data[id].status}</div>
+      <div className="paymentDue">due {list[index].dueDate}</div>
+       <div className="status"></div>
       <div className="total">{total}</div>
     </div>
   )

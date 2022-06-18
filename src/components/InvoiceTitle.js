@@ -1,6 +1,10 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import GlobalContext from '../GlobalContext'
 
-export default function InvoiceTitle ({ list }) {
+
+export default function InvoiceTitle () {
+  const {list} = useContext(GlobalContext)
+  
   return (
     <div className="InvoiceTitle">
       <h1>INVOCIES</h1>

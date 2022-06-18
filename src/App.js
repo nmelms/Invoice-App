@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import Home from './components/Home.js'
 import NewInvoice from './components/NewInvoice.js'
 import NavBar from './components/NavBar.js'
@@ -12,34 +12,26 @@ import Item from './components/Item.js';
 import {db} from './firebase'
 import ViewInvoice from './components/ViewInvoice.js'
 import { doc, getDoc, getDocs, collection } from "firebase/firestore";
+import GlobalContext from './GlobalContext.js'
+import {GlobalProvider} from './GlobalContext'
+
+
+
 
 function App() {
-  const [itemsArr, setItemsArr] = useState([])
   const [page, setPage] = useState('home')
-  const [clickedIndex, setClickedIndex] = useState()
-  const [list, setList] = useState([])
-  const [loading, setLoading] = useState(true)
-  const dataRef = collection(db, 'form')
-
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getDocs(dataRef)
-      setList(data.docs.map((doc) => ({...doc.data(), id: doc.id })))
-      setLoading(false)
-    }
-    fetchData()
-  }, [page])
-
 
 
   return (
-    <div className="App">
-      {page == 'home' &&  <Home setClickedIndex={setClickedIndex}list={list} loading={loading} itemsArr={itemsArr} setPage={setPage} />}
-      {page == 'newInvoice' &&  <NewInvoice setItemsArr={setItemsArr} itemsArr={itemsArr} setPage={setPage} />}
-      {page == 'viewInvoice' && <ViewInvoice clickedIndex={clickedIndex} setPage={setPage} data={list}/>}
-    </div>
+    <GlobalProvider>
+      <div className="App">
+          {page == 'home' &&  <Home setPage={setPage} />}
+          {page == 'newInvoice' &&  <NewInvoice setPage={setPage}  />}
+          {page == 'viewInvoice' && <ViewInvoice setPage={setPage} />} 
+      </div>      
+    </GlobalProvider>
+    
+
   );
 }
 

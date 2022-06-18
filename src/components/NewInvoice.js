@@ -1,56 +1,19 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useRef, useEffect, useContext} from 'react'
 import BackButton from './BackButton.js'
 import NavBar from './NavBar.js'
 import AddressForm from './AddressForm'
 import BillTo from './BillTo.js'
-import {collection, doc, setDoc}  from 'firebase/firestore'
 import { db } from '../firebase'
+import {doc, collection, setDoc } from 'firebase/firestore'
 import Item  from './Item.js'
+import GlobalContext from '../GlobalContext'
 
-export default function NewInvoice({setPage, itemsArr, setItemsArr}) {
+export default function NewInvoice({setPage}) {
+  const {data, itemsArr, itemName, qty, price, setItemsArr, setItemName, setQty, setPrice,  setStreet, setCity, 
+  setState, setZip, setCountry, setClientsName, setCState, setClientsEmail, setCStreet, setCCity, setCZip, setCCountry, setInvoiceDate, setPaymentTerms, setProdDes} = useContext(GlobalContext)
   const formRef = useRef([]);
   const itemRef = useRef([])
   const clientFormRef = useRef([]);
-  const [street, setStreet] = useState('')
-  const [city, setCity] = useState('')
-  const [state, setState] = useState('')
-  const [zip, setZip] = useState('')
-  const [country, setCountry] = useState('')
-  const [clientsName, setClientsName] = useState('')
-  const [clientsEmail, setClientsEmail] = useState('')
-  const [cStreet, setCStreet] = useState('')
-  const [cCity, setCCity] = useState('')
-  const [cState, setCState] = useState('')
-  const [cZip, setCZip] = useState('')
-  const [cCountry, setCCountry] = useState('')
-  const [items, setItems] = useState([])
-  const [userData, setUserData] = useState()
-  const [itemName, setItemName] = useState()
-  const [qty, setQty] = useState()
-  const [price, setPrice] = useState()
-  const [invoiceDate, setInvoiceDate] = useState('')
-  const [paymentTerms, setPaymentTerms] = useState('')
-  const [prodDes, setProdDes] = useState('')
-  const [status, setStatus] = useState('pending')
-  
-
-  let data = {
-    street,
-    city,
-    zip,
-    country,
-    clientsName,
-    clientsEmail,
-    cStreet,
-    cCity,
-    cZip,
-    cCountry,
-    status,
-    // invoiceDate,
-    // paymentTerms,
-    // prodDes,
-    items: itemsArr,
-  }
 
   const handleAddClick = () => {
     let newArray = [...itemsArr]
@@ -60,7 +23,6 @@ export default function NewInvoice({setPage, itemsArr, setItemsArr}) {
       price: price,
     })
     setItemsArr(newArray)
-    console.log(itemsArr)
   }
 
   const onChange = (e, index) => {
@@ -70,11 +32,9 @@ export default function NewInvoice({setPage, itemsArr, setItemsArr}) {
     let newArr = [...itemsArr]
     let item = newArr[index]
     if(id === "itemName"){
-      console.log(item)
       setItemName(value)
       item.itemName = value
     }else if(id === 'qty'){
-      console.log(item)
       setQty(value)
       item.qty = value
     }else{
@@ -160,10 +120,10 @@ export default function NewInvoice({setPage, itemsArr, setItemsArr}) {
           </div>
           <div className="paymentTerms">
             <label htmlFor="paymentTerms">Payment Terms:</label>
-            <select>
-              <option onClick={(e) => setPaymentTerms(e.target.value)} value={30}>30 days</option>
-              <option onClick={(e) => setPaymentTerms(e.target.value)} value={60}>60 days</option>
-              <option onClick={(e) => setPaymentTerms(e.target.value)} value={90}>90 days</option>
+            <select onChange={(e) => {setPaymentTerms(e.target.value)}}>
+              <option value={30}>30 days</option>
+              <option value={60}>60 days</option>
+              <option value={90}>90 days</option>
             </select>
           </div>   
           <div className="productDescription">
