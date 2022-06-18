@@ -20,14 +20,14 @@ import {GlobalProvider} from './GlobalContext'
 
 function App() {
   const [page, setPage] = useState('home')
-
+  
 
   return (
     <GlobalProvider>
       <div className="App">
-          {page == 'home' &&  <Home setPage={setPage} />}
+          {page == 'home' &&  <Home page={page} setPage={setPage} />}
           {page == 'newInvoice' &&  <NewInvoice setPage={setPage}  />}
-          {page == 'viewInvoice' && <ViewInvoice setPage={setPage} />} 
+          {page == 'viewInvoice' && <ViewInvoice  setPage={setPage} />} 
       </div>      
     </GlobalProvider>
     

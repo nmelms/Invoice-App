@@ -4,7 +4,7 @@
   import data from '../data/data.json'
   import empty from '../assets/illustration-empty.svg'
 
-  export default function InvoiceList({setPage}) { 
+  export default function InvoiceList({setPage, page}) { 
     const {list, loading, setClickedIndex} = useContext(GlobalContext)
 
     return (
@@ -17,7 +17,7 @@
         </div>} 
         {loading ? <h1>loading...</h1> : list.map((item, index) => {
           return(
-            <Invoice setPage={setPage} index={index} />
+            <Invoice setPage={setPage} page={page} index={index} />
 
           )
         })}

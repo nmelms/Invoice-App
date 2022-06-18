@@ -6,8 +6,8 @@ import Filter from './Filter'
 import NewButton from './NewButton'
 import InvoiceList from './InvoiceList'
 
-export default function Home({setPage}) {
-  const {fetchData, page,  setClickedIndex, loading, list} = useContext(GlobalContext)
+export default function Home({setPage, page}) {
+  const {fetchData, setClickedIndex, loading, list} = useContext(GlobalContext)
 
 
 
@@ -24,7 +24,7 @@ export default function Home({setPage}) {
       <Filter />
       <NewButton setPage={setPage} />
     </div>
-    <InvoiceList setPage={setPage}  />
+    <InvoiceList page={page} setPage={setPage}  />
     </>
 
   )

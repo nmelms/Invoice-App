@@ -69,9 +69,7 @@ export function GlobalProvider({ children}){
   }
 
   useEffect(() => {
-    console.log('useEffect')
     const current = new Date(invoiceDate)
-    console.log(paymentTerms)
     current.setDate(current.getDate() + Number(paymentTerms) )
     setDueDate(current.toDateString().split(' ').splice(1).join(' '))
   })
