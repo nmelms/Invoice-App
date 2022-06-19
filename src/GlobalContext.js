@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect }  from 'react';
-import {collection, doc, setDoc, getDocs}  from 'firebase/firestore'
+import {collection, doc, setDoc, getDocs, query, orderBy, limit}  from 'firebase/firestore'
 import {db} from './firebase.js'
 const GlobalContext = createContext();
 
@@ -33,6 +33,7 @@ export function GlobalProvider({ children}){
 
 
   const dataRef = collection(db, 'form')
+  const current = new Date(invoiceDate)
 
 
 
@@ -58,21 +59,20 @@ export function GlobalProvider({ children}){
     invoiceDate,
     paymentTerms,
     prodDes,
-    status
+    status,
+    timeStamp: Date.now()
   }
 
   const fetchData = async () => {
-    const data = await getDocs(dataRef)
-    
+    const data = await getDocs(query(dataRef, orderBy('timeStamp')));
     setList(data.docs.map((doc) => ({...doc.data(), id: doc.id })))
     setLoading(false)
   }
 
   useEffect(() => {
-    const current = new Date(invoiceDate)
     current.setDate(current.getDate() + Number(paymentTerms) )
     setDueDate(current.toDateString().split(' ').splice(1).join(' '))
-  }, [paymentTerms])
+  })
 
 
   return(

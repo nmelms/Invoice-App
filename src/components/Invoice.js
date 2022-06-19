@@ -26,20 +26,18 @@ export default function Invoice({setPage, index, page}) {
       await updateDoc(doc(db, 'form', `${list[index].id}`), {
         status: 'complete'
       })}else{
-
-    await updateDoc(doc(db, 'form', `${list[index].id}`), {
+      await updateDoc(doc(db, 'form', `${list[index].id}`), {
       status: 'pending'
     })
       }
     fetchData()
   };
-    // db.collection("form").doc(list[index].id).update({status: "fufffiled"});
 
 
   return (
     <div onClick={(e) => handleClick(e)} className="Invoice">
       <div className="invoiceID">{index}</div>
-      <div className="clientsName">{clientName}</div>
+      <div className="clientsName">{list[index].clientsName}</div>
       <div  className="paymentDue">due {list[index].dueDate}</div>
        <button style={{border: '2px solid black'}} onClick={(e) => handleStatusClick(e)} className="status">{list[index].status}</button>
       <div className="total">{total}</div>
