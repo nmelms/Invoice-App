@@ -1,18 +1,32 @@
 import React, {useContext} from 'react'
 import BackButton from './BackButton'
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import {db} from '../firebase'
 import GlobalContext from '../GlobalContext';
 
 
 export default function ViewInvoice({ setPage }) {
 
-  const{list, clickedIndex, } = useContext(GlobalContext)
+  const{list, clickedIndex, fetchData } = useContext(GlobalContext)
   const item = list[clickedIndex]
 
   const onDeleteClick = async () => {
     await deleteDoc(doc(db, "form", list[clickedIndex].id));
   }
+  const handleStatusClick = async () => {
+
+    if(list[clickedIndex].status === 'pending'){
+      console.log('pending')
+      await updateDoc(doc(db, 'form', `${list[clickedIndex].id}`), {
+        status: 'complete'
+      })}else{
+      await updateDoc(doc(db, 'form', `${list[clickedIndex].id}`), {
+      status: 'pending'
+    })
+      }
+    fetchData()
+  };
+
 
   return (
     
@@ -83,7 +97,7 @@ export default function ViewInvoice({ setPage }) {
         <div className="viewInvoiceButtons">
           <button onClick={() =>  onDeleteClick()} >edit</button>
           <button onClick={() =>  onDeleteClick()} >delete</button>
-          <button onClick={() =>  onDeleteClick()} >mark as paid</button>          
+          <button onClick={() =>  handleStatusClick()} >mark as paid</button>          
         </div>       
 
       </div>

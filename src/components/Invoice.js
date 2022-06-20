@@ -17,21 +17,6 @@ export default function Invoice({setPage, index, page}) {
     setClickedIndex(index)
   }
 
-  const handleStatusClick = async (e) => {
-    e.stopPropagation()
-    setPage('home')
-
-    if(list[index].status === 'pending'){
-      console.log('pending')
-      await updateDoc(doc(db, 'form', `${list[index].id}`), {
-        status: 'complete'
-      })}else{
-      await updateDoc(doc(db, 'form', `${list[index].id}`), {
-      status: 'pending'
-    })
-      }
-    fetchData()
-  };
 
 
   return (
@@ -39,7 +24,7 @@ export default function Invoice({setPage, index, page}) {
       <div className="invoiceID">{index}</div>
       <div className="clientsName">{list[index].clientsName}</div>
       <div  className="paymentDue">due {list[index].dueDate}</div>
-       <button style={{border: '2px solid black'}} onClick={(e) => handleStatusClick(e)} className="status">{list[index].status}</button>
+       <div style={{border: '2px solid black'}} className="status">{list[index].status}</div>
       <div className="total">{total}</div>
     </div>
   )
