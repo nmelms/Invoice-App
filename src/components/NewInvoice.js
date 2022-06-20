@@ -10,7 +10,7 @@ import GlobalContext from '../GlobalContext'
 
 export default function NewInvoice({setPage}) {
   const {data, itemsArr, itemName, qty, price, setItemsArr, setItemName, setQty, setPrice,  setStreet, setCity, 
-  setState, setZip, setCountry, setClientsName, setCState, setClientsEmail, setCStreet, setCCity, setCZip, setCCountry, setInvoiceDate, setPaymentTerms, setProdDes} = useContext(GlobalContext)
+  setState, setZip, setCountry,  setClientsName, setCState, setClientsEmail, setCStreet, setCCity, setCZip, setCCountry, setInvoiceDate, setPaymentTerms, setProdDes} = useContext(GlobalContext)
   const formRef = useRef([]);
   const itemRef = useRef([])
   const clientFormRef = useRef([]);

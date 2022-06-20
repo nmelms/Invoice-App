@@ -60,6 +60,7 @@ export function GlobalProvider({ children}){
     paymentTerms,
     prodDes,
     status,
+    items: itemsArr,
     timeStamp: Date.now()
   }
 
