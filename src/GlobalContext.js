@@ -64,6 +64,10 @@ export function GlobalProvider({ children}){
     timeStamp: Date.now()
   }
 
+   useEffect(() => {
+    console.log(data)
+  }, [street])
+
   const fetchData = async () => {
     const data = await getDocs(query(dataRef, orderBy('timeStamp')));
     setList(data.docs.map((doc) => ({...doc.data(), id: doc.id })))
@@ -80,7 +84,7 @@ export function GlobalProvider({ children}){
     <GlobalContext.Provider 
       value={{
         fetchData,itemsArr, itemName, qty, price, list, paymentTerms, setItemsArr,  setItemName, setQty, setPrice, setStreet, setCity, 
-        setState, setZip, setCountry, setClientsName, clickedIndex,  loading, setClickedIndex, setClientsEmail, setCStreet,setCState, setCCity, 
+        setState, setZip,street, setCountry, setClientsName, clickedIndex,  loading, setClickedIndex, setClientsEmail, setCStreet,setCState, setCCity, 
         setCZip, setCCountry, setInvoiceDate, setPaymentTerms, setProdDes, data}}>
       {children}
     </GlobalContext.Provider>

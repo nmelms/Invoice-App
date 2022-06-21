@@ -13,10 +13,13 @@ export default function ViewInvoice({ setPage }) {
   const onDeleteClick = async () => {
     await deleteDoc(doc(db, "form", list[clickedIndex].id));
   }
+
+  const handleEditClick = () => {
+    setPage('editInvoice')
+  }
   const handleStatusClick = async () => {
 
     if(list[clickedIndex].status === 'pending'){
-      console.log('pending')
       await updateDoc(doc(db, 'form', `${list[clickedIndex].id}`), {
         status: 'complete'
       })}else{
@@ -74,7 +77,7 @@ export default function ViewInvoice({ setPage }) {
         </div>
 
           {list[clickedIndex].items.map((item) => {
-            console.log(item)
+
             return(
               <div className="invoiceItems">
                 <div>
@@ -95,7 +98,7 @@ export default function ViewInvoice({ setPage }) {
           
         </div> 
         <div className="viewInvoiceButtons">
-          <button onClick={() =>  onDeleteClick()} >edit</button>
+          <button onClick={() =>  handleEditClick()} >edit</button>
           <button onClick={() =>  onDeleteClick()} >delete</button>
           <button onClick={() =>  handleStatusClick()} >mark as paid</button>          
         </div>       

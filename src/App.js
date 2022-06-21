@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import Home from './components/Home.js'
 import NewInvoice from './components/NewInvoice.js'
 import NavBar from './components/NavBar.js'
+import EditInvoice from './components/EditInvoice.js'
 import InvoiceTitle from './components/InvoiceTitle.js'
 import Filter from './components/Filter.js'
 import NewButton from './components/NewButton.js';
@@ -27,7 +28,8 @@ function App() {
       <div className="App">
           {page == 'home' &&  <Home page={page} setPage={setPage} />}
           {page == 'newInvoice' &&  <NewInvoice setPage={setPage}  />}
-          {page == 'viewInvoice' && <ViewInvoice  setPage={setPage} />} 
+          {page == 'viewInvoice' && <ViewInvoice  setPage={setPage} />}
+          {page === 'editInvoice' && <EditInvoice setPage={setPage} />} 
       </div>      
     </GlobalProvider>
     
