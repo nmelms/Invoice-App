@@ -34,7 +34,7 @@ export default function ViewInvoice({ setPage }) {
   return (
     
     <div>
-      <BackButton setPage={setPage}/>
+      <BackButton setPage={setPage} name='home'/>
       <div className="invoiceStatus">
         <p>status</p>
         <p>{item.status}</p>

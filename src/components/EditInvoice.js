@@ -36,7 +36,7 @@ export default function EditInvoice({ setPage }) {
   }
   return (
 <div>
-  <BackButton setPage={setPage} />
+  <BackButton setPage={setPage} name='viewInvoice' />
       <h1>Edit Invoice</h1>
       <p>bill from</p>
       <form /*ref={formRef}*/ className="AddressForm">
