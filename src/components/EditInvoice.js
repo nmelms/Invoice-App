@@ -3,7 +3,8 @@ import GlobalContext from '../GlobalContext'
 import BackButton from './BackButton'
 import {db} from '../firebase'
 import {doc, setDoc} from 'firebase/firestore'
-import Item from './Item'
+import Item from './Item.js'
+import '../index.css';
 
 export default function EditInvoice({ setPage }) {
   const {data,fetchData, itemsArr, itemName,list,   qty, price, setItemsArr, setItemName, setQty, setPrice,  setStreet, setCity, 
@@ -112,14 +113,14 @@ export default function EditInvoice({ setPage }) {
             <label htmlFor="productDescription">Product Description:</label>
             <input defaultValue={list[clickedIndex].setProdDes} className="input"  onChange={(e) => setProdDes(e.target.value)} type="text" id="productDescription" />
           </div>
-          {list[clickedIndex].items.map((item) => {
-          return(
-            <Item defaultName={item.itemName} defaultQty={item.qty} defaultPrice={item.price}/>
-          )
-        })}
-        </div>
 
-      </form>        
+        </div>
+      </form> 
+      {list[clickedIndex].items.map((item) => {
+          return(
+            <Item className='Item' defaultName={item.itemName} defaultQty={item.qty} defaultPrice={item.price}/>
+          )
+        })}       
       <button onClick={handleSave}>Save Changes</button>     
     </div>
   )

@@ -2,10 +2,6 @@ import React, {useEffect, useState} from 'react'
 
 export default function Item({defaultName, defaultQty, defaultPrice, onChange, id}) {
 
-  const handleChange = () => {
-    console.log('click')
-  }
-
   return (
     <div className="Item">
         <div className="itemName">
@@ -24,7 +20,7 @@ export default function Item({defaultName, defaultQty, defaultPrice, onChange, i
             <p>total</p>
             <p>420</p>
         </div>
-      <div>
+      <div className="itemDelete">
         <p>x</p>
       </div>
     </div>

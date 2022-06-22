@@ -136,7 +136,8 @@ export default function NewInvoice({setPage}) {
       <h2>itemList</h2>
       {itemsArr.map((item, index) => {
         return(
-            <Item ref={itemRef} id={index} key={index} onChange={onChange} defaultName={''} defaultQty={''} defaultPrice={''}setItemName={setItemName} setQty={setQty}  setPrice={setPrice} itemsArr={itemsArr} setItemsArr={setItemsArr} />
+            <Item  id={index} key={index} onChange={onChange} defaultName={''} defaultQty={''} defaultPrice={''}setItemName={setItemName} setQty={setQty}  setPrice={setPrice} itemsArr={itemsArr} setItemsArr={setItemsArr} />
+
         )
       }) }
       
