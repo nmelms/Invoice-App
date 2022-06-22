@@ -3,6 +3,7 @@ import GlobalContext from '../GlobalContext'
 import BackButton from './BackButton'
 import {db} from '../firebase'
 import {doc, setDoc} from 'firebase/firestore'
+import Item from './Item'
 
 export default function EditInvoice({ setPage }) {
   const {data,fetchData, itemsArr, itemName,list,   qty, price, setItemsArr, setItemName, setQty, setPrice,  setStreet, setCity, 
@@ -65,7 +66,7 @@ export default function EditInvoice({ setPage }) {
       <p>bill to</p>
 
       <form /*ref={clientFormRef}*/ className="AddressForm" >
-      <div className="clientsName">
+        <div className="clientsName">
           <label htmlFor="clientsName">Clients Name:</label>
           <input defaultValue={list[clickedIndex].clientsName} onChange={(e) => setClientsName(e.target.value)} type="text" id="clientsName" />
         </div>
@@ -93,6 +94,7 @@ export default function EditInvoice({ setPage }) {
           <label htmlFor="ccountry">Country:</label>
           <input defaultValue={list[clickedIndex].cCountry} className="input"  onChange={(e) => setCCountry(e.target.value)} type="text" id="ccountry" />
         </div>
+
         <div className="bottomInvoice">
           <div className="invoiceDate">
             <label htmlFor="invoiceDate">Invoice Date:</label>
@@ -110,7 +112,13 @@ export default function EditInvoice({ setPage }) {
             <label htmlFor="productDescription">Product Description:</label>
             <input defaultValue={list[clickedIndex].setProdDes} className="input"  onChange={(e) => setProdDes(e.target.value)} type="text" id="productDescription" />
           </div>
+          {list[clickedIndex].items.map((item) => {
+          return(
+            <Item defaultName={item.itemName} defaultQty={item.qty} defaultPrice={item.price}/>
+          )
+        })}
         </div>
+
       </form>        
       <button onClick={handleSave}>Save Changes</button>     
     </div>

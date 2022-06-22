@@ -28,6 +28,7 @@ export default function NewInvoice({setPage}) {
   const onChange = (e, index) => {
     let value = e.target.value
     let id = e.target.id
+    console.log(e)
     let name = ''
     let newArr = [...itemsArr]
     let item = newArr[index]
@@ -56,7 +57,7 @@ export default function NewInvoice({setPage}) {
   return (
     <div>
       <NavBar />
-      <BackButton setPage={setPage} />
+      <BackButton setPage={setPage} name="home" />
       <h1>New Invoice</h1>
       <p>bill from</p>
       <form ref={formRef} className="AddressForm">
@@ -135,7 +136,7 @@ export default function NewInvoice({setPage}) {
       <h2>itemList</h2>
       {itemsArr.map((item, index) => {
         return(
-            <Item ref={itemRef} id={index} key={index} onChange={onChange} itemName={itemName} setItemName={setItemName} setQty={setQty}  setPrice={setPrice} itemsArr={itemsArr} setItemsArr={setItemsArr} />
+            <Item ref={itemRef} id={index} key={index} onChange={onChange} defaultName={''} defaultQty={''} defaultPrice={''}setItemName={setItemName} setQty={setQty}  setPrice={setPrice} itemsArr={itemsArr} setItemsArr={setItemsArr} />
         )
       }) }
       
