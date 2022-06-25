@@ -24,6 +24,8 @@ export default function EditInvoice({ setPage }) {
     setQty,
     setPrice,
     setStreet,
+    cStreet,
+    cCity,
     setCity,
     setState,
     setZip,
@@ -41,6 +43,16 @@ export default function EditInvoice({ setPage }) {
     setPaymentTerms,
     setIndexer,
     setProdDes,
+    state,
+    zip,
+    country,
+    clientsName,
+    clientsEmail,
+    cZip,
+    cCountry,
+    paymentTerms,
+    prodDes,
+    invoiceDate,
   } = useContext(GlobalContext);
 
   const itemRef = doc(db, "form", `${list[clickedIndex].id}`);
@@ -61,11 +73,28 @@ export default function EditInvoice({ setPage }) {
     setProdDes(list[clickedIndex].prodDes);
     setInvoiceDate(list[clickedIndex].invoiceDate);
     setIndexer(list[clickedIndex].indexer);
+    setItemsArr(list[clickedIndex].items);
   }, []);
   const handleSave = async () => {
-    console.log(street);
+    console.log(state);
     console.log(city);
-    await updateDoc(itemRef, { street, city, items: itemsArr });
+    await updateDoc(itemRef, {
+      street,
+      city,
+      items: itemsArr,
+      state,
+      zip,
+      country,
+      clientsName,
+      clientsEmail,
+      cStreet,
+      cCity,
+      cZip,
+      cCountry,
+      paymentTerms,
+      prodDes,
+      invoiceDate,
+    });
     fetchData();
   };
 
