@@ -36,6 +36,7 @@
     ]
   },
   "devDependencies": {
-    "firebase": "^9.8.2"
+    "firebase": "^9.8.2",
+    "prettier": "^2.7.1"
   }
 }
