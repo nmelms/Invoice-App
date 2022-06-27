@@ -1,16 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import BackButton from "./BackButton";
+import Alert from "./Alert";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import GlobalContext from "../GlobalContext";
 
 export default function ViewInvoice({ setPage }) {
   const { list, clickedIndex, fetchData } = useContext(GlobalContext);
+  const [alert, setAlert] = useState(false);
+  const [userResponse, setUserResponse] = useState("");
   const item = list[clickedIndex];
 
-  const onDeleteClick = async () => {
-    await deleteDoc(doc(db, "form", list[clickedIndex].id));
+  const onDeleteClick = () => {
+    setAlert(true);
   };
+
+  useEffect(() => {
+    if (userResponse === "yes") {
+      console.log("yes");
+      deleteDoc(doc(db, "form", list[clickedIndex].id));
+      setUserResponse("");
+      setPage("home");
+    } else if (userResponse === "no") {
+      document.querySelector(".Alert").remove();
+      setUserResponse("");
+    }
+  }, [userResponse]);
 
   const handleEditClick = () => {
     setPage("editInvoice");
@@ -31,6 +46,7 @@ export default function ViewInvoice({ setPage }) {
   return (
     <div>
       <BackButton setPage={setPage} name="home" />
+      {alert && <Alert setUserResponse={setUserResponse} />}
       <div className="invoiceStatus">
         <p>status</p>
         <p>{item.status}</p>

@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   box-sizing: border-box;
 }
@@ -6,155 +6,151 @@ body {
   margin: 0;
   display: block;
 }
-p{
+p {
   margin: 0;
 }
-h4{
+h4 {
   margin: 0;
 }
-.invoiceID{
-  grid-area: invoiceID
+.invoiceID {
+  grid-area: invoiceID;
 }
-.clientsName{
-  grid-area: clientsName
-}
-.paymentDue{
-  grid-area: paymentDue
-}
-.status{
-  grid-area: status;
-}
-.total{
-  grid-area: total;
-}
-.street{
-  grid-area: street;
-}
-.state{
-  grid-area: state;
-}
-.city{
-  grid-area: city;
-}
-.zip{
-  grid-area: zip;
-}
-.country{
-  grid-area: country;
-}
-.clientsName{
+.clientsName {
   grid-area: clientsName;
 }
-.clientsEmail{
+.paymentDue {
+  grid-area: paymentDue;
+}
+.status {
+  grid-area: status;
+}
+.total {
+  grid-area: total;
+}
+.street {
+  grid-area: street;
+}
+.state {
+  grid-area: state;
+}
+.city {
+  grid-area: city;
+}
+.zip {
+  grid-area: zip;
+}
+.country {
+  grid-area: country;
+}
+.clientsName {
+  grid-area: clientsName;
+}
+.clientsEmail {
   grid-area: clientsEmail;
 }
-.invoiceBillTo{
+.invoiceBillTo {
   padding-top: 1rem;
   grid-template-columns: 50% 50%;
   grid-template-rows: 50% 50%;
-  display:grid;
+  display: grid;
 }
-.invoiceItems{
+.invoiceItems {
   border: 2px solid black;
-  display:grid;
+  display: grid;
   grid-template-rows: 50% 50%;
   grid-template-columns: 50% 50%;
 }
-.itemMultiply{
+.itemMultiply {
   display: flex;
 }
-.itemTotal{
+.itemTotal {
   grid-column: 2/3;
   grid-row: 1/3;
 }
-.billToAddress{
+.billToAddress {
   grid-row: 1/3;
   grid-column: 2/3;
 }
-.BillTo{
+.BillTo {
   display: grid;
   grid-template-columns: 50vw 50vw;
-  grid-template-areas: 
-  'clientsName clientsEmail'
+  grid-template-areas: "clientsName clientsEmail";
 }
-.BillTo>div{
+.BillTo > div {
   padding: 1rem;
   gap: 1rem;
   display: flex;
   flex-direction: column;
 }
-.bottomInvoice{
+.bottomInvoice {
   width: 88vw;
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 0.5rem;
 }
-.bottomInvoice>div{
+.bottomInvoice > div {
   display: flex;
   flex-direction: column;
-
 }
 
-.AddressForm{
+.AddressForm {
   grid-area: AddressForm;
-  gap: .5rem;
+  gap: 0.5rem;
   display: grid;
   grid-template-columns: 30vw 25vw 30vw;
   justify-content: center;
-  grid-template-areas: 
-  'clientsName clientsName clientsName'
-  'clientsEmail clientsEmail clientsEmail'
-  'street street street'
-  'city state zip'
-  'country country country'
-
+  grid-template-areas:
+    "clientsName clientsName clientsName"
+    "clientsEmail clientsEmail clientsEmail"
+    "street street street"
+    "city state zip"
+    "country country country";
 }
-.AddressForm>div{
+.AddressForm > div {
   display: flex;
   flex-direction: column;
 }
-.NavBar{
+.NavBar {
   grid-area: NavBar;
   border: 1px solid gold;
   max-height: 10vh;
 }
-.InvoiceTitle{
+.InvoiceTitle {
   grid-area: InvoiceTitle;
-  border: 1px solid gold
+  border: 1px solid gold;
 }
-.Filter{
+.Filter {
   grid-area: Filter;
-  border: 1px solid gold
+  border: 1px solid gold;
 }
-.NewButton{
+.NewButton {
   grid-area: NewButton;
-  border: 1px solid gold
-
+  border: 1px solid gold;
 }
-.NewButton:hover{
+.NewButton:hover {
   cursor: pointer;
 }
-.InvoiceList{
+.InvoiceList {
   grid-area: InvoiceList;
-  color: black
+  color: black;
 }
-.BackButton{
+.BackButton {
   display: flex;
   gap: 1rem;
 }
-.BackButton:hover{
+.BackButton:hover {
   cursor: pointer;
 }
-.BackButton img{
-  transform: scale(.3);
+.BackButton img {
+  transform: scale(0.3);
   width: 5vw;
   height: auto;
 }
-.homeHeader{
+.homeHeader {
   display: flex;
   justify-content: space-between;
 }
-.Invoice{
+.Invoice {
   display: flex;
   padding: 1rem;
   margin: 1rem;
@@ -164,21 +160,21 @@ h4{
   white-space: nowrap;
   grid-template-columns: 50% 50%;
   grid-template-rows: auto;
-  grid-template-areas: 
-    'invoiceID clientsName'
-    'paymentDue status'
-    'total status';
+  grid-template-areas:
+    "invoiceID clientsName"
+    "paymentDue status"
+    "total status";
   justify-content: space-between;
   text-align: start;
-  font-size: .75rem;
+  font-size: 0.75rem;
 }
-.Invoice>div{
+.Invoice > div {
   width: 20vw;
 }
-.formData{
-  color: black
+.formData {
+  color: black;
 }
-.Item{
+.Item {
   /* gap: 1rem;
   border: 2px solid black;
   padding: 1rem;
@@ -193,51 +189,57 @@ h4{
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
 }
-.itemName{
+.itemName {
   grid-row: 1/2;
   grid-column: 1/5;
 }
-.qty{
+.qty {
   grid-row: 2/3;
-  grid-column:1/2;
-  padding:.5rem;
-
+  grid-column: 1/2;
+  padding: 0.5rem;
 }
-.price{
+.price {
   grid-row: 2/3;
-  grid-column:2/3 ;
-  padding:.5rem;
-
+  grid-column: 2/3;
+  padding: 0.5rem;
 }
-.total{
+.total {
   grid-row: 2/3;
-  grid-column:3/4 ;
-  padding:.5rem;
+  grid-column: 3/4;
+  padding: 0.5rem;
 }
-.itemDelete{
+.itemDelete {
   grid-row: 2/3;
-  grid-column:4/5 ;
-  padding: .5rem;
+  grid-column: 4/5;
+  padding: 0.5rem;
 }
-.input{
-  width: 100%
+.input {
+  width: 100%;
 }
-.itemDelete{
+.itemDelete {
   grid-row: 2/3;
-  grid-column:4/5 ;
+  grid-column: 4/5;
 }
-.invoiceStatus{
-  display:flex;
+.Alert {
+  border: 2px solid red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 20vh;
+  width: 40vw;
+}
+.invoiceStatus {
+  display: flex;
   justify-content: space-between;
   padding: 1rem;
   margin: 1rem;
   border: 2px solid black;
 }
-.senderAddress{
+.senderAddress {
   padding-top: 1rem;
 }
-.total{
-  height:min-content;
+.total {
+  height: min-content;
   margin: 0;
 }
 /* .Item .itemName{
@@ -258,25 +260,23 @@ h4{
   'InvoiceTitle Filter NewButton'
   'InvoiceList InvoiceList InvoiceList'
 } */
-.NavBar{
+.NavBar {
   background-color: #252945;
   display: flex;
 }
-.logo{
+.logo {
   display: flex;
   width: 10vw;
   align-items: center;
   justify-content: center;
-  background: #7C5DFA;
+  background: #7c5dfa;
   border-radius: 0px 20px 20px 0px;
 }
-.logo>img{
-  padding-top: auto
+.logo > img {
+  padding-top: auto;
 }
-.theme{
+.theme {
   margin-left: auto;
   padding-right: 1rem;
   align-self: center;
 }
-
-
