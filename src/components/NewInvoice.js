@@ -49,12 +49,16 @@ export default function NewInvoice({ setPage }) {
   const itemRef = useRef([]);
   const clientFormRef = useRef([]);
 
+  useEffect(() => {
+    setItemsArr([]);
+  }, []);
+
   const handleAddClick = () => {
     let newArray = [...itemsArr];
     newArray.push({
-      itemName: itemName,
-      qty: qty,
-      price: price,
+      itemName: "",
+      qty: 0,
+      price: 0,
     });
     setItemsArr(newArray);
   };

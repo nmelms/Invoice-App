@@ -103,13 +103,13 @@ export default function EditInvoice({ setPage }) {
     let newArr = [...itemsArr];
     let item = newArr[index];
     if (id === "itemName") {
-      setItemName(value);
+      // setItemName(value);
       item.itemName = value;
     } else if (id === "qty") {
-      setQty(value);
+      // setQty(value);
       item.qty = value;
     } else {
-      setPrice(value);
+      // setPrice(value);
       item.price = value;
     }
     let total = item.price * item.qty;
