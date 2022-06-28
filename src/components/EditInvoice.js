@@ -97,28 +97,28 @@ export default function EditInvoice({ setPage }) {
   };
 
   const onChange = (e, index) => {
-    const items = list[clickedIndex].items;
-    console.log(items);
-    const item = items[index];
-    const id = e.target.id;
+    let value = e.target.value;
+    let id = e.target.id;
+    let name = "";
+    let newArr = [...itemsArr];
+    let item = newArr[index];
     if (id === "itemName") {
-      item.itemName = e.target.value;
-      setItemName(e.target.value);
+      setItemName(value);
+      item.itemName = value;
     } else if (id === "qty") {
-      item.qty = e.target.value;
-      setQty(e.target.value);
+      setQty(value);
+      item.qty = value;
     } else {
-      item.price = e.target.value;
-      setPrice(e.target.value);
+      setPrice(value);
+      item.price = value;
     }
     let total = item.price * item.qty;
     item.total = total;
-    setItemsArr(items);
-  };
+    console.log(item);
+    newArr[index] = item;
 
-  useState(() => {
-    console.log("hello");
-  }, [setItemsArr]);
+    setItemsArr(newArr);
+  };
 
   return (
     <div>
