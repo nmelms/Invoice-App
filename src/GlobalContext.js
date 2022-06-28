@@ -40,6 +40,7 @@ export function GlobalProvider({ children }) {
   const [dueDate, setDueDate] = useState();
   const [clickedIndex, setClickedIndex] = useState();
   const [indexer, setIndexer] = useState(0);
+  const [grandTotal, setGrandTotal] = useState(0);
 
   const dataRef = collection(db, "form");
   const current = new Date(invoiceDate);
@@ -90,6 +91,8 @@ export function GlobalProvider({ children }) {
       value={{
         city,
         country,
+        grandTotal,
+        setGrandTotal,
         clientsName,
         clientsEmail,
         cZip,

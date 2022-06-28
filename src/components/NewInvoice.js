@@ -44,6 +44,8 @@ export default function NewInvoice({ setPage }) {
     setInvoiceDate,
     setPaymentTerms,
     setProdDes,
+    grandTotal,
+    setGrandTotal,
   } = useContext(GlobalContext);
   const formRef = useRef([]);
   const itemRef = useRef([]);
@@ -81,18 +83,14 @@ export default function NewInvoice({ setPage }) {
     }
     let total = item.price * item.qty;
     item.total = total;
-    console.log(item);
     newArr[index] = item;
-
     setItemsArr(newArr);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(new Date().getTime());
     setIndexer(indexer + 1);
     const dbRef = doc(collection(db, "form"));
-    console.log(data);
     setDoc(dbRef, data);
     formRef.current.reset();
     clientFormRef.current.reset();

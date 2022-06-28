@@ -53,6 +53,8 @@ export default function EditInvoice({ setPage }) {
     paymentTerms,
     prodDes,
     invoiceDate,
+    setGrandTotal,
+    grandTotal,
   } = useContext(GlobalContext);
 
   const itemRef = doc(db, "form", `${list[clickedIndex].id}`);
@@ -116,7 +118,6 @@ export default function EditInvoice({ setPage }) {
     item.total = total;
     console.log(item);
     newArr[index] = item;
-
     setItemsArr(newArr);
   };
 

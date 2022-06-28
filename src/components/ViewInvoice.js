@@ -6,11 +6,12 @@ import { db } from "../firebase";
 import GlobalContext from "../GlobalContext";
 
 export default function ViewInvoice({ setPage }) {
-  const { list, clickedIndex, fetchData } = useContext(GlobalContext);
+  let grandTotal = 0;
+  const { list, clickedIndex, itemsArr, fetchData } = useContext(GlobalContext);
   const [alert, setAlert] = useState(false);
   const [userResponse, setUserResponse] = useState("");
   const item = list[clickedIndex];
-
+  const [total, setTotal] = useState(0);
   const onDeleteClick = () => {
     setAlert(true);
   };
@@ -89,6 +90,8 @@ export default function ViewInvoice({ setPage }) {
         </div>
 
         {list[clickedIndex].items.map((item, index) => {
+          item.total = item.qty * item.price;
+          grandTotal += item.total;
           return (
             <div key={index} className="invoiceItems">
               <div>
@@ -98,10 +101,15 @@ export default function ViewInvoice({ setPage }) {
                 <p>{item.qty} X... </p>
                 <p>{item.price}</p>
               </div>
-              <div className="itemTotal">{`${item.qty * item.price}`}</div>
+              <div className="itemTotal">{item.total}</div>
             </div>
           );
         })}
+
+        <div className="grandTotal">
+          <p>Grand Total</p>
+          <p>{grandTotal}</p>
+        </div>
 
         <div className=""></div>
         <div className="viewInvoiceButtons">
