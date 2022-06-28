@@ -98,7 +98,7 @@ export default function ViewInvoice({ setPage }) {
                 <p>{item.qty} X... </p>
                 <p>{item.price}</p>
               </div>
-              <div className="itemTotal">Totals</div>
+              <div className="itemTotal">{`${item.qty * item.price}`}</div>
             </div>
           );
         })}

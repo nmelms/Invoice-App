@@ -76,8 +76,6 @@ export default function EditInvoice({ setPage }) {
     setItemsArr(list[clickedIndex].items);
   }, []);
   const handleSave = async () => {
-    console.log(state);
-    console.log(city);
     await updateDoc(itemRef, {
       street,
       city,
@@ -100,11 +98,27 @@ export default function EditInvoice({ setPage }) {
 
   const onChange = (e, index) => {
     const items = list[clickedIndex].items;
-    const item = items[index];
-    item.itemName = e.target.value;
     console.log(items);
+    const item = items[index];
+    const id = e.target.id;
+    if (id === "itemName") {
+      item.itemName = e.target.value;
+      setItemName(e.target.value);
+    } else if (id === "qty") {
+      item.qty = e.target.value;
+      setQty(e.target.value);
+    } else {
+      item.price = e.target.value;
+      setPrice(e.target.value);
+    }
+    let total = item.price * item.qty;
+    item.total = total;
     setItemsArr(items);
   };
+
+  useState(() => {
+    console.log("hello");
+  }, [setItemsArr]);
 
   return (
     <div>
@@ -273,9 +287,9 @@ export default function EditInvoice({ setPage }) {
         </div>
       </form>
       {list[clickedIndex].items.map((item, index) => {
-        console.log(item);
         return (
           <Item
+            total={item.total}
             id={index}
             key={index}
             className="Item"

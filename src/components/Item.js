@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 export default function Item({
   defaultName,
   defaultQty,
   defaultPrice,
   onChange,
+  total,
   id,
 }) {
+  const qtyRef = useRef(0);
+  const priceRef = useRef(0);
+
+  console.log("itemrender");
   return (
     <div className="Item">
       <div className="itemName">
@@ -22,6 +27,7 @@ export default function Item({
       <div className="qty">
         <label htmlFor="qty">Qty.</label>
         <input
+          ref={qtyRef}
           defaultValue={defaultQty}
           onChange={(e) => onChange(e, id)}
           className="input"
@@ -32,6 +38,7 @@ export default function Item({
       <div className="price">
         <label htmlFor="price">Price</label>
         <input
+          ref={priceRef}
           defaultValue={defaultPrice}
           onChange={(e) => onChange(e, id)}
           className="input"
@@ -41,7 +48,7 @@ export default function Item({
       </div>
       <div className="total">
         <p>total</p>
-        <p>420</p>
+        <p>{total}</p>
       </div>
       <div className="itemDelete">
         <p>x</p>

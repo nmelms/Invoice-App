@@ -72,15 +72,12 @@ export function GlobalProvider({ children }) {
     timeStamp: serverTimestamp(),
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [street]);
+  useEffect(() => {}, [street]);
 
   const fetchData = async () => {
     const data = await getDocs(query(dataRef, orderBy("timeStamp")));
     setList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     setLoading(false);
-    console.log(data.docs);
   };
 
   useEffect(() => {

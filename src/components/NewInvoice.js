@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useContext,
+  forceUpdate,
+} from "react";
 import BackButton from "./BackButton.js";
 import NavBar from "./NavBar.js";
 import AddressForm from "./AddressForm";
@@ -56,7 +62,6 @@ export default function NewInvoice({ setPage }) {
   const onChange = (e, index) => {
     let value = e.target.value;
     let id = e.target.id;
-    console.log(e);
     let name = "";
     let newArr = [...itemsArr];
     let item = newArr[index];
@@ -70,7 +75,11 @@ export default function NewInvoice({ setPage }) {
       setPrice(value);
       item.price = value;
     }
+    let total = item.price * item.qty;
+    item.total = total;
+    console.log(item);
     newArr[index] = item;
+
     setItemsArr(newArr);
   };
 
@@ -240,12 +249,13 @@ export default function NewInvoice({ setPage }) {
       {itemsArr.map((item, index) => {
         return (
           <Item
+            total={item.total}
             id={index}
             key={index}
             onChange={onChange}
             defaultName={""}
-            defaultQty={""}
-            defaultPrice={""}
+            defaultQty={0}
+            defaultPrice={0}
             setItemName={setItemName}
             setQty={setQty}
             setPrice={setPrice}
