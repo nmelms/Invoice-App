@@ -96,6 +96,7 @@ export function GlobalProvider({ children }) {
         clientsName,
         clientsEmail,
         cZip,
+        setList,
         cCountry,
         prodDes,
         invoiceDate,

@@ -52,6 +52,7 @@ export default function EditInvoice({ setPage }) {
     cCountry,
     paymentTerms,
     prodDes,
+    setList,
     invoiceDate,
     setGrandTotal,
     grandTotal,
@@ -96,6 +97,18 @@ export default function EditInvoice({ setPage }) {
       invoiceDate,
     });
     fetchData();
+  };
+
+  const handleAddClick = () => {
+    let items = [...list];
+    let item = items[clickedIndex].items;
+    console.log(item);
+    item.push({
+      itemName: "",
+      qty: 0,
+      price: 0,
+    });
+    setList(items);
   };
 
   const onChange = (e, index) => {
@@ -301,6 +314,7 @@ export default function EditInvoice({ setPage }) {
           />
         );
       })}
+      <button onClick={() => handleAddClick()}>add item</button>
       <button onClick={handleSave}>Save Changes</button>
     </div>
   );
