@@ -1,17 +1,37 @@
 import React, { useContext, useState, useEffect } from "react";
 import BackButton from "./BackButton";
 import Alert from "./Alert";
-import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  deleteDoc,
+  updateDoc,
+  onSnapshot,
+  collection,
+  getDoc,
+} from "firebase/firestore";
 import { db } from "../firebase";
 import GlobalContext from "../GlobalContext";
 
-export default function ViewInvoice({ setPage }) {
+export default function ViewInvoice({ setPage, page }) {
+  const {
+    itemId,
+    list,
+    setList,
+    clickedIndex,
+    itemsArr,
+    fetchData,
+    filteredList,
+    setItem,
+  } = useContext(GlobalContext);
+
   let grandTotal = 0;
-  const { list, clickedIndex, itemsArr, fetchData } = useContext(GlobalContext);
+  const [clickedItem, setClickedItem] = useState();
   const [alert, setAlert] = useState(false);
   const [userResponse, setUserResponse] = useState("");
-  const item = list[clickedIndex];
   const [total, setTotal] = useState(0);
+  const [currentItem, setCurrentItem] = useState();
+  const item = list.find((item) => item.id === itemId);
+
   const onDeleteClick = () => {
     setAlert(true);
   };
@@ -19,7 +39,7 @@ export default function ViewInvoice({ setPage }) {
   useEffect(() => {
     if (userResponse === "yes") {
       console.log("yes");
-      deleteDoc(doc(db, "form", list[clickedIndex].id));
+      deleteDoc(doc(db, "form", item.id));
       setUserResponse("");
       setPage("home");
     } else if (userResponse === "no") {
@@ -31,17 +51,19 @@ export default function ViewInvoice({ setPage }) {
   const handleEditClick = () => {
     setPage("editInvoice");
   };
+
+  let colRef = collection(db, "form");
+
   const handleStatusClick = async () => {
-    if (list[clickedIndex].status === "pending") {
-      await updateDoc(doc(db, "form", `${list[clickedIndex].id}`), {
+    if (item.status === "pending") {
+      await updateDoc(doc(db, "form", item.id), {
         status: "complete",
       });
-    } else {
-      await updateDoc(doc(db, "form", `${list[clickedIndex].id}`), {
+    } else if (item.status === "complete") {
+      await updateDoc(doc(db, "form", item.id), {
         status: "pending",
       });
     }
-    fetchData();
   };
 
   return (
@@ -55,7 +77,7 @@ export default function ViewInvoice({ setPage }) {
 
       <div>
         <div>
-          <p>#{clickedIndex}</p>
+          <p>#{item.id}</p>
           <p>{item.prodDes}</p>
         </div>
         <div className="senderAddress">
@@ -89,7 +111,7 @@ export default function ViewInvoice({ setPage }) {
           <h4>{item.clientsEmail}</h4>
         </div>
 
-        {list[clickedIndex].items.map((item, index) => {
+        {item.items.map((item, index) => {
           item.total = item.qty * item.price;
           grandTotal += item.total;
           return (

@@ -56,28 +56,31 @@ export default function EditInvoice({ setPage }) {
     invoiceDate,
     setGrandTotal,
     grandTotal,
+    itemId,
   } = useContext(GlobalContext);
+  const item = list.find((item) => item.id === itemId);
 
-  const itemRef = doc(db, "form", `${list[clickedIndex].id}`);
+  const itemRef = doc(db, "form", `${item.id}`);
 
   useEffect(() => {
-    setStreet(list[clickedIndex].street);
-    setCity(list[clickedIndex].city);
-    setState(list[clickedIndex].state);
-    setZip(list[clickedIndex].zip);
-    setCountry(list[clickedIndex].country);
-    setClientsName(list[clickedIndex].clientsName);
-    setClientsEmail(list[clickedIndex].clientsEmail);
-    setCStreet(list[clickedIndex].cStreet);
-    setCCity(list[clickedIndex].cCity);
-    setCState(list[clickedIndex].cState);
-    setCZip(list[clickedIndex].cZip);
-    setPaymentTerms(list[clickedIndex].paymentTerms);
-    setProdDes(list[clickedIndex].prodDes);
-    setInvoiceDate(list[clickedIndex].invoiceDate);
-    setIndexer(list[clickedIndex].indexer);
-    setItemsArr(list[clickedIndex].items);
+    setStreet(item.street);
+    setCity(item.city);
+    setState(item.state);
+    setZip(item.zip);
+    setCountry(item.country);
+    setClientsName(item.clientsName);
+    setClientsEmail(item.clientsEmail);
+    setCStreet(item.cStreet);
+    setCCity(item.cCity);
+    setCState(item.cState);
+    setCZip(item.cZip);
+    setPaymentTerms(item.paymentTerms);
+    setProdDes(item.prodDes);
+    setInvoiceDate(item.invoiceDate);
+    setIndexer(item.indexer);
+    setItemsArr(item.items);
   }, []);
+
   const handleSave = async () => {
     await updateDoc(itemRef, {
       street,
@@ -96,19 +99,18 @@ export default function EditInvoice({ setPage }) {
       prodDes,
       invoiceDate,
     });
-    fetchData();
   };
 
   const handleAddClick = () => {
     let items = [...list];
-    let item = items[clickedIndex].items;
+    let thisItem = item.items;
     console.log(item);
     item.push({
       itemName: "",
       qty: 0,
       price: 0,
     });
-    setList(items);
+    setList(thisItem);
   };
 
   const onChange = (e, index) => {
@@ -118,13 +120,10 @@ export default function EditInvoice({ setPage }) {
     let newArr = [...itemsArr];
     let item = newArr[index];
     if (id === "itemName") {
-      // setItemName(value);
       item.itemName = value;
     } else if (id === "qty") {
-      // setQty(value);
       item.qty = value;
     } else {
-      // setPrice(value);
       item.price = value;
     }
     let total = item.price * item.qty;
@@ -143,7 +142,7 @@ export default function EditInvoice({ setPage }) {
         <div className="street">
           <label htmlFor="street">Street Address:</label>
           <input
-            defaultValue={list[clickedIndex].street}
+            defaultValue={item.street}
             className="input"
             onChange={(e) => setStreet(e.target.value)}
             type="text"
@@ -153,7 +152,7 @@ export default function EditInvoice({ setPage }) {
         <div className="city">
           <label htmlFor="city">City:</label>
           <input
-            defaultValue={list[clickedIndex].city}
+            defaultValue={item.city}
             className="input"
             onChange={(e) => setCity(e.target.value)}
             type="text"
@@ -163,7 +162,7 @@ export default function EditInvoice({ setPage }) {
         <div className="state">
           <label htmlFor="state">State:</label>
           <input
-            defaultValue={list[clickedIndex].state}
+            defaultValue={item.state}
             className="input"
             onChange={(e) => setState(e.target.value)}
             type="text"
@@ -173,7 +172,7 @@ export default function EditInvoice({ setPage }) {
         <div className="zip">
           <label htmlFor="zip">Zip:</label>
           <input
-            defaultValue={list[clickedIndex].zip}
+            defaultValue={item.zip}
             className="input"
             onChange={(e) => setZip(e.target.value)}
             type="text"
@@ -183,7 +182,7 @@ export default function EditInvoice({ setPage }) {
         <div className="country">
           <label htmlFor="country">Country:</label>
           <input
-            defaultValue={list[clickedIndex].country}
+            defaultValue={item.country}
             className="input"
             onChange={(e) => setCountry(e.target.value)}
             type="text"
@@ -198,7 +197,7 @@ export default function EditInvoice({ setPage }) {
         <div className="clientsName">
           <label htmlFor="clientsName">Clients Name:</label>
           <input
-            defaultValue={list[clickedIndex].clientsName}
+            defaultValue={item.clientsName}
             onChange={(e) => setClientsName(e.target.value)}
             type="text"
             id="clientsName"
@@ -207,7 +206,7 @@ export default function EditInvoice({ setPage }) {
         <div className="clientsEmail">
           <label htmlFor="clientsEmail">Clients Email:</label>
           <input
-            defaultValue={list[clickedIndex].clientsEmail}
+            defaultValue={item.clientsEmail}
             className="input"
             onChange={(e) => setClientsEmail(e.target.value)}
             type="text"
@@ -217,7 +216,7 @@ export default function EditInvoice({ setPage }) {
         <div className="street">
           <label htmlFor="cstreet">Street Address:</label>
           <input
-            defaultValue={list[clickedIndex].cStreet}
+            defaultValue={item.cStreet}
             className="input"
             onChange={(e) => setCStreet(e.target.value)}
             id="cstreet"
@@ -226,7 +225,7 @@ export default function EditInvoice({ setPage }) {
         <div className="city">
           <label htmlFor="ccity">City:</label>
           <input
-            defaultValue={list[clickedIndex].cCity}
+            defaultValue={item.cCity}
             className="input"
             onChange={(e) => setCCity(e.target.value)}
             type="text"
@@ -236,7 +235,7 @@ export default function EditInvoice({ setPage }) {
         <div className="state">
           <label htmlFor="cstate">State:</label>
           <input
-            defaultValue={list[clickedIndex].cState}
+            defaultValue={item.cState}
             className="input"
             onChange={(e) => setCState(e.target.value)}
             type="text"
@@ -246,7 +245,7 @@ export default function EditInvoice({ setPage }) {
         <div className="zip">
           <label htmlFor="czip">Zip:</label>
           <input
-            defaultValue={list[clickedIndex].cZip}
+            defaultValue={item.cZip}
             className="input"
             onChange={(e) => setCZip(e.target.value)}
             type="text"
@@ -256,7 +255,7 @@ export default function EditInvoice({ setPage }) {
         <div className="country">
           <label htmlFor="ccountry">Country:</label>
           <input
-            defaultValue={list[clickedIndex].cCountry}
+            defaultValue={item.cCountry}
             className="input"
             onChange={(e) => setCCountry(e.target.value)}
             type="text"
@@ -268,7 +267,7 @@ export default function EditInvoice({ setPage }) {
           <div className="invoiceDate">
             <label htmlFor="invoiceDate">Invoice Date:</label>
             <input
-              defaultValue={list[clickedIndex].invoiceDate}
+              defaultValue={item.invoiceDate}
               className="input"
               onChange={(e) => setInvoiceDate(e.target.value)}
               type="date"
@@ -278,7 +277,7 @@ export default function EditInvoice({ setPage }) {
           <div className="paymentTerms">
             <label htmlFor="paymentTerms">Payment Terms:</label>
             <select
-              defaultValue={list[clickedIndex].paymentTerms}
+              defaultValue={item.paymentTerms}
               onChange={(e) => {
                 setPaymentTerms(e.target.value);
               }}
@@ -291,7 +290,7 @@ export default function EditInvoice({ setPage }) {
           <div className="productDescription">
             <label htmlFor="productDescription">Product Description:</label>
             <input
-              defaultValue={list[clickedIndex].setProdDes}
+              defaultValue={item.setProdDes}
               className="input"
               onChange={(e) => setProdDes(e.target.value)}
               type="text"
@@ -300,7 +299,7 @@ export default function EditInvoice({ setPage }) {
           </div>
         </div>
       </form>
-      {list[clickedIndex].items.map((item, index) => {
+      {item.items.map((item, index) => {
         return (
           <Item
             total={item.total}

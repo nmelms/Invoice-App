@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import {
   collection,
+  onSnapshot,
   doc,
   setDoc,
   getDocs,
@@ -41,6 +42,10 @@ export function GlobalProvider({ children }) {
   const [clickedIndex, setClickedIndex] = useState();
   const [indexer, setIndexer] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
+  const [itemId, setItemId] = useState();
+  const [filter, setFilter] = useState("complete");
+
+  // const [filteredList, setFilteredList] = useState([]);
 
   const dataRef = collection(db, "form");
   const current = new Date(invoiceDate);
@@ -73,22 +78,28 @@ export function GlobalProvider({ children }) {
     timeStamp: serverTimestamp(),
   };
 
-  useEffect(() => {}, [street]);
-
-  const fetchData = async () => {
-    const data = await getDocs(query(dataRef, orderBy("timeStamp")));
-    setList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    setLoading(false);
-  };
-
   useEffect(() => {
     current.setDate(current.getDate() + Number(paymentTerms));
     setDueDate(current.toDateString().split(" ").splice(1).join(" "));
   });
 
+  useEffect(() => {
+    onSnapshot(dataRef, (snapshot) => {
+      setList(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setLoading(false);
+      console.log("snapshot ran");
+    });
+  }, []);
+
   return (
     <GlobalContext.Provider
       value={{
+        itemId,
+        setItemId,
+        filter,
+        setFilter,
+        // item,
+        // setItem,
         city,
         country,
         grandTotal,
@@ -106,7 +117,7 @@ export function GlobalProvider({ children }) {
         state,
         zip,
         cCity,
-        fetchData,
+        // fetchData,
         indexer,
         setIndexer,
         itemsArr,
@@ -138,6 +149,9 @@ export function GlobalProvider({ children }) {
         setInvoiceDate,
         setPaymentTerms,
         setProdDes,
+        // filteredList,
+        // setFilteredList,
+        dataRef,
         data,
       }}
     >
