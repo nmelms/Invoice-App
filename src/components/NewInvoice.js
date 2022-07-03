@@ -27,27 +27,11 @@ export default function NewInvoice({ setPage }) {
     setItemName,
     setQty,
     setPrice,
-    setStreet,
-    setCity,
-    setState,
     indexer,
-    setZip,
-    setCountry,
-    setClientsName,
-    setCState,
-    setClientsEmail,
-    setCStreet,
-    setCCity,
-    setCZip,
-    setCCountry,
-    setInvoiceDate,
-    setPaymentTerms,
-    setProdDes,
     grandTotal,
     setGrandTotal,
   } = useContext(GlobalContext);
-
-  const data = {
+  const [data, setData] = useState({
     street: "",
     indexer: "",
     city: "",
@@ -72,7 +56,7 @@ export default function NewInvoice({ setPage }) {
     status: "pending",
     items: itemsArr,
     timeStamp: serverTimestamp(),
-  };
+  });
 
   const formRef = useRef([]);
   const itemRef = useRef([]);
@@ -135,7 +119,7 @@ export default function NewInvoice({ setPage }) {
           <input
             defaultValue=""
             className="input"
-            onChange={(e) => setStreet(e.target.value)}
+            onChange={(e) => (data.street = e.target.value)}
             type="text"
             id="street"
           />
@@ -145,7 +129,7 @@ export default function NewInvoice({ setPage }) {
           <input
             defaultValue=""
             className="input"
-            onChange={(e) => setCity(e.target.value)}
+            onChange={(e) => (data.city = e.target.value)}
             type="text"
             id="city"
           />
@@ -154,7 +138,7 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="state">State:</label>
           <input
             className="input"
-            onChange={(e) => setState(e.target.value)}
+            onChange={(e) => (data.state = e.target.value)}
             type="text"
             id="state"
           />
@@ -163,7 +147,7 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="zip">Zip:</label>
           <input
             className="input"
-            onChange={(e) => setZip(e.target.value)}
+            onChange={(e) => (data.zip = e.target.value)}
             type="text"
             id="zip"
           />
@@ -172,7 +156,7 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="country">Country:</label>
           <input
             className="input"
-            onChange={(e) => setCountry(e.target.value)}
+            onChange={(e) => (data.country = e.target.value)}
             type="text"
             id="country"
           />
@@ -194,7 +178,7 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="clientsEmail">Clients Email:</label>
           <input
             className="input"
-            onChange={(e) => setClientsEmail(e.target.value)}
+            onChange={(e) => (data.clientsEmail = e.target.value)}
             type="text"
             id="clientsEmail"
           />
@@ -203,7 +187,7 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="cstreet">Street Address:</label>
           <input
             className="input"
-            onChange={(e) => setCStreet(e.target.value)}
+            onChange={(e) => (data.cStreet = e.target.value)}
             id="cstreet"
           />
         </div>
@@ -211,7 +195,7 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="ccity">City:</label>
           <input
             className="input"
-            onChange={(e) => setCCity(e.target.value)}
+            onChange={(e) => (data.cCity = e.target.value)}
             type="text"
             id="ccity"
           />
@@ -220,7 +204,7 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="cstate">State:</label>
           <input
             className="input"
-            onChange={(e) => setCState(e.target.value)}
+            onChange={(e) => (data.cState = e.target.value)}
             type="text"
             id="cstate"
           />
@@ -229,7 +213,7 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="czip">Zip:</label>
           <input
             className="input"
-            onChange={(e) => setCZip(e.target.value)}
+            onChange={(e) => (data.cZip = e.target.value)}
             type="text"
             id="czip"
           />
@@ -238,7 +222,7 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="ccountry">Country:</label>
           <input
             className="input"
-            onChange={(e) => setCCountry(e.target.value)}
+            onChange={(e) => (data.cCountry = e.target.value)}
             type="text"
             id="ccountry"
           />
@@ -248,18 +232,14 @@ export default function NewInvoice({ setPage }) {
             <label htmlFor="invoiceDate">Invoice Date:</label>
             <input
               className="input"
-              onChange={(e) => setInvoiceDate(e.target.value)}
+              onChange={(e) => (data.invoiceDate = e.target.value)}
               type="date"
               id="invoiceDate"
             />
           </div>
           <div className="paymentTerms">
             <label htmlFor="paymentTerms">Payment Terms:</label>
-            <select
-              onChange={(e) => {
-                setPaymentTerms(e.target.value);
-              }}
-            >
+            <select onChange={(e) => (data.paymentTerms = e.target.value)}>
               <option value={30}>30 days</option>
               <option value={60}>60 days</option>
               <option value={90}>90 days</option>
@@ -269,7 +249,7 @@ export default function NewInvoice({ setPage }) {
             <label htmlFor="productDescription">Product Description:</label>
             <input
               className="input"
-              onChange={(e) => setProdDes(e.target.value)}
+              onChange={(e) => (data.prodDes = e.target.value)}
               type="text"
               id="productDescription"
             />
