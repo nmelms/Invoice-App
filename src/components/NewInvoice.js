@@ -17,7 +17,6 @@ import GlobalContext from "../GlobalContext";
 export default function NewInvoice({ setPage }) {
   const {
     list,
-    data,
     itemsArr,
     itemName,
     qty,
@@ -47,6 +46,34 @@ export default function NewInvoice({ setPage }) {
     grandTotal,
     setGrandTotal,
   } = useContext(GlobalContext);
+
+  const data = {
+    street: "",
+    indexer: "",
+    city: "",
+    state: "",
+    zip: "",
+    country: "",
+    clientsName: "",
+    clientsEmail: "",
+    cStreet: "",
+    cCity: "",
+    cState: "",
+    cZip: "",
+    cCountry: "",
+    userData: "",
+    itemName: "",
+    qty: "",
+    price: "",
+    dueDate: "",
+    invoiceDate: "",
+    paymentTerms: "",
+    prodDes: "",
+    status: "pending",
+    items: itemsArr,
+    timeStamp: serverTimestamp(),
+  };
+
   const formRef = useRef([]);
   const itemRef = useRef([]);
   const clientFormRef = useRef([]);
@@ -106,6 +133,7 @@ export default function NewInvoice({ setPage }) {
         <div className="street">
           <label htmlFor="street">Street Address:</label>
           <input
+            defaultValue=""
             className="input"
             onChange={(e) => setStreet(e.target.value)}
             type="text"
@@ -115,6 +143,7 @@ export default function NewInvoice({ setPage }) {
         <div className="city">
           <label htmlFor="city">City:</label>
           <input
+            defaultValue=""
             className="input"
             onChange={(e) => setCity(e.target.value)}
             type="text"
@@ -156,7 +185,7 @@ export default function NewInvoice({ setPage }) {
         <div className="clientsName">
           <label htmlFor="clientsName">Clients Name:</label>
           <input
-            onChange={(e) => setClientsName(e.target.value)}
+            onChange={(e) => (data.clientsName = e.target.value)}
             type="text"
             id="clientsName"
           />

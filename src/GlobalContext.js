@@ -43,7 +43,7 @@ export function GlobalProvider({ children }) {
   const [indexer, setIndexer] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
   const [itemId, setItemId] = useState();
-  const [filter, setFilter] = useState("complete");
+  const [filter, setFilter] = useState("");
 
   // const [filteredList, setFilteredList] = useState([]);
 
@@ -84,7 +84,7 @@ export function GlobalProvider({ children }) {
   });
 
   useEffect(() => {
-    onSnapshot(dataRef, (snapshot) => {
+    onSnapshot(query(dataRef, orderBy("timeStamp")), (snapshot) => {
       setList(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       setLoading(false);
       console.log("snapshot ran");
