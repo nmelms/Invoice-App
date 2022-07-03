@@ -1,14 +1,25 @@
-import React, {useContext} from 'react'
-import GlobalContext from '../GlobalContext'
+import React, { useContext } from "react";
+import GlobalContext from "../GlobalContext";
 
+export default function InvoiceTitle() {
+  const { list, filter } = useContext(GlobalContext);
+  let filteredList = [];
+  filter != ""
+    ? (filteredList = list.filter((item) => item.status === filter))
+    : (filteredList = list);
 
-export default function InvoiceTitle () {
-  const {list} = useContext(GlobalContext)
-  
   return (
     <div className="InvoiceTitle">
       <h1>INVOCIES</h1>
-      {list.length === 0 ? <p>No Invoices</p> : list.length + 'Invoices'} 
+      {filteredList.length === 0 && <p>No Invoices</p>}
+      {filteredList.length === 1 && <p>1 invoice</p>}
+      {filteredList.length >= 2 && <p>{filteredList.length} invoices</p>}
+
+      {/* {filteredList.length === 0 ? (
+        <p>No Invoices</p>
+      ) : (
+        filteredList.length + "Invoices"
+      )} */}
     </div>
-  )
+  );
 }
