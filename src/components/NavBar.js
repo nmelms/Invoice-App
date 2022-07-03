@@ -1,19 +1,25 @@
-import React from 'react'
-import logo from '../assets/logo.svg'
-import avatar from '../assets/image-avatar.jpg'
-import theme from '../assets/icon-moon.svg'
+import React, { useState } from "react";
+import logo from "../assets/logo.svg";
+import avatar from "../assets/image-avatar.jpg";
+import moon from "../assets/icon-moon.svg";
+import sun from "../assets/icon-sun.svg";
 export default function NavBar() {
+  const [theme, setTheme] = useState(true);
+  const handleClick = () => {
+    document.body.classList.toggle("dark-mode");
+    setTheme(!theme);
+  };
   return (
     <div className="NavBar">
       <div className="logo">
         <img src={logo} />
       </div>
-      <div className="theme">
-        <img src={theme} />
+      <div onClick={handleClick} className="theme">
+        {theme ? <img src={moon} /> : <img src={sun} />}
       </div>
       <div className="avatar">
         <img src={avatar} />
       </div>
     </div>
-  )
+  );
 }
