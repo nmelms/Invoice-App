@@ -12,14 +12,12 @@ export default function EditInvoice({ setPage }) {
     items,
     data,
     fetchData,
-    itemsArr,
     itemIndex,
     itemName,
     list,
     qty,
     setItemIndex,
     price,
-    setItemsArr,
     setItemName,
     setQty,
     setPrice,
@@ -59,6 +57,8 @@ export default function EditInvoice({ setPage }) {
     itemId,
   } = useContext(GlobalContext);
   const item = list.find((item) => item.id === itemId);
+  const itemsArr = item.items;
+  console.log(itemsArr);
 
   const itemRef = doc(db, "form", `${item.id}`);
 
@@ -78,7 +78,7 @@ export default function EditInvoice({ setPage }) {
     setProdDes(item.prodDes);
     setInvoiceDate(item.invoiceDate);
     setIndexer(item.indexer);
-    setItemsArr(item.items);
+    // setItemsArr(item.items);
   }, []);
 
   const handleSave = async () => {
@@ -101,36 +101,53 @@ export default function EditInvoice({ setPage }) {
     });
   };
 
-  const handleAddClick = () => {
-    let items = [...list];
-    let thisItem = item.items;
-    console.log(item);
-    item.push({
+  const handleAddClick = async () => {
+    let index = 0;
+    console.log("working");
+    let newArr = [...item.items];
+    newArr.push({
+      index: index,
       itemName: "",
       qty: 0,
       price: 0,
     });
-    setList(thisItem);
+
+    updateDoc(itemRef, {
+      items: newArr,
+    });
+
+    index++;
+
+    // let items = [...list];
+    // let thisItem = item.items;
+    // console.log(item);
+    // thisItem.push({
+    //   itemName: "",
+    //   qty: 0,
+    //   price: 0,
+    // });
+    // setList(thisItem);
   };
 
-  const onChange = (e, index) => {
+  const onChange = async (e, index) => {
+    // console.log(item.items);
     let value = e.target.value;
     let id = e.target.id;
     let name = "";
-    let newArr = [...itemsArr];
-    let item = newArr[index];
+    // let newArr = [...item.items];
+    // console.log(newArr);
+    let currentItem = itemsArr[index];
+    console.log(currentItem);
     if (id === "itemName") {
-      item.itemName = value;
+      currentItem.itemName = value;
     } else if (id === "qty") {
-      item.qty = value;
+      currentItem.qty = value;
     } else {
-      item.price = value;
+      currentItem.price = value;
     }
-    let total = item.price * item.qty;
-    item.total = total;
-    console.log(item);
-    newArr[index] = item;
-    setItemsArr(newArr);
+    console.log(itemsArr); // item.total = total;
+    // console.log(item);
+    // newArr[index] = item;
   };
 
   return (
