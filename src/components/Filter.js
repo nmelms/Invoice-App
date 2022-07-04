@@ -24,6 +24,13 @@ export default function Filter({ setFilterBy, filteredList, setFilteredList }) {
       });
       setFilter("complete");
       setFilteredList(newArr);
+    } else if (filter === "draft") {
+      const newArr = [...list];
+      newArr.filter((item) => {
+        return item.status === "draft";
+      });
+      setFilter("draft");
+      setFilteredList(newArr);
     }
   }, [list]);
 
@@ -53,6 +60,7 @@ export default function Filter({ setFilterBy, filteredList, setFilteredList }) {
       <button onClick={() => filterClick("complete")}>complete</button>
       <button onClick={() => filterClick("")}>none</button>
       <button onClick={() => filterClick("pending")}>pendingz</button>
+      <button onClick={() => filterClick("draft")}>draft</button>
       <img style={{ transform: "scale(.8)" }} src={downArrow} />
     </div>
   );

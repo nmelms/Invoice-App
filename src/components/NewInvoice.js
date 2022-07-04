@@ -62,6 +62,14 @@ export default function NewInvoice({ setPage }) {
   const itemRef = useRef([]);
   const clientFormRef = useRef([]);
 
+  const handleDraftClick = () => {
+    data.status = "draft";
+    const dbRef = doc(collection(db, "form"));
+    setDoc(dbRef, data);
+    formRef.current.reset();
+    clientFormRef.current.reset();
+  };
+
   useEffect(() => {
     setItemsArr([]);
   }, []);
@@ -278,6 +286,7 @@ export default function NewInvoice({ setPage }) {
 
       <button onClick={() => handleAddClick()}>add item</button>
       <input type="submit" onClick={(e) => handleSubmit(e)} />
+      <button onClick={() => handleDraftClick()}>save as Draft</button>
     </div>
   );
 }
