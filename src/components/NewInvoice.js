@@ -269,7 +269,7 @@ export default function NewInvoice({ setPage }) {
         return (
           <Item
             total={item.total}
-            id={index}
+            index={index}
             key={index}
             onChange={onChange}
             defaultName={""}

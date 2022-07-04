@@ -1,13 +1,22 @@
+import { updateDoc } from "@firebase/firestore";
 import React, { useEffect, useState, useRef } from "react";
+let total = 0;
 
 export default function Item({
   defaultName,
   defaultQty,
   defaultPrice,
+  itemsArr,
   onChange,
   total,
-  id,
+  index,
 }) {
+  const handleChange = (e, index) => {
+    // const itemRef = doc(collection(db, "form"));
+    // if (e.target.id === "itemname") {
+    //   updateDoc();
+    // }
+  };
   const qtyRef = useRef(0);
   const priceRef = useRef(0);
 
@@ -18,7 +27,7 @@ export default function Item({
         <label htmlFor="itemName">Item Name</label>
         <input
           defaultValue={defaultName}
-          onChange={(e) => onChange(e, id)}
+          onChange={(e) => onChange(e, index)}
           className="input"
           type="text"
           id="itemName"
@@ -29,7 +38,7 @@ export default function Item({
         <input
           ref={qtyRef}
           defaultValue={defaultQty}
-          onChange={(e) => onChange(e, id)}
+          onChange={(e) => onChange(e, index)}
           className="input"
           type="text"
           id="qty"
@@ -40,7 +49,7 @@ export default function Item({
         <input
           ref={priceRef}
           defaultValue={defaultPrice}
-          onChange={(e) => onChange(e, id)}
+          onChange={(e) => onChange(e, index)}
           className="input"
           type="text"
           id="price"

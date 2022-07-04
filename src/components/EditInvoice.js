@@ -134,20 +134,22 @@ export default function EditInvoice({ setPage }) {
     let value = e.target.value;
     let id = e.target.id;
     let name = "";
-    // let newArr = [...item.items];
-    // console.log(newArr);
     let currentItem = itemsArr[index];
-    console.log(currentItem);
     if (id === "itemName") {
       currentItem.itemName = value;
+      updateDoc(itemRef, { items: itemsArr });
     } else if (id === "qty") {
       currentItem.qty = value;
+      updateDoc(itemRef, { items: itemsArr });
     } else {
       currentItem.price = value;
+      updateDoc(itemRef, { items: itemsArr });
     }
-    console.log(itemsArr); // item.total = total;
-    // console.log(item);
-    // newArr[index] = item;
+    console.log(itemsArr);
+    let total = currentItem.qty * currentItem.price;
+    currentItem.total = total;
+    updateDoc(itemRef, { items: itemsArr });
+    console.log(total);
   };
 
   return (
@@ -320,7 +322,7 @@ export default function EditInvoice({ setPage }) {
         return (
           <Item
             total={item.total}
-            id={index}
+            index={index}
             key={index}
             className="Item"
             onChange={onChange}
