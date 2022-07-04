@@ -63,9 +63,13 @@ export default function NewInvoice({ setPage }) {
   const clientFormRef = useRef([]);
 
   const handleDraftClick = () => {
+    console.log(itemsArr);
     data.status = "draft";
+    data.items = itemsArr;
     const dbRef = doc(collection(db, "form"));
     setDoc(dbRef, data);
+    console.log(data);
+    setItemsArr([]);
     formRef.current.reset();
     clientFormRef.current.reset();
   };
@@ -102,14 +106,18 @@ export default function NewInvoice({ setPage }) {
     }
     let total = item.price * item.qty;
     item.total = total;
+    item.key = index;
     newArr[index] = item;
+    console.log(newArr);
     setItemsArr(newArr);
+    console.log(itemsArr);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIndexer(indexer + 1);
     const dbRef = doc(collection(db, "form"));
+    data.items = itemsArr;
     setDoc(dbRef, data);
     formRef.current.reset();
     clientFormRef.current.reset();
@@ -130,6 +138,7 @@ export default function NewInvoice({ setPage }) {
             onChange={(e) => (data.street = e.target.value)}
             type="text"
             id="street"
+            required
           />
         </div>
         <div className="city">
