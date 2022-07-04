@@ -89,6 +89,58 @@ export default function NewInvoice({ setPage }) {
       formRef.current.reset();
       clientFormRef.current.reset();
     },
+
+    validate: (values) => {
+      let errors = {};
+
+      if (!values.street) {
+        errors.street = "required";
+      }
+      if (!values.city) {
+        errors.city = "required";
+      }
+      if (!values.state) {
+        errors.state = "required";
+      }
+      if (!values.zip) {
+        errors.zip = "required";
+      }
+      if (!values.country) {
+        errors.country = "required";
+      }
+      if (!values.clientsName) {
+        errors.clientsName = "required";
+      }
+      if (!values.clientsEmail) {
+        errors.clientsEmail = "required";
+      }
+      if (!values.cstreet) {
+        errors.cstreet = "required";
+      }
+      if (!values.ccity) {
+        errors.ccity = "required";
+      }
+      if (!values.cstate) {
+        errors.cstate = "required";
+      }
+      if (!values.czip) {
+        errors.czip = "required";
+      }
+      if (!values.ccountry) {
+        errors.ccountry = "required";
+      }
+      if (!values.invoiceDate) {
+        errors.invoiceDate = "required";
+      }
+      if (!values.paymentTerms) {
+        errors.paymentTerms = "required";
+      }
+      if (!values.prodDes) {
+        errors.prodDes = "required";
+      }
+
+      return errors;
+    },
   });
   const formRef = useRef([]);
   const itemRef = useRef([]);
@@ -171,6 +223,7 @@ export default function NewInvoice({ setPage }) {
             type="text"
             id="street"
           />
+          {formik.errors.street ? <div>{formik.errors.street}</div> : null}
         </div>
         <div className="city">
           <label htmlFor="city">City:</label>
@@ -182,6 +235,7 @@ export default function NewInvoice({ setPage }) {
             type="text"
             id="city"
           />
+          {formik.errors.city ? <div>{formik.errors.city}</div> : null}
         </div>
         <div className="state">
           <label htmlFor="state">State:</label>
@@ -193,17 +247,19 @@ export default function NewInvoice({ setPage }) {
             type="text"
             id="state"
           />
+          {formik.errors.state ? <div>{formik.errors.state}</div> : null}
         </div>
         <div className="zip">
           <label htmlFor="zip">Zip:</label>
           <input
             className="input"
             onChange={formik.handleChange}
-            value={formik.values.input}
+            value={formik.values.zip}
             name="zip"
             type="text"
             id="zip"
           />
+          {formik.errors.zip ? <div>{formik.errors.zip}</div> : null}
         </div>
         <div className="country">
           <label htmlFor="country">Country:</label>
@@ -215,6 +271,7 @@ export default function NewInvoice({ setPage }) {
             type="text"
             id="country"
           />
+          {formik.errors.country ? <div>{formik.errors.country}</div> : null}
         </div>
       </form>
 
@@ -230,6 +287,9 @@ export default function NewInvoice({ setPage }) {
             type="text"
             id="clientsName"
           />
+          {formik.errors.clientsName ? (
+            <div>{formik.errors.clientsName}</div>
+          ) : null}
         </div>
         <div className="clientsEmail">
           <label htmlFor="clientsEmail">Clients Email:</label>
@@ -241,6 +301,9 @@ export default function NewInvoice({ setPage }) {
             type="text"
             id="clientsEmail"
           />
+          {formik.errors.clientsEmail ? (
+            <div>{formik.errors.clientsEmail}</div>
+          ) : null}
         </div>
         <div className="street">
           <label htmlFor="cStreet">Street Address:</label>
@@ -251,6 +314,7 @@ export default function NewInvoice({ setPage }) {
             name="cstreet"
             id="cstreet"
           />
+          {formik.errors.cstreet ? <div>{formik.errors.cstreet}</div> : null}
         </div>
         <div className="city">
           <label htmlFor="ccity">City:</label>
@@ -262,6 +326,7 @@ export default function NewInvoice({ setPage }) {
             type="text"
             id="ccity"
           />
+          {formik.errors.ccity ? <div>{formik.errors.ccity}</div> : null}
         </div>
         <div className="state">
           <label htmlFor="cstate">State:</label>
@@ -273,6 +338,7 @@ export default function NewInvoice({ setPage }) {
             type="text"
             id="cstate"
           />
+          {formik.errors.cstate ? <div>{formik.errors.cstate}</div> : null}
         </div>
         <div className="zip">
           <label htmlFor="czip">Zip:</label>
@@ -284,6 +350,7 @@ export default function NewInvoice({ setPage }) {
             type="text"
             id="czip"
           />
+          {formik.errors.czip ? <div>{formik.errors.czip}</div> : null}
         </div>
         <div className="country">
           <label htmlFor="ccountry">Country:</label>
@@ -295,6 +362,7 @@ export default function NewInvoice({ setPage }) {
             type="text"
             id="ccountry"
           />
+          {formik.errors.ccountry ? <div>{formik.errors.ccountry}</div> : null}
         </div>
         <div className="bottomInvoice">
           <div className="invoiceDate">
@@ -307,6 +375,9 @@ export default function NewInvoice({ setPage }) {
               type="date"
               id="invoiceDate"
             />
+            {formik.errors.invoiceDate ? (
+              <div>{formik.errors.invoiceDate}</div>
+            ) : null}
           </div>
           <div className="paymentTerms">
             <label htmlFor="paymentTerms">Payment Terms:</label>
@@ -319,6 +390,9 @@ export default function NewInvoice({ setPage }) {
               <option value={60}>60 days</option>
               <option value={90}>90 days</option>
             </select>
+            {formik.errors.paymentTerms ? (
+              <div>{formik.errors.paymentTerms}</div>
+            ) : null}
           </div>
           <div className="productDescription">
             <label htmlFor="productDescription">Product Description:</label>
@@ -330,6 +404,7 @@ export default function NewInvoice({ setPage }) {
               type="text"
               id="productDescription"
             />
+            {formik.errors.prodDes ? <div>{formik.errors.prodDes}</div> : null}
           </div>
         </div>
       </form>
