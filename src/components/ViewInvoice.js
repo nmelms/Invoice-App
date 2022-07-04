@@ -31,6 +31,7 @@ export default function ViewInvoice({ setPage, page }) {
   const [total, setTotal] = useState(0);
   const [currentItem, setCurrentItem] = useState();
   const item = list.find((item) => item.id === itemId);
+  console.log(item);
 
   const onDeleteClick = () => {
     setAlert(true);

@@ -5,6 +5,7 @@ import React, {
   useContext,
   forceUpdate,
 } from "react";
+import { useFormik } from "formik";
 import BackButton from "./BackButton.js";
 import NavBar from "./NavBar.js";
 import AddressForm from "./AddressForm";
@@ -31,44 +32,74 @@ export default function NewInvoice({ setPage }) {
     grandTotal,
     setGrandTotal,
   } = useContext(GlobalContext);
-  const [data, setData] = useState({
-    street: "",
-    indexer: "",
-    city: "",
-    state: "",
-    zip: "",
-    country: "",
-    clientsName: "",
-    clientsEmail: "",
-    cStreet: "",
-    cCity: "",
-    cState: "",
-    cZip: "",
-    cCountry: "",
-    userData: "",
-    itemName: "",
-    qty: "",
-    price: "",
-    dueDate: "",
-    invoiceDate: "",
-    paymentTerms: "",
-    prodDes: "",
-    status: "pending",
-    items: itemsArr,
-    timeStamp: serverTimestamp(),
-  });
+  // const [data, setData] = useState({
+  //   street: "",
+  //   indexer: "",
+  //   city: "",
+  //   state: "",
+  //   zip: "",
+  //   country: "",
+  //   clientsName: "",
+  //   clientsEmail: "",
+  //   cStreet: "",
+  //   cCity: "",
+  //   cState: "",
+  //   cZip: "",
+  //   cCountry: "",
+  //   userData: "",
+  //   itemName: "",
+  //   qty: "",
+  //   price: "",
+  //   dueDate: "",
+  //   invoiceDate: "",
+  //   paymentTerms: "",
+  //   prodDes: "",
+  //   status: "pending",
+  //   items: itemsArr,
+  //   timeStamp: serverTimestamp(),
+  // });
 
+  const formik = useFormik({
+    initialValues: {
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
+      country: "",
+      clientsName: "",
+      clientsEmail: "",
+      cstreet: "",
+      ccity: "",
+      cstate: "",
+      czip: "",
+      ccountry: "",
+      invoiceDate: "",
+      paymentTerms: "",
+      prodDes: "",
+      items: itemsArr,
+      status: "pending",
+      timeStamp: serverTimestamp(),
+    },
+
+    onSubmit: (values) => {
+      const dbRef = doc(collection(db, "form"));
+      console.log(itemsArr);
+      values.items = itemsArr;
+      setDoc(dbRef, values);
+      formRef.current.reset();
+      clientFormRef.current.reset();
+    },
+  });
   const formRef = useRef([]);
   const itemRef = useRef([]);
   const clientFormRef = useRef([]);
 
   const handleDraftClick = () => {
     console.log(itemsArr);
-    data.status = "draft";
-    data.items = itemsArr;
+    formik.values.status = "draft";
+    formik.values.items = itemsArr;
     const dbRef = doc(collection(db, "form"));
-    setDoc(dbRef, data);
-    console.log(data);
+    setDoc(dbRef, formik.values);
     setItemsArr([]);
     formRef.current.reset();
     clientFormRef.current.reset();
@@ -113,15 +144,15 @@ export default function NewInvoice({ setPage }) {
     console.log(itemsArr);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIndexer(indexer + 1);
-    const dbRef = doc(collection(db, "form"));
-    data.items = itemsArr;
-    setDoc(dbRef, data);
-    formRef.current.reset();
-    clientFormRef.current.reset();
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setIndexer(indexer + 1);
+  //   const dbRef = doc(collection(db, "form"));
+  //   data.items = itemsArr;
+  //   setDoc(dbRef, data);
+  //   formRef.current.reset();
+  //   clientFormRef.current.reset();
+  // };
 
   return (
     <div>
@@ -133,20 +164,21 @@ export default function NewInvoice({ setPage }) {
         <div className="street">
           <label htmlFor="street">Street Address:</label>
           <input
-            defaultValue=""
+            name="street"
+            value={formik.values.street}
             className="input"
-            onChange={(e) => (data.street = e.target.value)}
+            onChange={formik.handleChange}
             type="text"
             id="street"
-            required
           />
         </div>
         <div className="city">
           <label htmlFor="city">City:</label>
           <input
-            defaultValue=""
+            value={formik.values.city}
+            onChange={formik.handleChange}
+            name="city"
             className="input"
-            onChange={(e) => (data.city = e.target.value)}
             type="text"
             id="city"
           />
@@ -154,8 +186,10 @@ export default function NewInvoice({ setPage }) {
         <div className="state">
           <label htmlFor="state">State:</label>
           <input
+            value={formik.values.state}
+            onChange={formik.handleChange}
+            name="state"
             className="input"
-            onChange={(e) => (data.state = e.target.value)}
             type="text"
             id="state"
           />
@@ -164,7 +198,9 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="zip">Zip:</label>
           <input
             className="input"
-            onChange={(e) => (data.zip = e.target.value)}
+            onChange={formik.handleChange}
+            value={formik.values.input}
+            name="zip"
             type="text"
             id="zip"
           />
@@ -173,7 +209,9 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="country">Country:</label>
           <input
             className="input"
-            onChange={(e) => (data.country = e.target.value)}
+            onChange={formik.handleChange}
+            value={formik.values.country}
+            name="country"
             type="text"
             id="country"
           />
@@ -186,7 +224,9 @@ export default function NewInvoice({ setPage }) {
         <div className="clientsName">
           <label htmlFor="clientsName">Clients Name:</label>
           <input
-            onChange={(e) => (data.clientsName = e.target.value)}
+            onChange={formik.handleChange}
+            value={formik.values.clientsName}
+            name="clientsName"
             type="text"
             id="clientsName"
           />
@@ -195,16 +235,20 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="clientsEmail">Clients Email:</label>
           <input
             className="input"
-            onChange={(e) => (data.clientsEmail = e.target.value)}
+            onChange={formik.handleChange}
+            value={formik.values.clientsEmail}
+            name="clientsEmail"
             type="text"
             id="clientsEmail"
           />
         </div>
         <div className="street">
-          <label htmlFor="cstreet">Street Address:</label>
+          <label htmlFor="cStreet">Street Address:</label>
           <input
             className="input"
-            onChange={(e) => (data.cStreet = e.target.value)}
+            onChange={formik.handleChange}
+            value={formik.values.cstreet}
+            name="cstreet"
             id="cstreet"
           />
         </div>
@@ -212,7 +256,9 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="ccity">City:</label>
           <input
             className="input"
-            onChange={(e) => (data.cCity = e.target.value)}
+            onChange={formik.handleChange}
+            value={formik.values.ccity}
+            name="ccity"
             type="text"
             id="ccity"
           />
@@ -221,7 +267,9 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="cstate">State:</label>
           <input
             className="input"
-            onChange={(e) => (data.cState = e.target.value)}
+            onChange={formik.handleChange}
+            value={formik.values.cstate}
+            name="cstate"
             type="text"
             id="cstate"
           />
@@ -230,7 +278,9 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="czip">Zip:</label>
           <input
             className="input"
-            onChange={(e) => (data.cZip = e.target.value)}
+            onChange={formik.handleChange}
+            value={formik.values.czip}
+            name="czip"
             type="text"
             id="czip"
           />
@@ -239,7 +289,9 @@ export default function NewInvoice({ setPage }) {
           <label htmlFor="ccountry">Country:</label>
           <input
             className="input"
-            onChange={(e) => (data.cCountry = e.target.value)}
+            onChange={formik.handleChange}
+            value={formik.values.ccountry}
+            name="ccountry"
             type="text"
             id="ccountry"
           />
@@ -249,14 +301,20 @@ export default function NewInvoice({ setPage }) {
             <label htmlFor="invoiceDate">Invoice Date:</label>
             <input
               className="input"
-              onChange={(e) => (data.invoiceDate = e.target.value)}
+              onChange={formik.handleChange}
+              value={formik.values.invoiceDate}
+              name="invoiceDate"
               type="date"
               id="invoiceDate"
             />
           </div>
           <div className="paymentTerms">
             <label htmlFor="paymentTerms">Payment Terms:</label>
-            <select onChange={(e) => (data.paymentTerms = e.target.value)}>
+            <select
+              onChange={formik.handleChange}
+              value={formik.values.paymentTerms}
+              name="paymentTerms"
+            >
               <option value={30}>30 days</option>
               <option value={60}>60 days</option>
               <option value={90}>90 days</option>
@@ -266,7 +324,9 @@ export default function NewInvoice({ setPage }) {
             <label htmlFor="productDescription">Product Description:</label>
             <input
               className="input"
-              onChange={(e) => (data.prodDes = e.target.value)}
+              onChange={formik.handleChange}
+              value={formik.values.prodDes}
+              name="prodDes"
               type="text"
               id="productDescription"
             />
@@ -294,7 +354,7 @@ export default function NewInvoice({ setPage }) {
       })}
 
       <button onClick={() => handleAddClick()}>add item</button>
-      <input type="submit" onClick={(e) => handleSubmit(e)} />
+      <input type="submit" onClick={formik.handleSubmit} />
       <button onClick={() => handleDraftClick()}>save as Draft</button>
     </div>
   );
