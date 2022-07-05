@@ -58,7 +58,7 @@ export default function NewInvoice({ setPage }) {
 
     onSubmit: (values) => {
       const dbRef = doc(collection(db, "form"));
-      values.items = itemsArr;
+      values.items = currentItems;
       setDoc(dbRef, values);
       formRef.current.reset();
       clientFormRef.current.reset();
@@ -123,7 +123,7 @@ export default function NewInvoice({ setPage }) {
 
   const handleDraftClick = () => {
     formik.values.status = "draft";
-    formik.values.items = itemsArr;
+    formik.values.items = currentItems;
     const dbRef = doc(collection(db, "form"));
     setDoc(dbRef, formik.values);
     setItemsArr([]);
