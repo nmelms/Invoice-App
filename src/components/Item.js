@@ -1,32 +1,36 @@
-import { updateDoc } from "@firebase/firestore";
+import { updateDoc, doc } from "@firebase/firestore";
+import { db } from "../firebase";
 import React, { useEffect, useState, useRef } from "react";
 let total = 0;
 
 export default function Item({
   defaultName,
   defaultQty,
+  setItemsArr,
   defaultPrice,
   itemsArr,
   onChange,
   total,
+  setCurrentItems,
+  currentItems,
   index,
+  id,
 }) {
-  const handleChange = (e, index) => {
-    // const itemRef = doc(collection(db, "form"));
-    // if (e.target.id === "itemname") {
-    //   updateDoc();
-    // }
-  };
   const qtyRef = useRef(0);
   const priceRef = useRef(0);
 
-  console.log("itemrender");
+  const handleDeleteClick = (e) => {
+    let newArr = currentItems.filter((item) => item.id !== id);
+    console.log(newArr);
+    setCurrentItems(newArr);
+  };
+
   return (
     <div className="Item">
       <div className="itemName">
         <label htmlFor="itemName">Item Name</label>
         <input
-          defaultValue={defaultName}
+          value={defaultName}
           onChange={(e) => onChange(e, index)}
           className="input"
           type="text"
@@ -37,7 +41,7 @@ export default function Item({
         <label htmlFor="qty">Qty.</label>
         <input
           ref={qtyRef}
-          defaultValue={defaultQty}
+          value={defaultQty}
           onChange={(e) => onChange(e, index)}
           className="input"
           type="text"
@@ -48,7 +52,7 @@ export default function Item({
         <label htmlFor="price">Price</label>
         <input
           ref={priceRef}
-          defaultValue={defaultPrice}
+          value={defaultPrice}
           onChange={(e) => onChange(e, index)}
           className="input"
           type="text"
@@ -59,9 +63,9 @@ export default function Item({
         <p>total</p>
         <p>{total}</p>
       </div>
-      <div className="itemDelete">
-        <p>x</p>
-      </div>
+      <button onClick={(e) => handleDeleteClick(e)} className="itemDelete">
+        <h3>x</h3>
+      </button>
     </div>
   );
 }

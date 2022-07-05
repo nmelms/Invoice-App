@@ -16,6 +16,7 @@ import Item from "./Item.js";
 import GlobalContext from "../GlobalContext";
 
 export default function NewInvoice({ setPage }) {
+  const [currentItems, setCurrentItems] = useState([]);
   const {
     list,
     itemsArr,
@@ -32,32 +33,6 @@ export default function NewInvoice({ setPage }) {
     grandTotal,
     setGrandTotal,
   } = useContext(GlobalContext);
-  // const [data, setData] = useState({
-  //   street: "",
-  //   indexer: "",
-  //   city: "",
-  //   state: "",
-  //   zip: "",
-  //   country: "",
-  //   clientsName: "",
-  //   clientsEmail: "",
-  //   cStreet: "",
-  //   cCity: "",
-  //   cState: "",
-  //   cZip: "",
-  //   cCountry: "",
-  //   userData: "",
-  //   itemName: "",
-  //   qty: "",
-  //   price: "",
-  //   dueDate: "",
-  //   invoiceDate: "",
-  //   paymentTerms: "",
-  //   prodDes: "",
-  //   status: "pending",
-  //   items: itemsArr,
-  //   timeStamp: serverTimestamp(),
-  // });
 
   const formik = useFormik({
     initialValues: {
@@ -76,14 +51,13 @@ export default function NewInvoice({ setPage }) {
       invoiceDate: "",
       paymentTerms: "",
       prodDes: "",
-      items: itemsArr,
+      items: currentItems,
       status: "pending",
       timeStamp: serverTimestamp(),
     },
 
     onSubmit: (values) => {
       const dbRef = doc(collection(db, "form"));
-      console.log(itemsArr);
       values.items = itemsArr;
       setDoc(dbRef, values);
       formRef.current.reset();
@@ -142,12 +116,12 @@ export default function NewInvoice({ setPage }) {
       return errors;
     },
   });
+
   const formRef = useRef([]);
   const itemRef = useRef([]);
   const clientFormRef = useRef([]);
 
   const handleDraftClick = () => {
-    console.log(itemsArr);
     formik.values.status = "draft";
     formik.values.items = itemsArr;
     const dbRef = doc(collection(db, "form"));
@@ -162,20 +136,21 @@ export default function NewInvoice({ setPage }) {
   }, []);
 
   const handleAddClick = () => {
-    let newArray = [...itemsArr];
+    let newArray = [...currentItems];
     newArray.push({
       itemName: "",
       qty: 0,
       price: 0,
+      id: Math.random(),
     });
-    setItemsArr(newArray);
+    setCurrentItems(newArray);
   };
 
   const onChange = (e, index) => {
     let value = e.target.value;
     let id = e.target.id;
     let name = "";
-    let newArr = [...itemsArr];
+    let newArr = [...currentItems];
     let item = newArr[index];
     if (id === "itemName") {
       setItemName(value);
@@ -191,20 +166,8 @@ export default function NewInvoice({ setPage }) {
     item.total = total;
     item.key = index;
     newArr[index] = item;
-    console.log(newArr);
-    setItemsArr(newArr);
-    console.log(itemsArr);
+    setCurrentItems(newArr);
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setIndexer(indexer + 1);
-  //   const dbRef = doc(collection(db, "form"));
-  //   data.items = itemsArr;
-  //   setDoc(dbRef, data);
-  //   formRef.current.reset();
-  //   clientFormRef.current.reset();
-  // };
 
   return (
     <div>
@@ -409,21 +372,23 @@ export default function NewInvoice({ setPage }) {
         </div>
       </form>
       <h2>itemList</h2>
-      {itemsArr.map((item, index) => {
+      {currentItems.map((item, index) => {
         return (
           <Item
+            id={item.id}
             total={item.total}
             index={index}
             key={index}
             onChange={onChange}
-            defaultName={""}
-            defaultQty={0}
-            defaultPrice={0}
+            defaultName={currentItems[index].itemName}
+            defaultQty={item.qty}
+            defaultPrice={item.price}
             setItemName={setItemName}
             setQty={setQty}
             setPrice={setPrice}
             itemsArr={itemsArr}
-            setItemsArr={setItemsArr}
+            currentItems={currentItems}
+            setCurrentItems={setCurrentItems}
           />
         );
       })}
