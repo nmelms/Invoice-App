@@ -36,21 +36,21 @@ export default function NewInvoice({ setPage }) {
 
   const formik = useFormik({
     initialValues: {
-      street: "",
-      city: "",
-      state: "",
-      zip: "",
-      country: "",
-      clientsName: "",
-      clientsEmail: "",
-      cstreet: "",
-      ccity: "",
-      cstate: "",
-      czip: "",
-      ccountry: "",
-      invoiceDate: "",
-      paymentTerms: "",
-      prodDes: "",
+      street: null,
+      city: null,
+      state: null,
+      zip: null,
+      country: null,
+      clientsName: null,
+      clientsEmail: null,
+      cstreet: null,
+      ccity: null,
+      cstate: null,
+      czip: null,
+      ccountry: null,
+      invoiceDate: null,
+      paymentTerms: null,
+      prodDes: null,
       items: currentItems,
       status: "pending",
       timeStamp: serverTimestamp(),
@@ -144,6 +144,13 @@ export default function NewInvoice({ setPage }) {
       id: Math.random(),
     });
     setCurrentItems(newArray);
+  };
+
+  const handleDeleteClick = (e, id) => {
+    console.log(id);
+    let newArr = currentItems.filter((item) => item.id != id);
+    console.log(newArr);
+    setCurrentItems(newArr);
   };
 
   const onChange = (e, index) => {
@@ -269,7 +276,7 @@ export default function NewInvoice({ setPage }) {
           ) : null}
         </div>
         <div className="street">
-          <label htmlFor="cStreet">Street Address:</label>
+          <label htmlFor="cstreet">Street Address:</label>
           <input
             className="input"
             onChange={formik.handleChange}
@@ -380,13 +387,14 @@ export default function NewInvoice({ setPage }) {
             index={index}
             key={index}
             onChange={onChange}
-            defaultName={currentItems[index].itemName}
+            defaultName={item.itemName}
             defaultQty={item.qty}
             defaultPrice={item.price}
             setItemName={setItemName}
             setQty={setQty}
             setPrice={setPrice}
             itemsArr={itemsArr}
+            handleDeleteClick={handleDeleteClick}
             currentItems={currentItems}
             setCurrentItems={setCurrentItems}
           />

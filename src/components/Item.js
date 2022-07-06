@@ -11,6 +11,7 @@ export default function Item({
   itemsArr,
   onChange,
   total,
+  handleDeleteClick,
   setCurrentItems,
   currentItems,
   index,
@@ -18,12 +19,6 @@ export default function Item({
 }) {
   const qtyRef = useRef(0);
   const priceRef = useRef(0);
-
-  const handleDeleteClick = (e) => {
-    let newArr = currentItems.filter((item) => item.id !== id);
-    console.log(newArr);
-    setCurrentItems(newArr);
-  };
 
   return (
     <div className="Item">
@@ -63,7 +58,7 @@ export default function Item({
         <p>total</p>
         <p>{total}</p>
       </div>
-      <button onClick={(e) => handleDeleteClick(e)} className="itemDelete">
+      <button onClick={(e) => handleDeleteClick(e, id)} className="itemDelete">
         <h3>x</h3>
       </button>
     </div>

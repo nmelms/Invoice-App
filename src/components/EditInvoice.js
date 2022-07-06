@@ -5,8 +5,10 @@ import { db } from "../firebase";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import Item from "./Item.js";
 import "../index.css";
+import { isCompositeComponent } from "react-dom/test-utils";
 
 export default function EditInvoice({ setPage }) {
+  const [currentItems, setCurrentItems] = useState([]);
   const {
     city,
     items,
@@ -58,7 +60,7 @@ export default function EditInvoice({ setPage }) {
   } = useContext(GlobalContext);
   const item = list.find((item) => item.id === itemId);
   const itemsArr = item.items;
-  console.log(itemsArr);
+  console.log(item);
 
   const itemRef = doc(db, "form", `${item.id}`);
 
@@ -70,18 +72,19 @@ export default function EditInvoice({ setPage }) {
     setCountry(item.country);
     setClientsName(item.clientsName);
     setClientsEmail(item.clientsEmail);
-    setCStreet(item.cStreet);
-    setCCity(item.cCity);
-    setCState(item.cState);
-    setCZip(item.cZip);
+    setCStreet(item.cstreet);
+    setCCity(item.ccity);
+    setCState(item.cstate);
+    setCZip(item.czip);
     setPaymentTerms(item.paymentTerms);
     setProdDes(item.prodDes);
     setInvoiceDate(item.invoiceDate);
     setIndexer(item.indexer);
-    // setItemsArr(item.items);
+    setCurrentItems(itemsArr);
   }, []);
 
   const handleSave = async () => {
+    console.log(city);
     await updateDoc(itemRef, {
       street,
       city,
@@ -100,16 +103,23 @@ export default function EditInvoice({ setPage }) {
       invoiceDate,
     });
   };
+  const handleDeleteClick = (e, id) => {
+    console.log(itemsArr);
+    let newArr = itemsArr.filter((item) => item.id != id);
+    console.log(newArr);
+
+    updateDoc(itemRef, { items: newArr });
+  };
 
   const handleAddClick = async () => {
     let index = 0;
-    console.log("working");
-    let newArr = [...item.items];
+    let newArr = [...itemsArr];
     newArr.push({
       index: index,
       itemName: "",
       qty: 0,
       price: 0,
+      id: Math.random(),
     });
 
     updateDoc(itemRef, {
@@ -117,20 +127,9 @@ export default function EditInvoice({ setPage }) {
     });
 
     index++;
-
-    // let items = [...list];
-    // let thisItem = item.items;
-    // console.log(item);
-    // thisItem.push({
-    //   itemName: "",
-    //   qty: 0,
-    //   price: 0,
-    // });
-    // setList(thisItem);
   };
 
   const onChange = async (e, index) => {
-    // console.log(item.items);
     let value = e.target.value;
     let id = e.target.id;
     let name = "";
@@ -145,11 +144,10 @@ export default function EditInvoice({ setPage }) {
       currentItem.price = value;
       updateDoc(itemRef, { items: itemsArr });
     }
-    console.log(itemsArr);
     let total = currentItem.qty * currentItem.price;
     currentItem.total = total;
     updateDoc(itemRef, { items: itemsArr });
-    console.log(total);
+    setCurrentItems();
   };
 
   return (
@@ -318,9 +316,10 @@ export default function EditInvoice({ setPage }) {
           </div>
         </div>
       </form>
-      {item.items.map((item, index) => {
+      {itemsArr.map((item, index) => {
         return (
           <Item
+            id={item.id}
             total={item.total}
             index={index}
             key={index}
@@ -329,6 +328,10 @@ export default function EditInvoice({ setPage }) {
             defaultName={item.itemName}
             defaultQty={item.qty}
             defaultPrice={item.price}
+            handleDeleteClick={handleDeleteClick}
+            currentItems={currentItems}
+            setCurrentItems={setCurrentItems}
+            handleSave={handleSave}
           />
         );
       })}
