@@ -5,7 +5,7 @@ import React, {
   useContext,
   forceUpdate,
 } from "react";
-import { useFormik } from "formik";
+
 import BackButton from "./BackButton.js";
 import NavBar from "./NavBar.js";
 import AddressForm from "./AddressForm";
@@ -16,8 +16,10 @@ import Item from "./Item.js";
 import GlobalContext from "../GlobalContext";
 
 export default function NewInvoice({ setPage }) {
-  const [currentItems, setCurrentItems] = useState([]);
   const {
+    currentItems,
+    setCurrentItems,
+    formik,
     list,
     itemsArr,
     itemName,
@@ -34,89 +36,6 @@ export default function NewInvoice({ setPage }) {
     setGrandTotal,
   } = useContext(GlobalContext);
 
-  const formik = useFormik({
-    initialValues: {
-      street: null,
-      city: null,
-      state: null,
-      zip: null,
-      country: null,
-      clientsName: null,
-      clientsEmail: null,
-      cstreet: null,
-      ccity: null,
-      cstate: null,
-      czip: null,
-      ccountry: null,
-      invoiceDate: null,
-      paymentTerms: null,
-      prodDes: null,
-      items: currentItems,
-      status: "pending",
-      timeStamp: serverTimestamp(),
-    },
-
-    onSubmit: (values) => {
-      const dbRef = doc(collection(db, "form"));
-      values.items = currentItems;
-      setDoc(dbRef, values);
-      formRef.current.reset();
-      clientFormRef.current.reset();
-    },
-
-    validate: (values) => {
-      let errors = {};
-
-      if (!values.street) {
-        errors.street = "required";
-      }
-      if (!values.city) {
-        errors.city = "required";
-      }
-      if (!values.state) {
-        errors.state = "required";
-      }
-      if (!values.zip) {
-        errors.zip = "required";
-      }
-      if (!values.country) {
-        errors.country = "required";
-      }
-      if (!values.clientsName) {
-        errors.clientsName = "required";
-      }
-      if (!values.clientsEmail) {
-        errors.clientsEmail = "required";
-      }
-      if (!values.cstreet) {
-        errors.cstreet = "required";
-      }
-      if (!values.ccity) {
-        errors.ccity = "required";
-      }
-      if (!values.cstate) {
-        errors.cstate = "required";
-      }
-      if (!values.czip) {
-        errors.czip = "required";
-      }
-      if (!values.ccountry) {
-        errors.ccountry = "required";
-      }
-      if (!values.invoiceDate) {
-        errors.invoiceDate = "required";
-      }
-      if (!values.paymentTerms) {
-        errors.paymentTerms = "required";
-      }
-      if (!values.prodDes) {
-        errors.prodDes = "required";
-      }
-
-      return errors;
-    },
-  });
-
   const formRef = useRef([]);
   const itemRef = useRef([]);
   const clientFormRef = useRef([]);
@@ -127,12 +46,15 @@ export default function NewInvoice({ setPage }) {
     const dbRef = doc(collection(db, "form"));
     setDoc(dbRef, formik.values);
     setItemsArr([]);
+    formik.handleReset();
     formRef.current.reset();
     clientFormRef.current.reset();
   };
 
   useEffect(() => {
+    formik.handleReset();
     setItemsArr([]);
+    setCurrentItems([]);
   }, []);
 
   const handleAddClick = () => {

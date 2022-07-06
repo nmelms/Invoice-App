@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import { useFormik } from "formik";
 import {
   collection,
   onSnapshot,
@@ -44,8 +45,93 @@ export function GlobalProvider({ children }) {
   const [grandTotal, setGrandTotal] = useState(0);
   const [itemId, setItemId] = useState();
   const [filter, setFilter] = useState("");
+  const [currentItems, setCurrentItems] = useState([]);
 
-  // const [filteredList, setFilteredList] = useState([]);
+  const formik = useFormik({
+    validateOnChange: false, // this one
+    validateOnBlur: false, // and this one
+
+    initialValues: {
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
+      country: "",
+      clientsName: "",
+      clientsEmail: "",
+      cstreet: "",
+      ccity: "",
+      cstate: "",
+      czip: "",
+      ccountry: "",
+      invoiceDate: "",
+      paymentTerms: "",
+      prodDes: "",
+      items: currentItems,
+      status: "pending",
+      timeStamp: serverTimestamp(),
+    },
+
+    onSubmit: (values) => {
+      const dbRef = doc(collection(db, "form"));
+      values.items = currentItems;
+      setDoc(dbRef, values);
+      // formRef.current.reset();
+      // clientFormRef.current.reset();
+    },
+
+    validate: (values) => {
+      let errors = {};
+
+      if (!values.street) {
+        errors.street = "required";
+      }
+      if (!values.city) {
+        errors.city = "required";
+      }
+      if (!values.state) {
+        errors.state = "required";
+      }
+      if (!values.zip) {
+        errors.zip = "required";
+      }
+      if (!values.country) {
+        errors.country = "required";
+      }
+      if (!values.clientsName) {
+        errors.clientsName = "required";
+      }
+      if (!values.clientsEmail) {
+        errors.clientsEmail = "required";
+      }
+      if (!values.cstreet) {
+        errors.cstreet = "required";
+      }
+      if (!values.ccity) {
+        errors.ccity = "required";
+      }
+      if (!values.cstate) {
+        errors.cstate = "required";
+      }
+      if (!values.czip) {
+        errors.czip = "required";
+      }
+      if (!values.ccountry) {
+        errors.ccountry = "required";
+      }
+      if (!values.invoiceDate) {
+        errors.invoiceDate = "required";
+      }
+      if (!values.paymentTerms) {
+        errors.paymentTerms = "required";
+      }
+      if (!values.prodDes) {
+        errors.prodDes = "required";
+      }
+
+      return errors;
+    },
+  });
 
   const dataRef = collection(db, "form");
   const current = new Date(invoiceDate);
@@ -87,13 +173,13 @@ export function GlobalProvider({ children }) {
     onSnapshot(query(dataRef, orderBy("timeStamp")), (snapshot) => {
       setList(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       setLoading(false);
-      console.log("snapshot ran");
     });
   }, []);
 
   return (
     <GlobalContext.Provider
       value={{
+        formik,
         itemId,
         setItemId,
         filter,
@@ -149,6 +235,8 @@ export function GlobalProvider({ children }) {
         setInvoiceDate,
         setPaymentTerms,
         setProdDes,
+        currentItems,
+        setCurrentItems,
         // filteredList,
         // setFilteredList,
         dataRef,

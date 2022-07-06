@@ -5,11 +5,11 @@ import { db } from "../firebase";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import Item from "./Item.js";
 import "../index.css";
-import { isCompositeComponent } from "react-dom/test-utils";
 
 export default function EditInvoice({ setPage }) {
   const [currentItems, setCurrentItems] = useState([]);
   const {
+    formik,
     city,
     items,
     data,
@@ -161,10 +161,12 @@ export default function EditInvoice({ setPage }) {
           <input
             defaultValue={item.street}
             className="input"
-            onChange={(e) => setStreet(e.target.value)}
+            onChange={formik.handleChange}
             type="text"
             id="street"
+            name="street"
           />
+          {formik.errors.street ? <div>{formik.errors.street}</div> : null}
         </div>
         <div className="city">
           <label htmlFor="city">City:</label>
@@ -336,7 +338,9 @@ export default function EditInvoice({ setPage }) {
         );
       })}
       <button onClick={() => handleAddClick()}>add item</button>
-      <button onClick={handleSave}>Save Changes</button>
+      <button type="submit" onClick={formik.handleSubmit}>
+        Save Changes
+      </button>
     </div>
   );
 }
