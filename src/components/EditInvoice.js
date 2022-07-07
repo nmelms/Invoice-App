@@ -2,7 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import GlobalContext from "../GlobalContext";
 import BackButton from "./BackButton";
 import { db } from "../firebase";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  updateDoc,
+  serverTimestamp,
+  collection,
+} from "firebase/firestore";
+import { useFormik } from "formik";
 import Item from "./Item.js";
 import "../index.css";
 
@@ -60,54 +67,134 @@ export default function EditInvoice({ setPage }) {
   } = useContext(GlobalContext);
   const item = list.find((item) => item.id === itemId);
   const itemsArr = item.items;
-  console.log(item);
-
   const itemRef = doc(db, "form", `${item.id}`);
 
+  const formik2 = useFormik({
+    initialValues: {
+      street: item.street,
+      city: item.city,
+      state: item.state,
+      zip: item.zip,
+      country: item.country,
+      clientsName: item.clientsName,
+      clientsEmail: item.clientsEmail,
+      cstreet: item.cstreet,
+      ccity: item.ccity,
+      cstate: item.cstate,
+      czip: item.czip,
+      ccountry: item.ccountry,
+      invoiceDate: item.invoiceDate,
+      paymentTerms: item.paymentTerms,
+      prodDes: item.prodDes,
+      items: currentItems,
+      status: "pending",
+    },
+
+    onSubmit: (values) => {
+      const dbRef = doc(db, "form", item.id);
+      values.items = currentItems;
+      updateDoc(dbRef, values);
+    },
+
+    validate: (values) => {
+      let errors = {};
+
+      if (!values.street) {
+        errors.street = "required";
+      }
+      if (!values.city) {
+        errors.city = "required";
+      }
+      if (!values.state) {
+        errors.state = "required";
+      }
+      if (!values.zip) {
+        errors.zip = "required";
+      }
+      if (!values.country) {
+        errors.country = "required";
+      }
+      if (!values.clientsName) {
+        errors.clientsName = "required";
+      }
+      if (!values.clientsEmail) {
+        errors.clientsEmail = "required";
+      }
+      if (!values.cstreet) {
+        errors.cstreet = "required";
+      }
+      if (!values.ccity) {
+        errors.ccity = "required";
+      }
+      if (!values.cstate) {
+        errors.cstate = "required";
+      }
+      if (!values.czip) {
+        errors.czip = "required";
+      }
+      if (!values.ccountry) {
+        errors.ccountry = "required";
+      }
+      if (!values.invoiceDate) {
+        errors.invoiceDate = "required";
+      }
+      if (!values.paymentTerms) {
+        errors.paymentTerms = "required";
+      }
+      if (!values.prodDes) {
+        errors.prodDes = "required";
+      }
+
+      return errors;
+    },
+  });
+
   useEffect(() => {
-    setStreet(item.street);
-    setCity(item.city);
-    setState(item.state);
-    setZip(item.zip);
-    setCountry(item.country);
-    setClientsName(item.clientsName);
-    setClientsEmail(item.clientsEmail);
-    setCStreet(item.cstreet);
-    setCCity(item.ccity);
-    setCState(item.cstate);
-    setCZip(item.czip);
-    setPaymentTerms(item.paymentTerms);
-    setProdDes(item.prodDes);
-    setInvoiceDate(item.invoiceDate);
-    setIndexer(item.indexer);
+    // formik2.setFieldValue("street", item.street);
+    // formik2.setFieldValue("city", item.city);
+    // formik2.setFieldValue("state", item.state);
+    // formik2.setFieldValue("zip", item.zip);
+    // formik2.setFieldValue("country", item.country);
+    // formik2.setFieldValue("clientsName", item.clientsName);
+    // formik2.setFieldValue("clientsEmail", item.clientsEmail);
+    // formik2.setFieldValue("cstreet", item.cstreet);
+    // formik2.setFieldValue("ccity", item.ccity);
+    // formik2.setFieldValue("cstate", item.cstate);
+    // formik2.setFieldValue("czip", item.czip);
+    // formik2.setFieldValue("paymentTerms", item.paymentTerms);
+    // formik2.setFieldValue("prodDes", item.prodDes);
+    // formik2.setFieldValue("invoiceDate", item.invoiceDate);
+    // formik2.setFieldValue("city", item.city);
+    // setIndexer(item.indexer);
     setCurrentItems(itemsArr);
   }, []);
 
   const handleSave = async () => {
-    console.log(city);
-    await updateDoc(itemRef, {
-      street,
-      city,
-      items: itemsArr,
-      state,
-      zip,
-      country,
-      clientsName,
-      clientsEmail,
-      cStreet,
-      cCity,
-      cZip,
-      cCountry,
-      paymentTerms,
-      prodDes,
-      invoiceDate,
-    });
+    formik2.validateForm();
+    formik2.isValid ? console.log("valid") : console.log("false");
+  };
+
+  const handleCancel = () => {
+    formik2.setFieldValue("street", item.street);
+    formik2.setFieldValue("city", item.city);
+    formik2.setFieldValue("state", item.state);
+    formik2.setFieldValue("zip", item.zip);
+    formik2.setFieldValue("country", item.country);
+    formik2.setFieldValue("clientsName", item.clientsName);
+    formik2.setFieldValue("clientsEmail", item.clientsEmail);
+    formik2.setFieldValue("cstreet", item.cstreet);
+    formik2.setFieldValue("ccity", item.ccity);
+    formik2.setFieldValue("cstate", item.cstate);
+    formik2.setFieldValue("czip", item.czip);
+    formik2.setFieldValue("paymentTerms", item.paymentTerms);
+    formik2.setFieldValue("prodDes", item.prodDes);
+    formik2.setFieldValue("invoiceDate", item.invoiceDate);
+    formik2.setFieldValue("city", item.city);
+    // setIndexer(item.indexer);
+    setCurrentItems(itemsArr);
   };
   const handleDeleteClick = (e, id) => {
-    console.log(itemsArr);
     let newArr = itemsArr.filter((item) => item.id != id);
-    console.log(newArr);
-
     updateDoc(itemRef, { items: newArr });
   };
 
@@ -159,31 +246,34 @@ export default function EditInvoice({ setPage }) {
         <div className="street">
           <label htmlFor="street">Street Address:</label>
           <input
-            defaultValue={item.street}
+            value={formik2.values.street}
             className="input"
-            onChange={formik.handleChange}
+            onChange={formik2.handleChange}
             type="text"
             id="street"
             name="street"
           />
-          {formik.errors.street ? <div>{formik.errors.street}</div> : null}
+          {formik2.errors.street ? <div>{formik2.errors.street}</div> : null}
         </div>
         <div className="city">
           <label htmlFor="city">City:</label>
           <input
-            defaultValue={item.city}
+            value={formik2.values.city}
             className="input"
-            onChange={(e) => setCity(e.target.value)}
+            onChange={formik2.handleChange}
             type="text"
             id="city"
+            name="city"
           />
+          {formik2.errors.city ? <div>{formik2.errors.city}</div> : null}
         </div>
         <div className="state">
           <label htmlFor="state">State:</label>
           <input
-            defaultValue={item.state}
+            value={formik2.values.state}
             className="input"
-            onChange={(e) => setState(e.target.value)}
+            onChange={formik2.handleChange}
+            name="state"
             type="text"
             id="state"
           />
@@ -191,9 +281,10 @@ export default function EditInvoice({ setPage }) {
         <div className="zip">
           <label htmlFor="zip">Zip:</label>
           <input
-            defaultValue={item.zip}
+            value={formik2.values.zip}
+            name="zip"
             className="input"
-            onChange={(e) => setZip(e.target.value)}
+            onChange={formik2.handleChange}
             type="text"
             id="zip"
           />
@@ -201,9 +292,10 @@ export default function EditInvoice({ setPage }) {
         <div className="country">
           <label htmlFor="country">Country:</label>
           <input
-            defaultValue={item.country}
+            value={formik2.values.country}
+            name="country"
             className="input"
-            onChange={(e) => setCountry(e.target.value)}
+            onChange={formik2.handleChange}
             type="text"
             id="country"
           />
@@ -216,8 +308,9 @@ export default function EditInvoice({ setPage }) {
         <div className="clientsName">
           <label htmlFor="clientsName">Clients Name:</label>
           <input
-            defaultValue={item.clientsName}
-            onChange={(e) => setClientsName(e.target.value)}
+            value={formik2.values.clientsName}
+            onChange={formik2.handleChange}
+            name="clientsName"
             type="text"
             id="clientsName"
           />
@@ -225,9 +318,10 @@ export default function EditInvoice({ setPage }) {
         <div className="clientsEmail">
           <label htmlFor="clientsEmail">Clients Email:</label>
           <input
-            defaultValue={item.clientsEmail}
+            value={formik2.values.clientsEmail}
             className="input"
-            onChange={(e) => setClientsEmail(e.target.value)}
+            onChange={formik2.handleChange}
+            name="clientsEmail"
             type="text"
             id="clientsEmail"
           />
@@ -235,18 +329,20 @@ export default function EditInvoice({ setPage }) {
         <div className="street">
           <label htmlFor="cstreet">Street Address:</label>
           <input
-            defaultValue={item.cStreet}
+            value={formik2.values.cstreet}
+            name="cstreet"
             className="input"
-            onChange={(e) => setCStreet(e.target.value)}
+            onChange={formik2.handleChange}
             id="cstreet"
           />
         </div>
         <div className="city">
           <label htmlFor="ccity">City:</label>
           <input
-            defaultValue={item.cCity}
+            value={formik2.values.ccity}
+            name="ccity"
             className="input"
-            onChange={(e) => setCCity(e.target.value)}
+            onChange={formik2.handleChange}
             type="text"
             id="ccity"
           />
@@ -254,9 +350,10 @@ export default function EditInvoice({ setPage }) {
         <div className="state">
           <label htmlFor="cstate">State:</label>
           <input
-            defaultValue={item.cState}
+            value={formik2.values.cstate}
             className="input"
-            onChange={(e) => setCState(e.target.value)}
+            name="cstate"
+            onChange={formik2.handleChange}
             type="text"
             id="cstate"
           />
@@ -264,9 +361,10 @@ export default function EditInvoice({ setPage }) {
         <div className="zip">
           <label htmlFor="czip">Zip:</label>
           <input
-            defaultValue={item.cZip}
+            value={formik2.values.czip}
+            name="czip"
             className="input"
-            onChange={(e) => setCZip(e.target.value)}
+            onChange={formik2.handleChange}
             type="text"
             id="czip"
           />
@@ -274,9 +372,10 @@ export default function EditInvoice({ setPage }) {
         <div className="country">
           <label htmlFor="ccountry">Country:</label>
           <input
-            defaultValue={item.cCountry}
+            value={formik2.values.ccountry}
+            name="ccountry"
             className="input"
-            onChange={(e) => setCCountry(e.target.value)}
+            onChange={formik2.handleChange}
             type="text"
             id="ccountry"
           />
@@ -286,9 +385,10 @@ export default function EditInvoice({ setPage }) {
           <div className="invoiceDate">
             <label htmlFor="invoiceDate">Invoice Date:</label>
             <input
-              defaultValue={item.invoiceDate}
+              value={formik2.values.invoiceDate}
+              name="invoiceDate"
               className="input"
-              onChange={(e) => setInvoiceDate(e.target.value)}
+              onChange={formik2.handleChange}
               type="date"
               id="invoiceDate"
             />
@@ -296,10 +396,12 @@ export default function EditInvoice({ setPage }) {
           <div className="paymentTerms">
             <label htmlFor="paymentTerms">Payment Terms:</label>
             <select
-              defaultValue={item.paymentTerms}
-              onChange={(e) => {
-                setPaymentTerms(e.target.value);
-              }}
+              value={formik2.values.paymentTerms}
+              onChange={formik2.handleChange}
+              name="paymentTerms"
+              // onChange={(e) => {
+              //   setPaymentTerms(e.target.value);
+              // }}
             >
               <option value={30}>30 days</option>
               <option value={60}>60 days</option>
@@ -309,9 +411,10 @@ export default function EditInvoice({ setPage }) {
           <div className="productDescription">
             <label htmlFor="productDescription">Product Description:</label>
             <input
-              defaultValue={item.setProdDes}
+              value={formik2.values.prodDes}
               className="input"
-              onChange={(e) => setProdDes(e.target.value)}
+              name="prodDes"
+              onChange={formik2.handleChange}
               type="text"
               id="productDescription"
             />
@@ -338,7 +441,8 @@ export default function EditInvoice({ setPage }) {
         );
       })}
       <button onClick={() => handleAddClick()}>add item</button>
-      <button type="submit" onClick={formik.handleSubmit}>
+      <button onClick={handleCancel}>cancel</button>
+      <button type="submit" onClick={formik2.handleSubmit}>
         Save Changes
       </button>
     </div>

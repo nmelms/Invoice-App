@@ -46,10 +46,13 @@ export function GlobalProvider({ children }) {
   const [itemId, setItemId] = useState();
   const [filter, setFilter] = useState("");
   const [currentItems, setCurrentItems] = useState([]);
+  const handleSubmit = (name) => {
+    console.log(name);
+  };
 
   const formik = useFormik({
     validateOnChange: false, // this one
-    validateOnBlur: false, // and this one
+    // validateOnBlur: false, // and this one
 
     initialValues: {
       street: "",
@@ -72,13 +75,7 @@ export function GlobalProvider({ children }) {
       timeStamp: serverTimestamp(),
     },
 
-    onSubmit: (values) => {
-      const dbRef = doc(collection(db, "form"));
-      values.items = currentItems;
-      setDoc(dbRef, values);
-      // formRef.current.reset();
-      // clientFormRef.current.reset();
-    },
+    onSubmit: handleSubmit,
 
     validate: (values) => {
       let errors = {};
