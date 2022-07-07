@@ -46,13 +46,10 @@ export function GlobalProvider({ children }) {
   const [itemId, setItemId] = useState();
   const [filter, setFilter] = useState("");
   const [currentItems, setCurrentItems] = useState([]);
-  const handleSubmit = (name) => {
-    console.log(name);
-  };
 
   const formik = useFormik({
     validateOnChange: false, // this one
-    // validateOnBlur: false, // and this one
+    validateOnBlur: false, // and this one
 
     initialValues: {
       street: "",
@@ -68,14 +65,28 @@ export function GlobalProvider({ children }) {
       czip: "",
       ccountry: "",
       invoiceDate: "",
-      paymentTerms: "",
+      paymentTerms: "30",
       prodDes: "",
+      dueDate: "",
       items: currentItems,
       status: "pending",
       timeStamp: serverTimestamp(),
     },
 
-    onSubmit: handleSubmit,
+    onSubmit: (values) => {
+      const dbRef = doc(collection(db, "form"));
+      values.items = currentItems;
+      values.dueDate = dueDate;
+      let current = new Date(values.invoiceDate);
+      current.setDate(current.getDate() + Number(values.paymentTerms));
+      console.log(current);
+      let newDueDate = current.toDateString().split(" ").splice(1).join(" ");
+      values.dueDate = newDueDate;
+      console.log(dueDate);
+      setDoc(dbRef, values);
+      // formRef.current.reset();
+      // clientFormRef.current.reset();
+    },
 
     validate: (values) => {
       let errors = {};
@@ -131,7 +142,6 @@ export function GlobalProvider({ children }) {
   });
 
   const dataRef = collection(db, "form");
-  const current = new Date(invoiceDate);
 
   const data = {
     street,
@@ -160,11 +170,6 @@ export function GlobalProvider({ children }) {
     items: itemsArr,
     timeStamp: serverTimestamp(),
   };
-
-  useEffect(() => {
-    current.setDate(current.getDate() + Number(paymentTerms));
-    setDueDate(current.toDateString().split(" ").splice(1).join(" "));
-  });
 
   useEffect(() => {
     onSnapshot(query(dataRef, orderBy("timeStamp")), (snapshot) => {

@@ -31,6 +31,9 @@ export default function ViewInvoice({ setPage, page }) {
   const [total, setTotal] = useState(0);
   const [currentItem, setCurrentItem] = useState();
   const item = list.find((item) => item.id === itemId);
+  const current = new Date(item.invoiceDate);
+  current.setDate(current.getDate() + Number(item.paymentTerms));
+  item.dueDate = current.toDateString().split(" ").splice(1).join(" ");
 
   const onDeleteClick = () => {
     setAlert(true);
