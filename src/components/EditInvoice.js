@@ -191,7 +191,8 @@ export default function EditInvoice({ setPage }) {
     formik2.setFieldValue("prodDes", item.prodDes);
     formik2.setFieldValue("invoiceDate", item.invoiceDate);
     formik2.setFieldValue("city", item.city);
-    formik2.setFieldValue("items", item.items);
+    setCurrentItems(item.items);
+    console.log(item.items);
   };
   const handleDeleteClick = (e, id) => {
     let newArr = currentItems.filter((item) => item.id != id);
@@ -208,7 +209,7 @@ export default function EditInvoice({ setPage }) {
       price: 0,
       id: Math.random(),
     });
-    console.log(newArr);
+
     setCurrentItems(newArr);
   };
 
