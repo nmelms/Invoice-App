@@ -192,12 +192,10 @@ export default function EditInvoice({ setPage }) {
     formik2.setFieldValue("invoiceDate", item.invoiceDate);
     formik2.setFieldValue("city", item.city);
     formik2.setFieldValue("items", item.items);
-    // setIndexer(item.indexer);
-    setCurrentItems(itemsArr);
   };
   const handleDeleteClick = (e, id) => {
-    let newArr = itemsArr.filter((item) => item.id != id);
-    updateDoc(itemRef, { items: newArr });
+    let newArr = currentItems.filter((item) => item.id != id);
+    setCurrentItems(newArr);
   };
 
   const handleAddClick = async () => {
