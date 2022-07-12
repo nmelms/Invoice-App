@@ -93,6 +93,7 @@ export default function EditInvoice({ setPage }) {
     onSubmit: (values) => {
       const dbRef = doc(db, "form", item.id);
       values.items = currentItems;
+      values.status = "pending";
       updateDoc(dbRef, values);
     },
 
@@ -190,6 +191,7 @@ export default function EditInvoice({ setPage }) {
     formik2.setFieldValue("prodDes", item.prodDes);
     formik2.setFieldValue("invoiceDate", item.invoiceDate);
     formik2.setFieldValue("city", item.city);
+    formik2.setFieldValue("items", item.items);
     // setIndexer(item.indexer);
     setCurrentItems(itemsArr);
   };
@@ -199,42 +201,36 @@ export default function EditInvoice({ setPage }) {
   };
 
   const handleAddClick = async () => {
-    let index = 0;
-    let newArr = [...itemsArr];
+    let newArr = [...currentItems];
+    // console.log(currentItems);
     newArr.push({
-      index: index,
+      // index: index,
       itemName: "",
       qty: 0,
       price: 0,
       id: Math.random(),
     });
-
-    updateDoc(itemRef, {
-      items: newArr,
-    });
-
-    index++;
+    console.log(newArr);
+    setCurrentItems(newArr);
   };
 
   const onChange = async (e, index) => {
+    let newArr = [...currentItems];
     let value = e.target.value;
     let id = e.target.id;
-    let name = "";
-    let currentItem = itemsArr[index];
+    let currentItem = newArr[index];
+
+    console.log(currentItem);
     if (id === "itemName") {
       currentItem.itemName = value;
-      updateDoc(itemRef, { items: itemsArr });
     } else if (id === "qty") {
       currentItem.qty = value;
-      updateDoc(itemRef, { items: itemsArr });
     } else {
       currentItem.price = value;
-      updateDoc(itemRef, { items: itemsArr });
     }
     let total = currentItem.qty * currentItem.price;
     currentItem.total = total;
-    updateDoc(itemRef, { items: itemsArr });
-    setCurrentItems();
+    setCurrentItems(newArr);
   };
 
   return (
@@ -421,7 +417,7 @@ export default function EditInvoice({ setPage }) {
           </div>
         </div>
       </form>
-      {itemsArr.map((item, index) => {
+      {currentItems.map((item, index) => {
         return (
           <Item
             id={item.id}

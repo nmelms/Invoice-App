@@ -35,7 +35,7 @@ export default function Invoice({ setPage, index, page, id, whichList }) {
 
   return (
     <div onClick={(e) => handleClick(e)} className="Invoice">
-      <div className="invoiceID">{index}</div>
+      <div className="invoiceID">{index + 1}</div>
       <div className="clientsName">{whichList[index].clientsName}</div>
       <div className="paymentDue">due {whichList[index].dueDate}</div>
       <div style={{ border: "2px solid black" }} className="status">

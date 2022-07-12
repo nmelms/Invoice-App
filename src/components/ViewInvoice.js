@@ -98,11 +98,11 @@ export default function ViewInvoice({ setPage, page }) {
           <div className="billToAddress">
             <p>bill To</p>
             <h4>{item.clientsName}</h4>
-            <p>{item.cStreet}</p>
-            <p>{item.cCity}</p>
-            <p>{item.cState}</p>
-            <p>{item.cZip}</p>
-            <p>{item.cCountry}</p>
+            <p>{item.cstreet}</p>
+            <p>{item.ccity}</p>
+            <p>{item.cstate}</p>
+            <p>{item.czip}</p>
+            <p>{item.ccountry}</p>
           </div>
           <div>
             <p>Payment Due</p>
