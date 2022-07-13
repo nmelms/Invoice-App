@@ -38,6 +38,7 @@ export default function NewInvoice({ setPage }) {
   } = useContext(GlobalContext);
 
   let tag = makeId();
+  formik.values.tag = tag;
 
   const formRef = useRef([]);
   const itemRef = useRef([]);

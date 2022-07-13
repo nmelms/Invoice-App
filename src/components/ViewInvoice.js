@@ -80,7 +80,7 @@ export default function ViewInvoice({ setPage, page }) {
 
       <div>
         <div>
-          <p>#{item.id}</p>
+          <p>#{item.tag}</p>
           <p>{item.prodDes}</p>
         </div>
         <div className="senderAddress">
