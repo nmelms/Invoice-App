@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useRef } from "react";
 import { useFormik } from "formik";
 import {
   collection,
@@ -46,6 +46,7 @@ export function GlobalProvider({ children }) {
   const [itemId, setItemId] = useState();
   const [filter, setFilter] = useState("");
   const [currentItems, setCurrentItems] = useState([]);
+  const alertRef = useRef();
 
   const formik = useFormik({
     validateOnChange: false, // this one
@@ -146,19 +147,21 @@ export function GlobalProvider({ children }) {
 
   const makeId = () => {
     var result = "";
-    var characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     var charactersLength = characters.length;
+
     for (var i = 0; i < 2; i++) {
-      result += Math.floor(Math.random() * (9 - 0 + 1)) + 0;
-      console.log(result);
-    }
-    for (var i = 0; i < 4; i++) {
       result += characters
         .charAt(Math.floor(Math.random() * charactersLength))
         .toUpperCase();
       console.log(result);
     }
+
+    for (var i = 0; i < 4; i++) {
+      result += Math.floor(Math.random() * (9 - 0 + 1)) + 0;
+      console.log(result);
+    }
+
     return result;
   };
 
@@ -244,6 +247,7 @@ export function GlobalProvider({ children }) {
         setCity,
         setState,
         setZip,
+        alertRef,
         street,
         setCountry,
         setClientsName,

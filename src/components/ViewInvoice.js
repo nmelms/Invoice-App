@@ -22,6 +22,7 @@ export default function ViewInvoice({ setPage, page }) {
     fetchData,
     filteredList,
     setItem,
+    alertRef,
   } = useContext(GlobalContext);
 
   let grandTotal = 0;
@@ -36,19 +37,24 @@ export default function ViewInvoice({ setPage, page }) {
   item.dueDate = current.toDateString().split(" ").splice(1).join(" ");
 
   const onDeleteClick = () => {
+    console.log(alert);
     setAlert(true);
   };
 
   useEffect(() => {
+    console.log(alert);
     if (userResponse === "yes") {
       console.log("yes");
       deleteDoc(doc(db, "form", item.id));
       setUserResponse("");
       setPage("home");
+      setAlert(false);
     } else if (userResponse === "no") {
-      document.querySelector(".Alert").remove();
+      console.log("no");
+      document.querySelector(".Alert").style.display = "hidden";
       setUserResponse("");
     }
+    setAlert(false);
   }, [userResponse]);
 
   const handleEditClick = () => {
