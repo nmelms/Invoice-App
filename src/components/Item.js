@@ -54,7 +54,7 @@ export default function Item({
           id="price"
         />
       </div>
-      <div className="total">
+      <div className="itemTotal">
         <p>total</p>
         <p>{total}</p>
       </div>

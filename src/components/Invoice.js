@@ -13,7 +13,6 @@ export default function Invoice({ setPage, index, page, id, whichList }) {
     list,
     clickedIndex,
     clientName,
-    total,
     status,
     setClickedIndex,
     data,
@@ -23,7 +22,7 @@ export default function Invoice({ setPage, index, page, id, whichList }) {
   } = useContext(GlobalContext);
   // const current = new Date(list[index].invoiceDate);
   const [updatedDate, setUpdatedDate] = useState();
-
+  let total = 0;
   const handleClick = (e) => {
     setPage("viewInvoice");
     let newList = [...list];
@@ -32,6 +31,9 @@ export default function Invoice({ setPage, index, page, id, whichList }) {
     });
     setItemId(id);
   };
+  whichList[index].items.map((item) => {
+    total += item.total;
+  });
 
   return (
     <div onClick={(e) => handleClick(e)} className="Invoice">

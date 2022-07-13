@@ -7,11 +7,12 @@ import empty from "../assets/illustration-empty.svg";
 export default function InvoiceList({ setPage, page, filterBy }) {
   const { list, loading, setClickedIndex, filter } = useContext(GlobalContext);
   let filteredList = [];
+  let grandTotal = 0;
 
-  // const filteredList = list.filter((item) => item.status === filter);
   filter != ""
     ? (filteredList = list.filter((item) => item.status === filter))
     : (filteredList = list);
+
   return (
     <div>
       {list.length === 0 && (

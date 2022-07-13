@@ -117,6 +117,7 @@ export default function ViewInvoice({ setPage, page }) {
         {item.items.map((item, index) => {
           item.total = item.qty * item.price;
           grandTotal += item.total;
+
           return (
             <div key={index} className="invoiceItems">
               <div>
