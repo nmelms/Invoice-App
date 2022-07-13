@@ -23,6 +23,7 @@ export default function NewInvoice({ setPage }) {
     list,
     itemsArr,
     itemName,
+    makeId,
     qty,
     price,
     setIndexer,
@@ -35,6 +36,8 @@ export default function NewInvoice({ setPage }) {
     grandTotal,
     setGrandTotal,
   } = useContext(GlobalContext);
+
+  let tag = makeId();
 
   const formRef = useRef([]);
   const itemRef = useRef([]);
@@ -103,6 +106,7 @@ export default function NewInvoice({ setPage }) {
       <NavBar />
       <BackButton setPage={setPage} name="home" />
       <h1>New Invoice</h1>
+      <h3>{tag}</h3>
       <p>bill from</p>
       <form ref={formRef} className="AddressForm">
         <div className="street">

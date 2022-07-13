@@ -52,6 +52,7 @@ export function GlobalProvider({ children }) {
     validateOnBlur: false, // and this one
 
     initialValues: {
+      tag: "",
       street: "",
       city: "",
       state: "",
@@ -77,9 +78,11 @@ export function GlobalProvider({ children }) {
       const dbRef = doc(collection(db, "form"));
       values.items = currentItems;
       values.dueDate = dueDate;
+      values.tag = makeId();
       let current = new Date(values.invoiceDate);
       current.setDate(current.getDate() + Number(values.paymentTerms));
       console.log(current);
+
       let newDueDate = current.toDateString().split(" ").splice(1).join(" ");
       values.dueDate = newDueDate;
       console.log(dueDate);
@@ -141,6 +144,24 @@ export function GlobalProvider({ children }) {
     },
   });
 
+  const makeId = () => {
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < 2; i++) {
+      result += Math.floor(Math.random() * (9 - 0 + 1)) + 0;
+      console.log(result);
+    }
+    for (var i = 0; i < 4; i++) {
+      result += characters
+        .charAt(Math.floor(Math.random() * charactersLength))
+        .toUpperCase();
+      console.log(result);
+    }
+    return result;
+  };
+
   const dataRef = collection(db, "form");
 
   const data = {
@@ -181,6 +202,7 @@ export function GlobalProvider({ children }) {
   return (
     <GlobalContext.Provider
       value={{
+        makeId,
         formik,
         itemId,
         setItemId,
