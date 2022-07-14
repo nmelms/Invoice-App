@@ -10,16 +10,10 @@ export default function InvoiceTitle() {
 
   return (
     <div className="InvoiceTitle">
-      <h1>INVOCIES</h1>
+      <h2>INVOCIES</h2>
       {filteredList.length === 0 && <p>No Invoices</p>}
       {filteredList.length === 1 && <p>1 invoice</p>}
       {filteredList.length >= 2 && <p>{filteredList.length} invoices</p>}
-
-      {/* {filteredList.length === 0 ? (
-        <p>No Invoices</p>
-      ) : (
-        filteredList.length + "Invoices"
-      )} */}
     </div>
   );
 }

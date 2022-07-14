@@ -56,12 +56,25 @@ export default function Filter({ setFilterBy, filteredList, setFilteredList }) {
 
   return (
     <div className="Filter">
-      <h1>filter</h1>
-      <button onClick={() => filterClick("complete")}>complete</button>
-      <button onClick={() => filterClick("")}>none</button>
-      <button onClick={() => filterClick("pending")}>pendingz</button>
-      <button onClick={() => filterClick("draft")}>draft</button>
-      <img style={{ transform: "scale(.8)" }} src={downArrow} />
+      <button className="filterBtn">
+        filter
+        <img src={downArrow} />
+      </button>
+      <div className="dropDownContent">
+        <div className="filterLink" onClick={() => filterClick("complete")}>
+          complete
+        </div>
+
+        <div className="filterLink" onClick={() => filterClick("pending")}>
+          pending
+        </div>
+        <div className="filterLink" nClick={() => filterClick("draft")}>
+          draft
+        </div>
+        <div className="filterLink" onClick={() => filterClick("")}>
+          all
+        </div>
+      </div>
     </div>
   );
 }

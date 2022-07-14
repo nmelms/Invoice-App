@@ -18,7 +18,7 @@ export default function NavBar() {
         {theme ? <img src={moon} /> : <img src={sun} />}
       </div>
       <div className="avatar">
-        <img src={avatar} />
+        <img alt="profile avatar" className="avatarImg" src={avatar} />
       </div>
     </div>
   );

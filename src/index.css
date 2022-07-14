@@ -5,6 +5,7 @@
 body {
   margin: 0;
   display: block;
+  background-color: #f8f8fb;
 }
 p {
   margin: 0;
@@ -53,6 +54,9 @@ h4 {
   grid-template-columns: 50% 50%;
   grid-template-rows: 50% 50%;
   display: grid;
+}
+.homeHeader {
+  background-color: #f8f8fb;
 }
 .invoiceItems {
   border: 2px solid black;
@@ -112,20 +116,59 @@ h4 {
 }
 .NavBar {
   grid-area: NavBar;
-  border: 1px solid gold;
   max-height: 10vh;
 }
 .InvoiceTitle {
   grid-area: InvoiceTitle;
-  border: 1px solid gold;
+  padding-top: 1rem;
+  padding: 1rem;
 }
 .Filter {
   grid-area: Filter;
-  border: 1px solid gold;
+  position: relative;
+  display: inline-block;
 }
+.filterBtn {
+  font-size: 1rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  border: none;
+  margin-left: auto;
+  background-color: #f8f8fb;
+}
+
+.dropDownContent {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  width: 30vw;
+  background-color: white;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px 5px lightgray;
+}
+.filterLink:hover {
+  background-color: #f8f8fb;
+  cursor: pointer;
+  padding: none;
+  margin: none;
+}
+.filterLink {
+  width: 100%;
+  background-color: none;
+}
+.filterBtn:hover {
+  cursor: pointer;
+}
+.Filter:hover .dropDownContent {
+  display: flex;
+  z-index: 2;
+}
+
 .NewButton {
   grid-area: NewButton;
-  border: 1px solid gold;
 }
 .NewButton:hover {
   cursor: pointer;
@@ -159,6 +202,7 @@ h4 {
   color: white;
 }
 .Invoice {
+  background-color: white;
   display: flex;
   padding: 1rem;
   margin: 1rem;
@@ -250,31 +294,21 @@ h4 {
   height: min-content;
   margin: 0;
 }
-/* .Item .itemName{
-  flex-basis: 100%;
-}
-.Item .qty{
-  width: 20vw
-}
-
-.Item .price{
-  width: 20vw
-} */
-/* .App{
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-areas: 
-  'NavBar NavBar NavBar'
-  'InvoiceTitle Filter NewButton'
-  'InvoiceList InvoiceList InvoiceList'
-} */
 .NavBar {
   background-color: #252945;
   display: flex;
 }
+.avatarImg {
+  border-radius: 50%;
+  padding: 0.5rem;
+  height: 100%;
+}
+.avatar {
+  border-left: 1px solid gray;
+}
 .logo {
   display: flex;
-  width: 10vw;
+  width: 12vw;
   align-items: center;
   justify-content: center;
   background: #7c5dfa;
@@ -282,6 +316,7 @@ h4 {
 }
 .logo > img {
   padding-top: auto;
+  height: 40%;
 }
 .theme {
   margin-left: auto;
