@@ -17,6 +17,7 @@ import GlobalContext from "../GlobalContext";
 
 export default function NewInvoice({ setPage }) {
   const {
+    setColor,
     currentItems,
     setCurrentItems,
     formik,
@@ -37,14 +38,17 @@ export default function NewInvoice({ setPage }) {
     setGrandTotal,
   } = useContext(GlobalContext);
 
-  let tag = makeId();
-  formik.values.tag = tag;
+  useEffect(() => {
+    let tag = makeId();
+    formik.values.tag = tag;
+  }, []);
 
   const formRef = useRef([]);
   const itemRef = useRef([]);
   const clientFormRef = useRef([]);
 
   const handleDraftClick = () => {
+    setColor("gray");
     formik.values.status = "draft";
     formik.values.items = currentItems;
     const dbRef = doc(collection(db, "form"));
@@ -107,7 +111,7 @@ export default function NewInvoice({ setPage }) {
       <NavBar />
       <BackButton setPage={setPage} name="home" />
       <h1>New Invoice</h1>
-      <h3>{tag}</h3>
+      <h3>{formik.values.tag}</h3>
       <p>bill from</p>
       <form ref={formRef} className="AddressForm">
         <div className="street">

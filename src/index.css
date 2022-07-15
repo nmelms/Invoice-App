@@ -174,8 +174,12 @@ h4 {
   border-radius: 50px;
   display: flex;
   max-width: 30vw;
+  border: none;
+  margin: 1rem;
 }
 .plusIcon {
+  justify-content: center;
+  align-self: center;
   background-color: white;
   border-radius: 100px;
   width: 40px;
@@ -228,7 +232,9 @@ h4 {
   display: flex;
   padding: 1rem;
   margin: 1rem;
-  border: 1px solid red;
+  border-radius: 15px;
+  height: 15vh;
+  box-shadow: 2px 2px 5px lightgray;
   display: grid;
   flex: wrap;
   white-space: nowrap;
@@ -240,7 +246,7 @@ h4 {
     "total status";
   justify-content: space-between;
   text-align: start;
-  font-size: 0.75rem;
+  /* font-size: 0.75rem; */
 }
 .Invoice > div {
   width: 20vw;
