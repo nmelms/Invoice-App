@@ -68,7 +68,7 @@ export default function Filter({ setFilterBy, filteredList, setFilteredList }) {
         <div className="filterLink" onClick={() => filterClick("pending")}>
           pending
         </div>
-        <div className="filterLink" nClick={() => filterClick("draft")}>
+        <div className="filterLink" onClick={() => filterClick("draft")}>
           draft
         </div>
         <div className="filterLink" onClick={() => filterClick("")}>

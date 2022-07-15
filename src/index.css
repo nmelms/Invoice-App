@@ -15,6 +15,7 @@ h4 {
 }
 .invoiceID {
   grid-area: invoiceID;
+  display: flex;
 }
 .clientsName {
   grid-area: clientsName;
@@ -24,6 +25,11 @@ h4 {
 }
 .status {
   grid-area: status;
+  border-radius: 15px;
+  width: 70% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .total {
   grid-area: total;

@@ -23,9 +23,11 @@ export default function Invoice({ setPage, index, page, id, whichList }) {
   const [color, setColor] = useState("");
   useEffect(() => {
     if (whichList[index].status === "draft") {
-      setColor("gray");
+      setColor("0,0,0");
     } else if (whichList[index].status === "pending") {
-      setColor("green");
+      setColor("51, 170, 51");
+    } else {
+      setColor("255,165,0");
     }
   }, []);
 
@@ -47,13 +49,27 @@ export default function Invoice({ setPage, index, page, id, whichList }) {
 
   return (
     <div onClick={(e) => handleClick(e)} className="Invoice">
-      <div className="invoiceID">{whichList[index].tag}</div>
-      <div className="clientsName">{whichList[index].clientsName}</div>
-      <div className="paymentDue">due {whichList[index].dueDate}</div>
-      <div style={{ background: color }} className="status">
-        {whichList[index].status}
+      <div className="invoiceID">
+        <p style={{ color: "gray" }}>#</p>
+        {whichList[index].tag}
       </div>
-      <div className="total">{total}</div>
+      <div className="clientsName">
+        <p style={{ color: "gray" }}>{whichList[index].clientsName}</p>
+      </div>
+      <div className="paymentDue">
+        <p style={{ color: "gray" }}>due {whichList[index].dueDate}</p>
+      </div>
+      <div
+        style={{
+          fontStyle: "bold",
+          background: `rgba(${color}, 0.1)`,
+          color: `rgba(${color})`,
+        }}
+        className="status"
+      >
+        <p style={{ fontStyle: "bold" }}>{whichList[index].status}</p>
+      </div>
+      <div className="total">${total}</div>
     </div>
   );
 }

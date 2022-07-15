@@ -48,7 +48,6 @@ export default function NewInvoice({ setPage }) {
   const clientFormRef = useRef([]);
 
   const handleDraftClick = () => {
-    setColor("gray");
     formik.values.status = "draft";
     formik.values.items = currentItems;
     const dbRef = doc(collection(db, "form"));
