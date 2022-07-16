@@ -137,9 +137,9 @@ export default function NewInvoice({ setPage }) {
           status: "pending",
           timeStamp: serverTimestamp(),
         }}
-        onSubmit={(values, { resetForm, validateForm }) => {
-          validateForm();
+        onSubmit={(values, { resetForm }) => {
           const dbRef = doc(collection(db, "form"));
+
           values.items = currentItems;
           values.dueDate = dueDate;
           values.tag = makeId();
@@ -206,7 +206,7 @@ export default function NewInvoice({ setPage }) {
           return errors;
         }}
       >
-        {(props) => (
+        {(props, isValid, submitCount) => (
           <form
             ref={formRef}
             onSubmit={props.handleSubmit}
@@ -235,7 +235,6 @@ export default function NewInvoice({ setPage }) {
                 type="text"
                 id="city"
               />
-              {props.errors.city && <div id="city">{props.errors.city}</div>}
             </div>
             <div className="state">
               <label htmlFor="state">State:</label>
@@ -387,6 +386,13 @@ export default function NewInvoice({ setPage }) {
                 />
               </div>
             </div>
+
+            {!props.isValid && props.submitCount > 0 && (
+              <div className="alert alert-danger">
+                all fields must be complete in order to submit. Try saving as
+                draft
+              </div>
+            )}
 
             <button onClick={() => handleAddClick()}>add item</button>
             <button type="submit">submit</button>
