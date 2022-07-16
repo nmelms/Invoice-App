@@ -16,7 +16,7 @@ export default function InvoiceList({ setPage, page, filterBy }) {
   return (
     <div>
       {list.length === 0 && (
-        <div>
+        <div className="emptyImgDiv">
           <img src={empty} />
           <h3>there is nothing here</h3>
           <p>Click the new button to create a new invoice</p>

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useRef } from "react";
-import { useFormik } from "formik";
+import { useFormik, Formik } from "formik";
 import {
   collection,
   onSnapshot,
@@ -47,11 +47,12 @@ export function GlobalProvider({ children }) {
   const [filter, setFilter] = useState("");
   const [currentItems, setCurrentItems] = useState([]);
   const alertRef = useRef();
+  const clientFormRef = useRef(null);
+  const formRef = useRef(null);
 
   const formik = useFormik({
-    validateOnChange: false, // this one
-    validateOnBlur: false, // and this one
-
+    validateOnChange: false,
+    validateOnBlur: false,
     initialValues: {
       tag: "",
       street: "",
@@ -77,19 +78,16 @@ export function GlobalProvider({ children }) {
 
     onSubmit: (values) => {
       const dbRef = doc(collection(db, "form"));
+      // formRef.current.reset();
+      // clientFormRef.current.reset();
       values.items = currentItems;
       values.dueDate = dueDate;
       values.tag = makeId();
       let current = new Date(values.invoiceDate);
       current.setDate(current.getDate() + Number(values.paymentTerms));
-      console.log(current);
-
       let newDueDate = current.toDateString().split(" ").splice(1).join(" ");
       values.dueDate = newDueDate;
-      console.log(dueDate);
       setDoc(dbRef, values);
-      // formRef.current.reset();
-      // clientFormRef.current.reset();
     },
 
     validate: (values) => {
@@ -154,7 +152,6 @@ export function GlobalProvider({ children }) {
       result += characters
         .charAt(Math.floor(Math.random() * charactersLength))
         .toUpperCase();
-      console.log(result);
     }
 
     for (var i = 0; i < 4; i++) {
@@ -205,6 +202,8 @@ export function GlobalProvider({ children }) {
   return (
     <GlobalContext.Provider
       value={{
+        clientFormRef,
+        formRef,
         makeId,
         formik,
         itemId,

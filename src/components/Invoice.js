@@ -30,9 +30,6 @@ export default function Invoice({ setPage, index, page, id, whichList }) {
       setColor("255,165,0");
     }
   }, []);
-
-  console.log(color);
-  // const current = new Date(list[index].invoiceDate);
   const [updatedDate, setUpdatedDate] = useState();
   let total = 0;
   const handleClick = (e) => {

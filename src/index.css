@@ -15,15 +15,29 @@ h4 {
 }
 .invoiceID {
   grid-area: invoiceID;
-  padding: 1rem;
+  padding: 1rem 1rem 0px 1rem;
   display: flex;
+  width: 100% !important;
+  display: flex;
+  align-items: flex-end;
 }
 .clientsName {
   grid-area: clientsName;
+  width: 100% !important;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem 1rem 0 1rem;
+}
+.emptyImgDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .paymentDue {
   grid-area: paymentDue;
   padding: 1rem;
+  width: 100% !important;
 }
 .status {
   grid-area: status;
@@ -54,10 +68,6 @@ h4 {
 }
 .country {
   grid-area: country;
-}
-.clientsName {
-  grid-area: clientsName;
-  padding: 1rem;
 }
 .clientsEmail {
   grid-area: clientsEmail;
@@ -110,7 +120,7 @@ h4 {
   flex-direction: column;
 }
 
-.AddressForm {
+/* .AddressForm {
   grid-area: AddressForm;
   gap: 0.5rem;
   display: grid;
@@ -122,11 +132,11 @@ h4 {
     "street street street"
     "city state zip"
     "country country country";
-}
-.AddressForm > div {
+} */
+/* .AddressForm > div {
   display: flex;
   flex-direction: column;
-}
+} */
 .NavBar {
   grid-area: NavBar;
   max-height: 10vh;
@@ -160,7 +170,7 @@ h4 {
   padding: 0.5rem;
   border: none;
   border-radius: 10px;
-  box-shadow: 5px 5px 5px 5px lightgray;
+  box-shadow: 2px 2px 5px 2px rgb(122, 120, 120);
 }
 .filterLink:hover {
   background-color: #f8f8fb;
