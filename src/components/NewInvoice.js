@@ -55,7 +55,6 @@ export default function NewInvoice({ setPage }) {
     const dbRef = doc(collection(db, "form"));
     setDoc(dbRef, formik.values);
     setItemsArr([]);
-    formik.handleReset();
     formRef.current.reset();
     clientFormRef.current.reset();
   };
@@ -139,7 +138,6 @@ export default function NewInvoice({ setPage }) {
         }}
         onSubmit={(values, { resetForm }) => {
           const dbRef = doc(collection(db, "form"));
-
           values.items = currentItems;
           values.dueDate = dueDate;
           values.tag = makeId();
@@ -156,7 +154,6 @@ export default function NewInvoice({ setPage }) {
         }}
         validate={(values) => {
           let errors = {};
-
           if (!values.street) {
             errors.street = "required";
           }
@@ -202,16 +199,11 @@ export default function NewInvoice({ setPage }) {
           if (!values.prodDes) {
             errors.prodDes = "required";
           }
-
           return errors;
         }}
       >
         {(props, isValid, submitCount) => (
-          <form
-            ref={formRef}
-            onSubmit={props.handleSubmit}
-            className="AddressForm"
-          >
+          <form onSubmit={props.handleSubmit} className="AddressForm">
             <div className="street">
               <label htmlFor="street">Street Address:</label>
               <input
@@ -396,7 +388,9 @@ export default function NewInvoice({ setPage }) {
 
             <button onClick={() => handleAddClick()}>add item</button>
             <button type="submit">submit</button>
-            <button onClick={() => handleDraftClick()}>save as Draft</button>
+            <button type="button" onClick={() => handleDraftClick()}>
+              save as Draft
+            </button>
           </form>
         )}
       </Formik>
