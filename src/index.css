@@ -23,10 +23,10 @@ h4 {
 }
 .clientsName {
   grid-area: clientsName;
-  width: 100% !important;
+  /* width: 100% !important;
   display: flex;
   align-items: flex-end;
-  padding: 1rem 1rem 0 1rem;
+  padding: 1rem 1rem 0 1rem; */
 }
 .emptyImgDiv {
   display: flex;
@@ -59,6 +59,7 @@ h4 {
 }
 .state {
   grid-area: state;
+  height: fit-content;
 }
 .city {
   grid-area: city;
@@ -68,6 +69,21 @@ h4 {
 }
 .country {
   grid-area: country;
+}
+.cstreet {
+  grid-area: cstreet;
+}
+.ccity {
+  grid-area: ccity;
+}
+.cstate {
+  grid-area: cstate;
+}
+.czip {
+  grid-area: czip;
+}
+.ccountry {
+  grid-area: ccountry;
 }
 .clientsEmail {
   grid-area: clientsEmail;
@@ -90,6 +106,13 @@ h4 {
 .itemMultiply {
   display: flex;
 }
+.bottomInvoice {
+  grid-area: bottomInvoice;
+}
+.buttons {
+  grid-area: buttons;
+}
+
 .itemTotal {
   grid-column: 2/3;
   grid-row: 1/3;
@@ -98,10 +121,13 @@ h4 {
   grid-row: 1/3;
   grid-column: 2/3;
 }
-.BillTo {
+/* .BillTo {
   display: grid;
   grid-template-columns: 50vw 50vw;
   grid-template-areas: "clientsName clientsEmail";
+} */
+.billTo {
+  grid-area: billTo;
 }
 .BillTo > div {
   padding: 1rem;
@@ -118,6 +144,24 @@ h4 {
 .bottomInvoice > div {
   display: flex;
   flex-direction: column;
+}
+.AddressForm {
+  grid-template-columns: 50% 50%;
+  display: grid;
+  grid-template-areas:
+    "state state"
+    "street street"
+    "city zip"
+    "country country"
+    "billTo billTo"
+    "clientsName clientsName"
+    "clientsEmail clientsEmail"
+    "cstreet cstreet"
+    "cstate cstate"
+    "ccity czip"
+    "ccountry ccountry"
+    "bottomInvoice bottomInvoice"
+    "buttons buttons";
 }
 
 /* .AddressForm {
@@ -226,9 +270,26 @@ h4 {
   grid-area: InvoiceList;
   color: black;
 }
+.newInvoiceBody {
+  padding: 1rem;
+}
+.formLabel {
+  padding: 1rem;
+}
+.newInvoiceBody > * {
+  padding: 1rem;
+}
+
+.purpleText {
+  color: #7c5dfa;
+}
 .BackButton {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  justify-content: center;
+  align-items: center;
 }
 .BackButton:hover {
   cursor: pointer;
@@ -318,6 +379,9 @@ h4 {
 }
 .input {
   width: 100%;
+  margin: 1rem 1rem 1rem 0;
+  padding: 0.5rem;
+  font-size: 1rem;
 }
 .itemDelete {
   grid-row: 2/3;
@@ -340,6 +404,7 @@ h4 {
 }
 .senderAddress {
   padding-top: 1rem;
+  grid-template-columns: 50% 50%;
 }
 .itemTotal {
   height: min-content;

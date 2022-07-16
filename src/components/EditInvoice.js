@@ -69,111 +69,14 @@ export default function EditInvoice({ setPage }) {
   const itemsArr = item.items;
   const itemRef = doc(db, "form", `${item.id}`);
 
-  const formik2 = useFormik({
-    initialValues: {
-      street: item.street,
-      city: item.city,
-      state: item.state,
-      zip: item.zip,
-      country: item.country,
-      clientsName: item.clientsName,
-      clientsEmail: item.clientsEmail,
-      cstreet: item.cstreet,
-      ccity: item.ccity,
-      cstate: item.cstate,
-      czip: item.czip,
-      ccountry: item.ccountry,
-      invoiceDate: item.invoiceDate,
-      paymentTerms: item.paymentTerms,
-      prodDes: item.prodDes,
-      items: currentItems,
-      status: "pending",
-    },
-
-    onSubmit: (values) => {
-      const dbRef = doc(db, "form", item.id);
-      values.items = currentItems;
-      values.status = "pending";
-      updateDoc(dbRef, values);
-    },
-
-    validate: (values) => {
-      let errors = {};
-
-      if (!values.street) {
-        errors.street = "required";
-      }
-      if (!values.city) {
-        errors.city = "required";
-      }
-      if (!values.state) {
-        errors.state = "required";
-      }
-      if (!values.zip) {
-        errors.zip = "required";
-      }
-      if (!values.country) {
-        errors.country = "required";
-      }
-      if (!values.clientsName) {
-        errors.clientsName = "required";
-      }
-      if (!values.clientsEmail) {
-        errors.clientsEmail = "required";
-      }
-      if (!values.cstreet) {
-        errors.cstreet = "required";
-      }
-      if (!values.ccity) {
-        errors.ccity = "required";
-      }
-      if (!values.cstate) {
-        errors.cstate = "required";
-      }
-      if (!values.czip) {
-        errors.czip = "required";
-      }
-      if (!values.ccountry) {
-        errors.ccountry = "required";
-      }
-      if (!values.invoiceDate) {
-        errors.invoiceDate = "required";
-      }
-      if (!values.paymentTerms) {
-        errors.paymentTerms = "required";
-      }
-      if (!values.prodDes) {
-        errors.prodDes = "required";
-      }
-
-      return errors;
-    },
-  });
-
   useEffect(() => {
-    // formik2.setFieldValue("street", item.street);
-    // formik2.setFieldValue("city", item.city);
-    // formik2.setFieldValue("state", item.state);
-    // formik2.setFieldValue("zip", item.zip);
-    // formik2.setFieldValue("country", item.country);
-    // formik2.setFieldValue("clientsName", item.clientsName);
-    // formik2.setFieldValue("clientsEmail", item.clientsEmail);
-    // formik2.setFieldValue("cstreet", item.cstreet);
-    // formik2.setFieldValue("ccity", item.ccity);
-    // formik2.setFieldValue("cstate", item.cstate);
-    // formik2.setFieldValue("czip", item.czip);
-    // formik2.setFieldValue("paymentTerms", item.paymentTerms);
-    // formik2.setFieldValue("prodDes", item.prodDes);
-    // formik2.setFieldValue("invoiceDate", item.invoiceDate);
-    // formik2.setFieldValue("city", item.city);
-    // setIndexer(item.indexer);
     setCurrentItems(itemsArr);
   }, []);
 
-  const handleSave = async () => {
-    formik2.validateForm();
-    formik2.isValid ? console.log("valid") : console.log("false");
-  };
+  // const handleSave = async () => {
+  //   formik2.validateForm();
+  //   formik2.isValid ? console.log("valid") : console.log("false");
+  // };
 
   const handleCancel = (setFieldValue) => {
     setFieldValue("street", item.street);
@@ -200,9 +103,7 @@ export default function EditInvoice({ setPage }) {
 
   const handleAddClick = async () => {
     let newArr = [...currentItems];
-    // console.log(currentItems);
     newArr.push({
-      // index: index,
       itemName: "",
       qty: 0,
       price: 0,
@@ -482,7 +383,9 @@ export default function EditInvoice({ setPage }) {
                 />
               </div>
             </div>
-            <button onClick={() => handleAddClick()}>add item</button>
+            <button type="button" onClick={() => handleAddClick()}>
+              add item
+            </button>
             <button
               type="button"
               onClick={() => handleCancel(props.setFieldValue)}
@@ -508,7 +411,7 @@ export default function EditInvoice({ setPage }) {
             handleDeleteClick={handleDeleteClick}
             currentItems={currentItems}
             setCurrentItems={setCurrentItems}
-            handleSave={handleSave}
+            // handleSave={handleSave}
           />
         );
       })}
