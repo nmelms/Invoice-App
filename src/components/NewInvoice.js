@@ -14,6 +14,7 @@ import { db } from "../firebase";
 import { doc, collection, setDoc, serverTimestamp } from "firebase/firestore";
 import Item from "./Item.js";
 import GlobalContext from "../GlobalContext";
+import AddItemBtn from "./AddItemBtn.js";
 import { Formik } from "formik";
 
 export default function NewInvoice({ setPage }) {
@@ -67,6 +68,7 @@ export default function NewInvoice({ setPage }) {
   }, []);
 
   const handleAddClick = () => {
+    console.log("cick");
     let newArray = [...currentItems];
     newArray.push({
       itemName: "",
@@ -108,7 +110,7 @@ export default function NewInvoice({ setPage }) {
   };
 
   return (
-    <div>
+    <div className="newInvoice">
       <NavBar />
       <BackButton setPage={setPage} name="home" />
       <div className="newInvoiceBody">
@@ -391,9 +393,6 @@ export default function NewInvoice({ setPage }) {
                 </div>
               )}
               <div className="buttons">
-                <button type="button" onClick={() => handleAddClick()}>
-                  add item
-                </button>
                 <button type="submit">submit</button>
                 <button
                   type="button"
@@ -409,6 +408,7 @@ export default function NewInvoice({ setPage }) {
         </Formik>
 
         <h2>itemList</h2>
+
         {currentItems.map((item, index) => {
           return (
             <Item
@@ -431,6 +431,7 @@ export default function NewInvoice({ setPage }) {
           );
         })}
       </div>
+      <AddItemBtn handleAddClick={handleAddClick} />
     </div>
   );
 }
