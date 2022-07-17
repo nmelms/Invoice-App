@@ -393,14 +393,20 @@ export default function NewInvoice({ setPage }) {
                 </div>
               )}
               <div className="buttons">
-                <button type="submit">submit</button>
+                <button onClick={() => setPage("home")} className="discardBtn">
+                  Discard
+                </button>
                 <button
+                  className="draftBtn"
                   type="button"
                   onClick={() =>
                     handleDraftClick(props.resetForm, props.values)
                   }
                 >
                   save as Draft
+                </button>
+                <button className="submitBtn" type="submit">
+                  Save And Send
                 </button>
               </div>
             </form>

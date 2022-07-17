@@ -1,6 +1,7 @@
 import { updateDoc, doc } from "@firebase/firestore";
 import { db } from "../firebase";
 import React, { useEffect, useState, useRef } from "react";
+import trashCan from "../assets/icon-delete.svg";
 let total = 0;
 
 export default function Item({
@@ -59,7 +60,7 @@ export default function Item({
         <p>{total}</p>
       </div>
       <button onClick={(e) => handleDeleteClick(e, id)} className="itemDelete">
-        <h3>x</h3>
+        <img src={trashCan} />
       </button>
     </div>
   );
