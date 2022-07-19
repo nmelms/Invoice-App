@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import NavBar from "./NavBar";
 import BackButton from "./BackButton";
 import Alert from "./Alert";
 import {
@@ -40,6 +41,16 @@ export default function ViewInvoice({ setPage, page }) {
     console.log(alert);
     setAlert(true);
   };
+  const [color, setColor] = useState("");
+  useEffect(() => {
+    if (item.status === "draft") {
+      setColor("0,0,0");
+    } else if (item.status === "pending") {
+      setColor("51, 170, 51");
+    } else {
+      setColor("255,165,0");
+    }
+  });
 
   useEffect(() => {
     console.log(alert);
@@ -76,17 +87,28 @@ export default function ViewInvoice({ setPage, page }) {
   };
 
   return (
-    <div>
+    <div className="viewInvoice">
+      <NavBar />
       <BackButton setPage={setPage} name="home" />
       {alert && <Alert setUserResponse={setUserResponse} />}
-      <div className="invoiceStatus">
+      <div className="invoiceStatus ">
         <p>status</p>
-        <p>{item.status}</p>
+        <p
+          className="status"
+          style={{
+            fontStyle: "bold",
+            background: `rgba(${color}, 0.1)`,
+            color: `rgba(${color})`,
+            marginBottom: "1rem",
+          }}
+        >
+          {item.status}
+        </p>
       </div>
 
-      <div>
-        <div>
-          <p>#{item.tag}</p>
+      <div className="viewInvoiceBody">
+        <div className="tagAndProdDes">
+          <h4>#{item.tag}</h4>
           <p>{item.prodDes}</p>
         </div>
         <div className="senderAddress">
@@ -97,7 +119,7 @@ export default function ViewInvoice({ setPage, page }) {
           <p>{item.country}</p>
         </div>
         <div className="invoiceBillTo">
-          <div>
+          <div className="invoiceDate">
             <p>invoice Date</p>
             <h4>{item.invoiceDate}</h4>
           </div>
@@ -111,36 +133,36 @@ export default function ViewInvoice({ setPage, page }) {
             <p>{item.ccountry}</p>
           </div>
           <div>
-            <p>Payment Due</p>
+            <p className="paymentDueP">Payment Due</p>
             <h4>{item.dueDate}</h4>
           </div>
         </div>
-        <div>
+        <div className="sentTo">
           <p>Sent To</p>
           <h4>{item.clientsEmail}</h4>
         </div>
-
-        {item.items.map((item, index) => {
-          item.total = item.qty * item.price;
-          grandTotal += item.total;
-
-          return (
-            <div key={index} className="invoiceItems">
-              <div>
-                <h4>{item.itemName}</h4>
+        <div className="invoiceItemsWrapper">
+          {item.items.map((item, index) => {
+            item.total = item.qty * item.price;
+            grandTotal += item.total;
+            return (
+              <div key={index} className="invoiceItems">
+                <div className="invoiceItemName">
+                  <h4>{item.itemName}</h4>
+                </div>
+                <div className="itemMultiply">
+                  <p>{item.qty} X... </p>
+                  <p>{item.price}</p>
+                </div>
+                <div className="invoiceItemTotal">{item.total}</div>
               </div>
-              <div className="itemMultiply">
-                <p>{item.qty} X... </p>
-                <p>{item.price}</p>
-              </div>
-              <div className="itemTotal">{item.total}</div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
 
         <div className="grandTotal">
           <p>Grand Total</p>
-          <p>{grandTotal}</p>
+          <h2>${grandTotal}</h2>
         </div>
 
         <div className=""></div>

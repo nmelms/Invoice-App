@@ -7,6 +7,7 @@ import React, {
 } from "react";
 
 import BackButton from "./BackButton.js";
+import FormAlert from "./FormAlert.js";
 import NavBar from "./NavBar.js";
 import AddressForm from "./AddressForm";
 import BillTo from "./BillTo.js";
@@ -15,7 +16,8 @@ import { doc, collection, setDoc, serverTimestamp } from "firebase/firestore";
 import Item from "./Item.js";
 import GlobalContext from "../GlobalContext";
 import AddItemBtn from "./AddItemBtn.js";
-import { Formik } from "formik";
+import { Form, Formik } from "formik";
+import { set } from "@firebase/database";
 
 export default function NewInvoice({ setPage }) {
   const {
@@ -43,12 +45,20 @@ export default function NewInvoice({ setPage }) {
     setGrandTotal,
   } = useContext(GlobalContext);
   const [tag, setTag] = useState();
+  const [showAlert, setShowAlert] = useState(false);
+  const alertRef = useRef();
 
   useEffect(() => {
     setTag(makeId());
   }, []);
 
   const itemRef = useRef([]);
+
+  // const notValid = (isValid, validateForm) => {
+  //   validateForm().then(() => {
+  //     !isValid && console.log("hello");
+  //   });
+  // };
 
   const handleDraftClick = (resetForm, values) => {
     values.status = "draft";
@@ -68,21 +78,19 @@ export default function NewInvoice({ setPage }) {
   }, []);
 
   const handleAddClick = () => {
-    console.log("cick");
     let newArray = [...currentItems];
     newArray.push({
       itemName: "",
       qty: 0,
       price: 0,
       id: Math.random(),
+      total: 0,
     });
     setCurrentItems(newArray);
   };
 
   const handleDeleteClick = (e, id) => {
-    console.log(id);
     let newArr = currentItems.filter((item) => item.id != id);
-    console.log(newArr);
     setCurrentItems(newArr);
   };
 
@@ -116,8 +124,9 @@ export default function NewInvoice({ setPage }) {
       <div className="newInvoiceBody">
         <h1>New Invoice</h1>
 
-        <p className="purpleText">bill from</p>
         <Formik
+          // validateOnChange={false}
+          validateOnBlur={false}
           initialValues={{
             tag: "",
             street: "",
@@ -206,8 +215,9 @@ export default function NewInvoice({ setPage }) {
             return errors;
           }}
         >
-          {(props, isValid, submitCount) => (
+          {(props) => (
             <form onSubmit={props.handleSubmit} className="AddressForm">
+              <p className="billFrom purpleText">bill from</p>
               <div className="street">
                 <label htmlFor="street ">Street Address:</label>
                 <input
@@ -215,21 +225,8 @@ export default function NewInvoice({ setPage }) {
                   value={props.values.street}
                   className="input"
                   onChange={props.handleChange}
-                  onBlur={props.handleBlur}
                   type="text"
                   id="street"
-                />
-              </div>
-              <div className="city">
-                <label htmlFor="city">City:</label>
-                <input
-                  value={props.values.city}
-                  onChange={props.handleChange}
-                  onBlur={props.handleBlur}
-                  name="city"
-                  className="input"
-                  type="text"
-                  id="city"
                 />
               </div>
               <div className="state">
@@ -237,20 +234,30 @@ export default function NewInvoice({ setPage }) {
                 <input
                   value={props.values.state}
                   onChange={props.handleChange}
-                  onBlur={props.handleBlur}
                   name="state"
                   className="input"
                   type="text"
                   id="state"
                 />
               </div>
+              <div className="city">
+                <label htmlFor="city">City:</label>
+                <input
+                  value={props.values.city}
+                  onChange={props.handleChange}
+                  name="city"
+                  className="input"
+                  type="text"
+                  id="city"
+                />
+              </div>
+
               <div className="zip">
                 <label htmlFor="zip">Zip:</label>
                 <input
                   className="input"
                   onChange={props.handleChange}
                   value={props.values.zip}
-                  onBlur={props.handleBlur}
                   name="zip"
                   type="text"
                   id="zip"
@@ -262,15 +269,12 @@ export default function NewInvoice({ setPage }) {
                   className="input"
                   onChange={props.handleChange}
                   value={props.values.country}
-                  onBlur={props.handleBlur}
                   name="country"
                   type="text"
                   id="country"
                 />
               </div>
-
               <p className="billTo purpleText">bill to</p>
-
               <div className="clientsName">
                 <label htmlFor="clientsName">Clients Name:</label>
                 <input
@@ -303,17 +307,6 @@ export default function NewInvoice({ setPage }) {
                   id="cstreet"
                 />
               </div>
-              <div className="ccity">
-                <label htmlFor="ccity">City:</label>
-                <input
-                  className="input"
-                  onChange={props.handleChange}
-                  value={props.values.ccity}
-                  name="ccity"
-                  type="text"
-                  id="ccity"
-                />
-              </div>
               <div className="cstate">
                 <label htmlFor="cstate">State:</label>
                 <input
@@ -323,6 +316,17 @@ export default function NewInvoice({ setPage }) {
                   name="cstate"
                   type="text"
                   id="cstate"
+                />
+              </div>
+              <div className="ccity">
+                <label htmlFor="ccity">City:</label>
+                <input
+                  className="input"
+                  onChange={props.handleChange}
+                  value={props.values.ccity}
+                  name="ccity"
+                  type="text"
+                  id="ccity"
                 />
               </div>
               <div className="czip">
@@ -362,6 +366,7 @@ export default function NewInvoice({ setPage }) {
                 <div className="paymentTerms">
                   <label htmlFor="paymentTerms">Payment Terms:</label>
                   <select
+                    className="input"
                     onChange={props.handleChange}
                     value={props.values.paymentTerms}
                     name="paymentTerms"
@@ -386,12 +391,18 @@ export default function NewInvoice({ setPage }) {
                 </div>
               </div>
 
-              {!props.isValid && props.submitCount > 0 && (
-                <div className="alert alert-danger">
-                  all fields must be complete in order to submit. Try saving as
-                  draft
-                </div>
+              {showAlert && (
+                <FormAlert
+                  isValid={props.isValid}
+                  setShowAlert={setShowAlert}
+                  showAlert={showAlert}
+                  alertRef={alertRef}
+                />
               )}
+              {!props.isValid && props.submitCount > 0
+                ? setShowAlert(true)
+                : setShowAlert(false)}
+
               <div className="buttons">
                 <button onClick={() => setPage("home")} className="discardBtn">
                   Discard
@@ -413,7 +424,7 @@ export default function NewInvoice({ setPage }) {
           )}
         </Formik>
 
-        <h2>itemList</h2>
+        <h2>Item List</h2>
 
         {currentItems.map((item, index) => {
           return (

@@ -50,7 +50,7 @@ export default function Invoice({ setPage, index, page, id, whichList }) {
         <p style={{ color: "gray" }}>#</p>
         {whichList[index].tag}
       </div>
-      <div className="clientsName">
+      <div className="name">
         <p style={{ color: "gray" }}>{whichList[index].clientsName}</p>
       </div>
       <div className="paymentDue">

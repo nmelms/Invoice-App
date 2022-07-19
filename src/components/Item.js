@@ -57,7 +57,7 @@ export default function Item({
       </div>
       <div className="itemTotal">
         <p>total</p>
-        <p>{total}</p>
+        <p className="itemTotal input">${total}</p>
       </div>
       <button onClick={(e) => handleDeleteClick(e, id)} className="itemDelete">
         <img src={trashCan} />

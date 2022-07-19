@@ -23,10 +23,6 @@ h4 {
 }
 .clientsName {
   grid-area: clientsName;
-  /* width: 100% !important;
-  display: flex;
-  align-items: flex-end;
-  padding: 1rem 1rem 0 1rem; */
 }
 .emptyImgDiv {
   display: flex;
@@ -39,6 +35,13 @@ h4 {
   padding: 1rem;
   width: 100% !important;
 }
+.paymentDueP {
+  margin: 1rem 0 0.5rem 0;
+}
+.tagAndProdDes {
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+}
 .status {
   grid-area: status;
   margin-top: 1rem;
@@ -46,9 +49,20 @@ h4 {
   height: fit-content;
   padding: 1rem;
   width: 70% !important;
+  max-width: 40vw;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.viewInvoiceBody {
+  border: none;
+  border-radius: 15px;
+  margin-top: 2rem;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 2px 2px 5px lightgray;
 }
 .total {
   grid-area: total;
@@ -79,6 +93,10 @@ h4 {
   grid-area: ccity;
   margin-right: 0.5rem;
 }
+.billFrom {
+  grid-area: billFrom;
+  padding-bottom: 1.5rem;
+}
 .cstate {
   grid-area: cstate;
 }
@@ -102,13 +120,22 @@ h4 {
   background-color: #f8f8fb;
 }
 .invoiceItems {
-  border: 2px solid black;
+  border: none;
   display: grid;
+  border-radius: 15px;
+  padding: 1rem;
+  background-color: #f8f8fb;
   grid-template-rows: 50% 50%;
   grid-template-columns: 50% 50%;
 }
+.invoiceItemName {
+  grid-row: 1/2;
+  grid-column: 1/3;
+}
 .itemMultiply {
   display: flex;
+  grid-column: 1/2;
+  grid-row: 2/3;
 }
 .bottomInvoice {
   grid-area: bottomInvoice;
@@ -159,22 +186,36 @@ h4 {
   justify-content: center;
 }
 
-.itemTotal {
+.invoiceItemTotal {
   grid-column: 2/3;
   grid-row: 1/3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .billToAddress {
   grid-row: 1/3;
   grid-column: 2/3;
 }
+.billToAddress > h4 {
+  margin: 0.5rem 0 1rem 0;
+}
 .billTo {
   grid-area: billTo;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 .BillTo > div {
   padding: 1rem;
   gap: 1rem;
   display: flex;
   flex-direction: column;
+}
+.sentTo {
+  margin: 2rem 0 2rem 0;
+}
+.sentTo > P {
+  margin-bottom: 0.5rem;
 }
 .bottomInvoice {
   width: 88vw;
@@ -190,8 +231,9 @@ h4 {
   grid-template-columns: 50% 50%;
   display: grid;
   grid-template-areas:
-    "state state"
+    "billFrom billFrom"
     "street street"
+    "state state"
     "city zip"
     "country country"
     "billTo billTo"
@@ -203,6 +245,15 @@ h4 {
     "ccountry ccountry"
     "bottomInvoice bottomInvoice"
     "buttons buttons";
+}
+.name {
+  width: 100% !important;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem 1rem 0 1rem;
+}
+.invoiceDate > p {
+  padding-bottom: 0.5rem;
 }
 
 .NavBar {
@@ -332,8 +383,18 @@ h4 {
   justify-content: space-between;
 }
 .grandTotal {
+  background-color: #373b53;
+  height: 10vh;
+  border-radius: 0 0 15px 15px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  color: white;
+  padding: 2rem;
+  align-items: center;
+}
+
+.grandTotal > h2 {
+  padding-right: 2rem;
 }
 .dark-mode {
   background: black !important;
@@ -359,6 +420,10 @@ h4 {
   justify-content: space-between;
   text-align: start;
   /* font-size: 0.75rem; */
+}
+.invoiceItemsWrapper {
+  background-color: #f8f8fb;
+  border-radius: 15px 15px 0 0;
 }
 .Invoice > div {
   width: 20vw;
@@ -394,6 +459,7 @@ h4 {
   grid-row: 2/3;
   grid-column: 3/4;
   padding: 0.5rem;
+  border: none !important;
 }
 .itemDelete {
   grid-row: 2/3;
@@ -405,9 +471,16 @@ h4 {
 .itemDelete:hover {
   cursor: pointer;
 }
+.alert-danger {
+  background-color: red;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
 .input {
   width: 100%;
-  margin: 1rem 1rem 1rem 0;
+  margin: 0.5rem 1rem 1rem 0;
   padding: 0.5rem;
   font-size: 1rem;
   border-radius: 5px;
@@ -445,18 +518,24 @@ h4 {
 .invoiceStatus {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
   margin: 1rem;
-  border: 2px solid black;
+  padding: 1rem;
+  background-color: white;
+  height: 10vh;
+  display: flex;
+  box-shadow: 2px 2px 5px lightgray;
+  align-items: center;
+  border: none;
+  border-radius: 15px;
 }
 .senderAddress {
   padding-top: 1rem;
   grid-template-columns: 50% 50%;
 }
-.itemTotal {
+/* .itemTotal {
   height: min-content;
   margin: 0;
-}
+} */
 .NavBar {
   background-color: #252945;
   display: flex;
