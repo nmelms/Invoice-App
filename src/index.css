@@ -1,6 +1,7 @@
 * {
   margin: 0;
   box-sizing: border-box;
+  font-family: "League Spartan", sans-serif;
 }
 body {
   margin: 0;
@@ -9,6 +10,8 @@ body {
 }
 p {
   margin: 0;
+  font-weight: 500;
+  color: #888eb0;
 }
 h4 {
   margin: 0;
@@ -30,6 +33,9 @@ h4 {
   align-items: center;
   flex-direction: column;
 }
+.invoiceTitle > h2 {
+  font-weight: 700;
+}
 .paymentDue {
   grid-area: paymentDue;
   padding: 1rem;
@@ -41,6 +47,11 @@ h4 {
 .tagAndProdDes {
   padding-top: 1rem;
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.tagAndProdDes > h4 {
+  display: flex;
 }
 .status {
   grid-area: status;
@@ -143,6 +154,7 @@ h4 {
 }
 .itemMultiply {
   display: flex;
+  margin-top: 0.5rem;
   grid-column: 1/2;
   grid-row: 2/3;
 }
@@ -229,8 +241,21 @@ h4 {
   border: none;
   color: #7e88c3;
   background-color: #f9fafe;
+  height: 15%;
 }
 .alertCancelBtn:hover {
+  cursor: pointer;
+  background-color: #dfe3fa;
+}
+.editCancelBtn {
+  border-radius: 50px;
+  width: 25vw;
+  margin: 0.5rem;
+  border: none;
+  color: #7e88c3;
+  background-color: #f9fafe;
+}
+.editCancelBtn:hover {
   cursor: pointer;
   background-color: #dfe3fa;
 }
@@ -373,6 +398,11 @@ h4 {
   grid-area: InvoiceTitle;
   padding-top: 1rem;
   padding: 1rem;
+  margin-top: 1rem;
+}
+.downSVG {
+  padding-left: 0.5rem;
+  padding-top: 0.25rem;
 }
 .Filter {
   grid-area: Filter;
@@ -386,6 +416,7 @@ h4 {
   border: none;
   margin-left: auto;
   background-color: #f8f8fb;
+  display: flex;
 }
 
 .dropDownContent {
@@ -420,6 +451,7 @@ h4 {
 
 .NewButton {
   grid-area: NewButton;
+
   background-color: #7c5dfa;
   margin-top: 1rem;
   border-radius: 50px;
@@ -432,20 +464,30 @@ h4 {
   justify-content: center;
   align-self: center;
   background-color: white;
-  border-radius: 100px;
-  width: 40px;
-  height: 40px;
-  margin: 0.5rem;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  margin-left: 0.5rem;
 }
 .newButtonText {
   display: flex;
+  color: white;
+  font-family: "League Spartan", sans-serif;
   align-items: center;
+  margin-right: 1rem;
   padding: 0.5rem;
+  padding-right: 0.5rem;
+  font-family: spartan;
+}
+.newButtonText > h4 {
+  font-family: "League Spartan", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
 }
 .plusIconImg {
   justify-content: center;
   align-self: center;
-  margin-top: 1rem;
+  margin-top: 0.6rem;
 }
 .NewButton:hover {
   cursor: pointer;

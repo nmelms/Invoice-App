@@ -45,9 +45,9 @@ export default function ViewInvoice({ setPage, page }) {
   };
   const [color, setColor] = useState("");
   useEffect(() => {
-    if (item.status === "draft") {
+    if (item.status === "Draft") {
       setColor("0,0,0");
-    } else if (item.status === "pending") {
+    } else if (item.status === "Pending") {
       setColor("51, 170, 51");
     } else {
       setColor("255,165,0");
@@ -78,13 +78,13 @@ export default function ViewInvoice({ setPage, page }) {
 
   const handleStatusClick = async () => {
     console.log("click");
-    if (item.status === "pending") {
+    if (item.status === "Pending") {
       await updateDoc(doc(db, "form", item.id), {
-        status: "complete",
+        status: "Complete",
       });
-    } else if (item.status === "complete") {
+    } else if (item.status === "Complete") {
       await updateDoc(doc(db, "form", item.id), {
-        status: "pending",
+        status: "Pending",
       });
     }
   };
@@ -111,7 +111,10 @@ export default function ViewInvoice({ setPage, page }) {
 
       <div className="viewInvoiceBody">
         <div className="tagAndProdDes">
-          <h4>#{item.tag}</h4>
+          <h4>
+            <h4 style={{ color: "#7E88C3" }}>#</h4>
+            {item.tag}
+          </h4>
           <p>{item.prodDes}</p>
         </div>
         <div className="senderAddress">
@@ -154,10 +157,11 @@ export default function ViewInvoice({ setPage, page }) {
                   <h4>{item.itemName}</h4>
                 </div>
                 <div className="itemMultiply">
-                  <p>{item.qty} X... </p>
-                  <p>{item.price}</p>
+                  <p>
+                    {item.qty} X ${item.price}
+                  </p>
                 </div>
-                <div className="invoiceItemTotal">{item.total}</div>
+                <div className="invoiceItemTotal">${item.total}</div>
               </div>
             );
           })}

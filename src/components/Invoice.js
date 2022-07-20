@@ -22,9 +22,9 @@ export default function Invoice({ setPage, index, page, id, whichList }) {
   } = useContext(GlobalContext);
   const [color, setColor] = useState("");
   useEffect(() => {
-    if (whichList[index].status === "draft") {
+    if (whichList[index].status === "Draft") {
       setColor("0,0,0");
-    } else if (whichList[index].status === "pending") {
+    } else if (whichList[index].status === "Pending") {
       setColor("51, 170, 51");
     } else {
       setColor("255,165,0");
@@ -64,7 +64,9 @@ export default function Invoice({ setPage, index, page, id, whichList }) {
         }}
         className="status"
       >
-        <p style={{ fontStyle: "bold" }}>{whichList[index].status}</p>
+        <p style={{ fontStyle: "bold", color: "inherit" }}>
+          {whichList[index].status}
+        </p>
       </div>
       <div className="total">${total}</div>
     </div>

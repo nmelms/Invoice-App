@@ -394,7 +394,7 @@ export default function EditInvoice({ setPage }) {
               </div>
               <div className="buttons">
                 <button
-                  className="alertCancelBtn"
+                  className="editCancelBtn"
                   type="button"
                   onClick={() => handleCancel(props.setFieldValue)}
                 >

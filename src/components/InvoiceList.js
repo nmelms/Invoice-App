@@ -15,7 +15,7 @@ export default function InvoiceList({ setPage, page, filterBy }) {
 
   return (
     <div>
-      {list.length === 0 && (
+      {filteredList.length === 0 && (
         <div className="emptyImgDiv">
           <img src={empty} />
           <h3>there is nothing here</h3>

@@ -9,7 +9,7 @@ export default function Alert({ setUserResponse }) {
         <h3>Confirm Deletion</h3>
 
         <p>
-          Are you sure you want to delete invoice {itemTag}? This action cannot
+          Are you sure you want to delete invoice #{itemTag}? This action cannot
           be undone.
         </p>
         <div className="alertBtns">

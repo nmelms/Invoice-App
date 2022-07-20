@@ -8,7 +8,7 @@ export default function NewButton({ setPage }) {
         <img className="plusIconImg" src={plusIcon} />
       </div>
       <div className="newButtonText">
-        <p>New</p>
+        <h4>New</h4>
       </div>
     </button>
   );

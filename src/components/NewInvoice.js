@@ -61,7 +61,7 @@ export default function NewInvoice({ setPage }) {
   // };
 
   const handleDraftClick = (resetForm, values) => {
-    values.status = "draft";
+    values.status = "Draft";
     values.items = currentItems;
     values.tag = tag;
     const dbRef = doc(collection(db, "form"));
@@ -146,7 +146,7 @@ export default function NewInvoice({ setPage }) {
             prodDes: "",
             dueDate: "",
             items: currentItems,
-            status: "pending",
+            status: "Pending",
             timeStamp: serverTimestamp(),
           }}
           onSubmit={(values, { resetForm }) => {

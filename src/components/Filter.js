@@ -10,26 +10,26 @@ export default function Filter({ setFilterBy, filteredList, setFilteredList }) {
     if (filter === "none") {
       setFilter("none");
       setList(list);
-    } else if (filter === "pending") {
+    } else if (filter === "Pending") {
       const newArr = [...list];
       newArr.filter((item) => {
-        return item.status === "pending";
+        return item.status === "Pending";
       });
-      setFilter("pending");
+      setFilter("Pending");
       setFilteredList(newArr);
-    } else if (filter === "complete") {
+    } else if (filter === "Complete") {
       const newArr = [...list];
       newArr.filter((item) => {
-        return item.status === "complete";
+        return item.status === "Complete";
       });
-      setFilter("complete");
+      setFilter("Complete");
       setFilteredList(newArr);
-    } else if (filter === "draft") {
+    } else if (filter === "Draft") {
       const newArr = [...list];
       newArr.filter((item) => {
-        return item.status === "draft";
+        return item.status === "Draft";
       });
-      setFilter("draft");
+      setFilter("Draft");
       setFilteredList(newArr);
     }
   }, [list]);
@@ -57,22 +57,24 @@ export default function Filter({ setFilterBy, filteredList, setFilteredList }) {
   return (
     <div className="Filter">
       <button className="filterBtn">
-        filter
-        <img src={downArrow} />
+        <h2>Filter</h2>
+        <div className="downSVG">
+          <img src={downArrow} />
+        </div>
       </button>
       <div className="dropDownContent">
-        <div className="filterLink" onClick={() => filterClick("complete")}>
-          complete
+        <div className="filterLink" onClick={() => filterClick("Complete")}>
+          Complete
         </div>
 
-        <div className="filterLink" onClick={() => filterClick("pending")}>
-          pending
+        <div className="filterLink" onClick={() => filterClick("Pending")}>
+          Pending
         </div>
-        <div className="filterLink" onClick={() => filterClick("draft")}>
-          draft
+        <div className="filterLink" onClick={() => filterClick("Draft")}>
+          Draft
         </div>
         <div className="filterLink" onClick={() => filterClick("")}>
-          all
+          All
         </div>
       </div>
     </div>
