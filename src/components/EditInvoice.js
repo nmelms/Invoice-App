@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import GlobalContext from "../GlobalContext";
+import NavBar from "./NavBar";
 import BackButton from "./BackButton";
+import AddItemBtn from "./AddItemBtn";
 import { db } from "../firebase";
 import {
   doc,
@@ -108,6 +110,7 @@ export default function EditInvoice({ setPage }) {
       qty: 0,
       price: 0,
       id: Math.random(),
+      total: 0,
     });
 
     setCurrentItems(newArr);
@@ -133,288 +136,298 @@ export default function EditInvoice({ setPage }) {
   };
 
   return (
-    <div>
+    <div className="newInvoice">
+      <NavBar />
       <BackButton setPage={setPage} name="viewInvoice" />
-      <h1>Edit Invoice</h1>
-      <p>bill from</p>
-      <Formik
-        className="AddressForm"
-        initialValues={{
-          street: item.street,
-          city: item.city,
-          state: item.state,
-          zip: item.zip,
-          country: item.country,
-          clientsName: item.clientsName,
-          clientsEmail: item.clientsEmail,
-          cstreet: item.cstreet,
-          ccity: item.ccity,
-          cstate: item.cstate,
-          czip: item.czip,
-          ccountry: item.ccountry,
-          invoiceDate: item.invoiceDate,
-          paymentTerms: item.paymentTerms,
-          prodDes: item.prodDes,
-          items: currentItems,
-          status: "pending",
-        }}
-        onSubmit={(values, { resetForm }) => {
-          const dbRef = doc(db, "form", item.id);
-          values.items = currentItems;
-          values.status = "pending";
-          updateDoc(dbRef, values);
-        }}
-        validate={(values) => {
-          let errors = {};
-          if (!values.street) {
-            errors.street = "required";
-          }
-          if (!values.city) {
-            errors.city = "required";
-          }
-          if (!values.state) {
-            errors.state = "required";
-          }
-          if (!values.zip) {
-            errors.zip = "required";
-          }
-          if (!values.country) {
-            errors.country = "required";
-          }
-          if (!values.clientsName) {
-            errors.clientsName = "required";
-          }
-          if (!values.clientsEmail) {
-            errors.clientsEmail = "required";
-          }
-          if (!values.cstreet) {
-            errors.cstreet = "required";
-          }
-          if (!values.ccity) {
-            errors.ccity = "required";
-          }
-          if (!values.cstate) {
-            errors.cstate = "required";
-          }
-          if (!values.czip) {
-            errors.czip = "required";
-          }
-          if (!values.ccountry) {
-            errors.ccountry = "required";
-          }
-          if (!values.invoiceDate) {
-            errors.invoiceDate = "required";
-          }
-          if (!values.paymentTerms) {
-            errors.paymentTerms = "required";
-          }
-          if (!values.prodDes) {
-            errors.prodDes = "required";
-          }
-          return errors;
-        }}
-      >
-        {(props) => (
-          <form onSubmit={props.handleSubmit}>
-            <div className="street">
-              <label htmlFor="street">Street Address:</label>
-              <input
-                value={props.values.street}
-                className="input"
-                onChange={props.handleChange}
-                type="text"
-                id="street"
-                name="street"
-              />
-            </div>
-            <div className="city">
-              <label htmlFor="city">City:</label>
-              <input
-                value={props.values.city}
-                className="input"
-                onChange={props.handleChange}
-                type="text"
-                id="city"
-                name="city"
-              />
-            </div>
-            <div className="state">
-              <label htmlFor="state">State:</label>
-              <input
-                value={props.values.state}
-                className="input"
-                onChange={props.handleChange}
-                name="state"
-                type="text"
-                id="state"
-              />
-            </div>
-            <div className="zip">
-              <label htmlFor="zip">Zip:</label>
-              <input
-                value={props.values.zip}
-                name="zip"
-                className="input"
-                onChange={props.handleChange}
-                type="text"
-                id="zip"
-              />
-            </div>
-            <div className="country">
-              <label htmlFor="country">Country:</label>
-              <input
-                value={props.values.country}
-                name="country"
-                className="input"
-                onChange={props.handleChange}
-                type="text"
-                id="country"
-              />
-            </div>
-            <p>bill to</p>
-            <div className="clientsName">
-              <label htmlFor="clientsName">Clients Name:</label>
-              <input
-                value={props.values.clientsName}
-                onChange={props.handleChange}
-                name="clientsName"
-                type="text"
-                id="clientsName"
-              />
-            </div>
-            <div className="clientsEmail">
-              <label htmlFor="clientsEmail">Clients Email:</label>
-              <input
-                value={props.values.clientsEmail}
-                className="input"
-                onChange={props.handleChange}
-                name="clientsEmail"
-                type="text"
-                id="clientsEmail"
-              />
-            </div>
-            <div className="street">
-              <label htmlFor="cstreet">Street Address:</label>
-              <input
-                value={props.values.cstreet}
-                name="cstreet"
-                className="input"
-                onChange={props.handleChange}
-                id="cstreet"
-              />
-            </div>
-            <div className="city">
-              <label htmlFor="ccity">City:</label>
-              <input
-                value={props.values.ccity}
-                name="ccity"
-                className="input"
-                onChange={props.handleChange}
-                type="text"
-                id="ccity"
-              />
-            </div>
-            <div className="state">
-              <label htmlFor="cstate">State:</label>
-              <input
-                value={props.values.cstate}
-                className="input"
-                name="cstate"
-                onChange={props.handleChange}
-                type="text"
-                id="cstate"
-              />
-            </div>
-            <div className="zip">
-              <label htmlFor="czip">Zip:</label>
-              <input
-                value={props.values.czip}
-                name="czip"
-                className="input"
-                onChange={props.handleChange}
-                type="text"
-                id="czip"
-              />
-            </div>
-            <div className="country">
-              <label htmlFor="ccountry">Country:</label>
-              <input
-                value={props.values.ccountry}
-                name="ccountry"
-                className="input"
-                onChange={props.handleChange}
-                type="text"
-                id="ccountry"
-              />
-            </div>
-            <div className="bottomInvoice">
-              <div className="invoiceDate">
-                <label htmlFor="invoiceDate">Invoice Date:</label>
+      <div className="newInvoiceBody">
+        <h1>Edit #{item.tag}</h1>
+        <p>bill from</p>
+        <Formik
+          className="AddressForm"
+          initialValues={{
+            street: item.street,
+            city: item.city,
+            state: item.state,
+            zip: item.zip,
+            country: item.country,
+            clientsName: item.clientsName,
+            clientsEmail: item.clientsEmail,
+            cstreet: item.cstreet,
+            ccity: item.ccity,
+            cstate: item.cstate,
+            czip: item.czip,
+            ccountry: item.ccountry,
+            invoiceDate: item.invoiceDate,
+            paymentTerms: item.paymentTerms,
+            prodDes: item.prodDes,
+            items: currentItems,
+            status: "pending",
+          }}
+          onSubmit={(values, { resetForm }) => {
+            const dbRef = doc(db, "form", item.id);
+            values.items = currentItems;
+            values.status = "pending";
+            updateDoc(dbRef, values);
+          }}
+          validate={(values) => {
+            let errors = {};
+            if (!values.street) {
+              errors.street = "required";
+            }
+            if (!values.city) {
+              errors.city = "required";
+            }
+            if (!values.state) {
+              errors.state = "required";
+            }
+            if (!values.zip) {
+              errors.zip = "required";
+            }
+            if (!values.country) {
+              errors.country = "required";
+            }
+            if (!values.clientsName) {
+              errors.clientsName = "required";
+            }
+            if (!values.clientsEmail) {
+              errors.clientsEmail = "required";
+            }
+            if (!values.cstreet) {
+              errors.cstreet = "required";
+            }
+            if (!values.ccity) {
+              errors.ccity = "required";
+            }
+            if (!values.cstate) {
+              errors.cstate = "required";
+            }
+            if (!values.czip) {
+              errors.czip = "required";
+            }
+            if (!values.ccountry) {
+              errors.ccountry = "required";
+            }
+            if (!values.invoiceDate) {
+              errors.invoiceDate = "required";
+            }
+            if (!values.paymentTerms) {
+              errors.paymentTerms = "required";
+            }
+            if (!values.prodDes) {
+              errors.prodDes = "required";
+            }
+            return errors;
+          }}
+        >
+          {(props) => (
+            <form className="AddressForm" onSubmit={props.handleSubmit}>
+              <div className="street">
+                <label htmlFor="street">Street Address:</label>
                 <input
-                  value={props.values.invoiceDate}
-                  name="invoiceDate"
+                  value={props.values.street}
                   className="input"
-                  onChange={props.handleChange}
-                  type="date"
-                  id="invoiceDate"
-                />
-              </div>
-              <div className="paymentTerms">
-                <label htmlFor="paymentTerms">Payment Terms:</label>
-                <select
-                  value={props.values.paymentTerms}
-                  onChange={props.handleChange}
-                  name="paymentTerms"
-                >
-                  <option value={30}>30 days</option>
-                  <option value={60}>60 days</option>
-                  <option value={90}>90 days</option>
-                </select>
-              </div>
-              <div className="productDescription">
-                <label htmlFor="productDescription">Product Description:</label>
-                <input
-                  value={props.values.prodDes}
-                  className="input"
-                  name="prodDes"
                   onChange={props.handleChange}
                   type="text"
-                  id="productDescription"
+                  id="street"
+                  name="street"
                 />
               </div>
-            </div>
-            <button type="button" onClick={() => handleAddClick()}>
-              add item
-            </button>
-            <button
-              type="button"
-              onClick={() => handleCancel(props.setFieldValue)}
-            >
-              cancel
-            </button>
-            <button type="submit">Save Changes</button>
-          </form>
-        )}
-      </Formik>
-      {currentItems.map((item, index) => {
-        return (
-          <Item
-            id={item.id}
-            total={item.total}
-            index={index}
-            key={index}
-            className="Item"
-            onChange={onChange}
-            defaultName={item.itemName}
-            defaultQty={item.qty}
-            defaultPrice={item.price}
-            handleDeleteClick={handleDeleteClick}
-            currentItems={currentItems}
-            setCurrentItems={setCurrentItems}
-            // handleSave={handleSave}
-          />
-        );
-      })}
+              <div className="city">
+                <label htmlFor="city">City:</label>
+                <input
+                  value={props.values.city}
+                  className="input"
+                  onChange={props.handleChange}
+                  type="text"
+                  id="city"
+                  name="city"
+                />
+              </div>
+              <div className="state">
+                <label htmlFor="state">State:</label>
+                <input
+                  value={props.values.state}
+                  className="input"
+                  onChange={props.handleChange}
+                  name="state"
+                  type="text"
+                  id="state"
+                />
+              </div>
+              <div className="zip">
+                <label htmlFor="zip">Zip:</label>
+                <input
+                  value={props.values.zip}
+                  name="zip"
+                  className="input"
+                  onChange={props.handleChange}
+                  type="text"
+                  id="zip"
+                />
+              </div>
+              <div className="country">
+                <label htmlFor="country">Country:</label>
+                <input
+                  value={props.values.country}
+                  name="country"
+                  className="input"
+                  onChange={props.handleChange}
+                  type="text"
+                  id="country"
+                />
+              </div>
+              <p className="billTo purpleText">bill to</p>
+              <div className="clientsName">
+                <label htmlFor="clientsName">Clients Name:</label>
+                <input
+                  className="input"
+                  onChange={props.handleChange}
+                  value={props.values.clientsName}
+                  name="clientsName"
+                  type="text"
+                  id="clientsName"
+                />
+              </div>
+              <div className="clientsEmail">
+                <label htmlFor="clientsEmail">Clients Email:</label>
+                <input
+                  className="input"
+                  onChange={props.handleChange}
+                  value={props.values.clientsEmail}
+                  name="clientsEmail"
+                  type="text"
+                  id="clientsEmail"
+                />
+              </div>
+              <div className="cstreet">
+                <label htmlFor="cstreet">Street Address:</label>
+                <input
+                  className="input"
+                  onChange={props.handleChange}
+                  value={props.values.cstreet}
+                  name="cstreet"
+                  id="cstreet"
+                />
+              </div>
+              <div className="cstate">
+                <label htmlFor="cstate">State:</label>
+                <input
+                  className="input"
+                  onChange={props.handleChange}
+                  value={props.values.cstate}
+                  name="cstate"
+                  type="text"
+                  id="cstate"
+                />
+              </div>
+              <div className="ccity">
+                <label htmlFor="ccity">City:</label>
+                <input
+                  className="input"
+                  onChange={props.handleChange}
+                  value={props.values.ccity}
+                  name="ccity"
+                  type="text"
+                  id="ccity"
+                />
+              </div>
+              <div className="czip">
+                <label htmlFor="czip">Zip:</label>
+                <input
+                  className="input"
+                  onChange={props.handleChange}
+                  value={props.values.czip}
+                  name="czip"
+                  type="text"
+                  id="czip"
+                />
+              </div>
+              <div className="ccountry">
+                <label htmlFor="ccountry">Country:</label>
+                <input
+                  className="input"
+                  onChange={props.handleChange}
+                  value={props.values.ccountry}
+                  name="ccountry"
+                  type="text"
+                  id="ccountry"
+                />
+              </div>
+              <div className="bottomInvoice">
+                <div className="invoiceDate">
+                  <label htmlFor="invoiceDate">Invoice Date:</label>
+                  <input
+                    value={props.values.invoiceDate}
+                    name="invoiceDate"
+                    className="input"
+                    onChange={props.handleChange}
+                    type="date"
+                    id="invoiceDate"
+                  />
+                </div>
+                <div className="paymentTerms">
+                  <label htmlFor="paymentTerms">Payment Terms:</label>
+                  <select
+                    className="input"
+                    onChange={props.handleChange}
+                    value={props.values.paymentTerms}
+                    name="paymentTerms"
+                  >
+                    <option value={30}>30 days</option>
+                    <option value={60}>60 days</option>
+                    <option value={90}>90 days</option>
+                  </select>
+                </div>
+                <div className="productDescription">
+                  <label htmlFor="productDescription">
+                    Product Description:
+                  </label>
+                  <input
+                    value={props.values.prodDes}
+                    className="input"
+                    name="prodDes"
+                    onChange={props.handleChange}
+                    type="text"
+                    id="productDescription"
+                  />
+                </div>
+              </div>
+              <div className="buttons">
+                <button
+                  className="alertCancelBtn"
+                  type="button"
+                  onClick={() => handleCancel(props.setFieldValue)}
+                >
+                  cancel
+                </button>
+                <button className="paidBtn" type="submit">
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          )}
+        </Formik>
+        {currentItems.map((item, index) => {
+          return (
+            <Item
+              id={item.id}
+              total={item.total}
+              index={index}
+              key={index}
+              className="Item"
+              onChange={onChange}
+              defaultName={item.itemName}
+              defaultQty={item.qty}
+              defaultPrice={item.price}
+              handleDeleteClick={handleDeleteClick}
+              currentItems={currentItems}
+              setCurrentItems={setCurrentItems}
+              // handleSave={handleSave}
+            />
+          );
+        })}
+      </div>
+      <AddItemBtn handleAddClick={handleAddClick} />
     </div>
   );
 }
