@@ -24,6 +24,7 @@ export default function ViewInvoice({ setPage, page }) {
     filteredList,
     setItem,
     alertRef,
+    setItemTag,
   } = useContext(GlobalContext);
 
   let grandTotal = 0;
@@ -36,6 +37,7 @@ export default function ViewInvoice({ setPage, page }) {
   const current = new Date(item.invoiceDate);
   current.setDate(current.getDate() + Number(item.paymentTerms));
   item.dueDate = current.toDateString().split(" ").splice(1).join(" ");
+  setItemTag(item.tag);
 
   const onDeleteClick = () => {
     console.log(alert);
@@ -75,6 +77,7 @@ export default function ViewInvoice({ setPage, page }) {
   let colRef = collection(db, "form");
 
   const handleStatusClick = async () => {
+    console.log("click");
     if (item.status === "pending") {
       await updateDoc(doc(db, "form", item.id), {
         status: "complete",
@@ -165,11 +168,16 @@ export default function ViewInvoice({ setPage, page }) {
           <h2>${grandTotal}</h2>
         </div>
 
-        <div className=""></div>
         <div className="viewInvoiceButtons">
-          <button onClick={() => handleEditClick()}>edit</button>
-          <button onClick={() => onDeleteClick()}>delete</button>
-          <button onClick={() => handleStatusClick()}>mark as paid</button>
+          <button className="editBtn" onClick={() => handleEditClick()}>
+            <h4>edit</h4>
+          </button>
+          <button className="deleteBtn" onClick={() => onDeleteClick()}>
+            <h4>delete</h4>
+          </button>
+          <button className="paidBtn" onClick={() => handleStatusClick()}>
+            <h4>mark as paid</h4>
+          </button>
         </div>
       </div>
     </div>

@@ -46,6 +46,7 @@ export function GlobalProvider({ children }) {
   const [itemId, setItemId] = useState();
   const [filter, setFilter] = useState("");
   const [currentItems, setCurrentItems] = useState([]);
+  const [itemTag, setItemTag] = useState("");
   const alertRef = useRef();
   const clientFormRef = useRef(null);
   const formRef = useRef(null);
@@ -202,6 +203,8 @@ export function GlobalProvider({ children }) {
   return (
     <GlobalContext.Provider
       value={{
+        itemTag,
+        setItemTag,
         clientFormRef,
         formRef,
         makeId,

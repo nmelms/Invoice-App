@@ -63,6 +63,15 @@ h4 {
   padding: 1rem;
   background-color: white;
   box-shadow: 2px 2px 5px lightgray;
+  margin-bottom: 10rem;
+}
+.viewInvoiceButtons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 8vh;
+  background-color: white;
 }
 .total {
   grid-area: total;
@@ -171,8 +180,109 @@ h4 {
   border: none;
   background-color: #dfe3fa;
 }
+.editBtn {
+  border-radius: 50px;
+  width: 25vw;
+  margin: 0.5rem;
+  margin-bottom: 2rem;
+  border: none;
+  color: #7e88c3;
+  background-color: #f9fafe;
+  height: 80%;
+}
+.alertBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 25;
+}
+.Alert {
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  height: 30vh;
+  width: 70vw;
+}
+.Alert > h3 {
+  padding: 1.5rem 1rem 1rem 1rem;
+}
+.Alert > p {
+  padding: 1rem;
+}
+.alertBtns {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.alertCancelBtn {
+  border-radius: 50px;
+  width: 25vw;
+  margin: 0.5rem;
+  margin-bottom: 2rem;
+  border: none;
+  color: #7e88c3;
+  background-color: #f9fafe;
+  height: 15%;
+}
+.alertCancelBtn:hover {
+  cursor: pointer;
+  background-color: #dfe3fa;
+}
+.alertDeleteBtn {
+  border-radius: 50px;
+  width: 30vw;
+  margin: 0.5rem;
+  height: 15%;
+  margin-bottom: 2rem;
+  border: none;
+  color: white;
+  background-color: #ec5757;
+}
+.alertDeleteBtn:hover {
+  cursor: pointer;
+  background-color: #ff9797;
+}
+.editBtn:hover {
+  background-color: #dfe3fa;
+  cursor: pointer;
+}
+.deleteBtn {
+  border-radius: 50px;
+  width: 30vw;
+  margin: 0.5rem;
+  margin-bottom: 2rem;
+  border: none;
+  color: white;
+  background-color: #ec5757;
+  height: 80%;
+}
+.deleteBtn:hover {
+  background-color: #ff9797;
+  cursor: pointer;
+}
 .discardBtn:hover {
   cursor: pointer;
+}
+.paidBtn {
+  border-radius: 50px;
+  width: 30vw;
+  margin: 0.5rem;
+  margin-bottom: 2rem;
+  border: none;
+  background-color: #7c5dfa;
+  color: white;
+  height: 80%;
+}
+.paidBtn:hover {
+  cursor: pointer;
+  background-color: #9277ff;
 }
 .buttons {
   grid-area: buttons;
@@ -507,14 +617,7 @@ h4 {
   grid-row: 2/3;
   grid-column: 4/5;
 }
-.Alert {
-  border: 2px solid red;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 20vh;
-  width: 40vw;
-}
+
 .invoiceStatus {
   display: flex;
   justify-content: space-between;
