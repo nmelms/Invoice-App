@@ -3,6 +3,7 @@ import { db } from "../firebase";
 import { doc, collection, updateDoc } from "firebase/firestore";
 import GlobalContext from "../GlobalContext.js";
 import { useContext } from "react";
+import rightArrow from "../assets/icon-arrow-right.svg";
 
 export default function Invoice({ setPage, index, page, id, whichList }) {
   const {
@@ -69,6 +70,9 @@ export default function Invoice({ setPage, index, page, id, whichList }) {
         </p>
       </div>
       <div className="total">${total}</div>
+      <div className="invoiceArrow">
+        <img src={rightArrow} />
+      </div>
     </div>
   );
 }
