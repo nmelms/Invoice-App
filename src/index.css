@@ -17,6 +17,9 @@ p {
 h4 {
   margin: 0;
 }
+.invoiceStatusButtons {
+  display: none;
+}
 .invoiceID {
   grid-area: invoiceID;
   display: flex;
@@ -25,6 +28,12 @@ h4 {
   width: 100%;
   display: flex;
   align-items: flex-end;
+}
+.statusAndName {
+  grid-area: statusAndName;
+}
+.viewInvoiceButtons {
+  grid-area: viewInvoiceButtons;
 }
 .invoiceArrow {
   grid-area: invoiceArrow;
@@ -58,7 +67,7 @@ h4 {
 }
 .status {
   grid-area: status;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   border-radius: 15px;
   height: fit-content;
   padding: 1rem;
@@ -67,6 +76,7 @@ h4 {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: "1rem";
 }
 
 .viewInvoiceBody {
@@ -657,6 +667,15 @@ h4 {
   border: none;
   border-radius: 15px;
 }
+.statusAndName {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.invoiceStatusButtons {
+  display: none;
+}
 .senderAddress {
   padding-top: 1rem;
   grid-template-columns: 50% 50%;
@@ -716,6 +735,7 @@ h4 {
   text-align: start;
   /* font-size: 0.75rem; */
 }
+
 @media screen and (max-width: 768px) {
   .paymentDue {
     padding: 1rem;
@@ -750,7 +770,7 @@ h4 {
   }
   .status {
     /* padding: 0; */
-    margin: 0 1rem 0 0;
+    margin: 0;
     min-width: 15vw;
   }
   .Filter {
@@ -764,5 +784,56 @@ h4 {
   }
   .newButtonText > h4::after {
     content: "\20 Invoice ";
+  }
+  .newInvoiceButtons {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 8vh;
+    background-color: white;
+  }
+
+  .invoiceStatusButtons {
+    display: flex;
+  }
+  .status {
+    width: 10vw !important;
+    margin: 0 0 0 0;
+
+    margin-bottom: 0;
+    /* margin-left: 0;
+    margin-right: auto; */
+    float: left;
+  }
+  .invoiceStatusButtons > button {
+    width: 15vw;
+    padding: 1rem;
+  }
+  .invoiceStatus {
+    display: flex;
+    align-items: center;
+  }
+  .invoiceStatus > p {
+    margin-right: 1rem;
+  }
+  .statusAndName {
+    display: flex;
+    gap: 2rem;
+    justify-content: start;
+  }
+  .statusAndName > p {
+    display: flex;
+    align-items: center;
+  }
+  .invoiceStatusButtons {
+    gap: 1rem;
+  }
+  .invoiceStatusButtons > button {
+    margin: 0;
+    gap: 1rem;
+  }
+  .viewInvoiceButtons {
+    display: none;
   }
 }

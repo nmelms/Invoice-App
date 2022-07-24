@@ -94,19 +94,33 @@ export default function ViewInvoice({ setPage, page }) {
       <NavBar />
       <BackButton setPage={setPage} name="home" />
       {alert && <Alert setUserResponse={setUserResponse} />}
+
       <div className="invoiceStatus ">
-        <p>status</p>
-        <p
-          className="status"
-          style={{
-            fontStyle: "bold",
-            background: `rgba(${color}, 0.1)`,
-            color: `rgba(${color})`,
-            marginBottom: "1rem",
-          }}
-        >
-          {item.status}
-        </p>
+        <div className="statusAndName">
+          <p>status</p>
+          <p
+            className="status"
+            style={{
+              fontStyle: "bold",
+              background: `rgba(${color}, 0.1)`,
+              color: `rgba(${color})`,
+            }}
+          >
+            {item.status}
+          </p>
+        </div>
+
+        <div className="invoiceStatusButtons">
+          <button className="editBtn" onClick={() => handleEditClick()}>
+            <h4>edit</h4>
+          </button>
+          <button className="deleteBtn" onClick={() => onDeleteClick()}>
+            <h4>delete</h4>
+          </button>
+          <button className="paidBtn" onClick={() => handleStatusClick()}>
+            <h4>mark as paid</h4>
+          </button>
+        </div>
       </div>
 
       <div className="viewInvoiceBody">
