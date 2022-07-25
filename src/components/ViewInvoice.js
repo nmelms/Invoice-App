@@ -138,25 +138,25 @@ export default function ViewInvoice({ setPage, page }) {
           <p>{item.zip}</p>
           <p>{item.country}</p>
         </div>
-        <div className="invoiceBillTo">
-          <div className="invoiceDate">
-            <p>invoice Date</p>
-            <h4>{item.invoiceDate}</h4>
-          </div>
-          <div className="billToAddress">
-            <p>bill To</p>
-            <h4>{item.clientsName}</h4>
-            <p>{item.cstreet}</p>
-            <p>{item.ccity}</p>
-            <p>{item.cstate}</p>
-            <p>{item.czip}</p>
-            <p>{item.ccountry}</p>
-          </div>
-          <div>
-            <p className="paymentDueP">Payment Due</p>
-            <h4>{item.dueDate}</h4>
-          </div>
+
+        <div className="invoiceDate">
+          <p>invoice Date</p>
+          <h4>{item.invoiceDate}</h4>
         </div>
+        <div className="billToAddress">
+          <p>bill To</p>
+          <h4>{item.clientsName}</h4>
+          <p>{item.cstreet}</p>
+          <p>{item.ccity}</p>
+          <p>{item.cstate}</p>
+          <p>{item.czip}</p>
+          <p>{item.ccountry}</p>
+        </div>
+        <div className="paymentDue">
+          <p className="paymentDueP">Payment Due</p>
+          <h4>{item.dueDate}</h4>
+        </div>
+
         <div className="sentTo">
           <p>Sent To</p>
           <h4>{item.clientsEmail}</h4>

@@ -20,6 +20,10 @@ h4 {
 .invoiceStatusButtons {
   display: none;
 }
+.invoiceDate {
+  grid-area: invoiceDate;
+  margin-top: 1rem;
+}
 .invoiceID {
   grid-area: invoiceID;
   display: flex;
@@ -80,6 +84,9 @@ h4 {
 }
 
 .viewInvoiceBody {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto;
   border: none;
   border-radius: 15px;
   margin-top: 2rem;
@@ -88,6 +95,14 @@ h4 {
   background-color: white;
   box-shadow: 2px 2px 5px lightgray;
   margin-bottom: 10rem;
+  grid-template-areas:
+    "tagAndProdDes ."
+    "senderAddress ."
+    "invoiceDate billToAddress"
+    "paymentDue billToAddress"
+    "sentTo sentTo"
+    "invoiceItemsWrapper invoiceItemsWrapper"
+    "grandTotal grandTotal";
 }
 .viewInvoiceButtons {
   position: fixed;
@@ -344,6 +359,7 @@ h4 {
 .billToAddress {
   grid-row: 1/3;
   grid-column: 2/3;
+  grid-area: billToAddress;
 }
 .billToAddress > h4 {
   margin: 0.5rem 0 1rem 0;
@@ -361,6 +377,7 @@ h4 {
 }
 .sentTo {
   margin: 2rem 0 2rem 0;
+  grid-area: sentTo;
 }
 .sentTo > P {
   margin-bottom: 0.5rem;
@@ -549,6 +566,7 @@ h4 {
   max-width: 100vw;
 }
 .grandTotal {
+  grid-area: grandTotal;
   background-color: #373b53;
   height: 10vh;
   border-radius: 0 0 15px 15px;
@@ -568,6 +586,7 @@ h4 {
 }
 
 .invoiceItemsWrapper {
+  grid-area: invoiceItemsWrapper;
   background-color: #f8f8fb;
   border-radius: 15px 15px 0 0;
 }
@@ -679,6 +698,7 @@ h4 {
 .senderAddress {
   padding-top: 1rem;
   grid-template-columns: 50% 50%;
+  grid-area: senderAddress;
 }
 /* .itemTotal {
   height: min-content;
@@ -715,6 +735,7 @@ h4 {
 }
 
 .Invoice {
+  overflow: hidden;
   background-color: white;
   display: flex;
   margin: 1rem;
@@ -737,10 +758,10 @@ h4 {
 }
 
 @media screen and (max-width: 768px) {
-  .paymentDue {
+  /* .paymentDue {
     padding: 1rem;
     width: 100%;
-  }
+  } */
   .invoiceArrow {
     display: none;
   }
@@ -755,6 +776,26 @@ h4 {
     align-items: center;
     height: fit-content;
   }
+  .viewInvoiceBody {
+    height: auto;
+    display: grid;
+    height: auto;
+    grid-template-columns: 25% 45% 15% 15%;
+    grid-template-rows: 10vh 10vh 10vh auto 10vh;
+    grid-template-areas:
+      "tagAndProdDe . . senderAddress"
+      "invoiceDate billToAddress sentTo sentTo"
+      "paymentDue billToAddress . ."
+      "invoiceItemsWrapper invoiceItemsWrapper invoiceItemsWrapper invoiceItemsWrapper"
+      "grandTotal grandTotal grandTotal grandTotal";
+  }
+  .invoiceItemsWrapper {
+    height: fit-content;
+    align-self: flex-end;
+  }
+  .sentTo {
+  }
+
   .invoiceID {
     padding: 0 0 0 1rem;
   }
