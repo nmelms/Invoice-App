@@ -546,6 +546,7 @@ h4 {
   color: #7c5dfa;
 }
 .BackButton {
+  grid-area: BackButton;
   display: flex;
   gap: 0.5rem;
   background: none;
@@ -675,6 +676,7 @@ h4 {
 }
 
 .invoiceStatus {
+  grid-area: invoiceStatus;
   display: flex;
   justify-content: space-between;
   margin: 1rem;
@@ -778,11 +780,11 @@ h4 {
     height: fit-content;
   }
   .viewInvoiceBody {
-    height: auto;
+    /* height: auto; */
     display: grid;
     height: auto;
     grid-template-columns: 25% 45% 15% 15%;
-    grid-template-rows: 10vh 10vh 10vh auto 10vh;
+    grid-template-rows: 10% 10% 10% auto 10%;
     grid-template-areas:
       "tagAndProdDe . . senderAddress"
       "invoiceDate billToAddress sentTo sentTo"
@@ -834,8 +836,6 @@ h4 {
   .invoiceItemsWrapper {
     height: fit-content;
     align-self: flex-end;
-  }
-  .sentTo {
   }
 
   .invoiceID {
@@ -921,6 +921,22 @@ h4 {
   }
 }
 @media screen and (min-width: 1440px) {
+  .invoiceStatusButtons > button {
+    width: 15vw;
+    padding: 1rem;
+  }
+  .invoiceStatus {
+    margin: 0 auto;
+    width: 900px;
+    display: flex;
+    align-items: center;
+  }
+  .viewInvoiceButtons {
+    display: none;
+  }
+  .invoiceStatusButtons {
+    display: flex;
+  }
   .invoiceList {
     margin: 0 auto;
     display: flex;
@@ -939,8 +955,22 @@ h4 {
   .filterBtn > h2::after {
     content: "\20 by status";
   }
+  .BackButton {
+    width: 900px;
+    margin: 0 auto;
+    justify-content: flex-start;
+  }
   .status {
-    min-width: 100%;
+    width: 200px;
+    margin-left: 0;
+    margin-right: auto;
+  }
+  .statusAndName > p {
+    padding: 1rem;
+  }
+  .invoiceStatusButtons > button {
+    margin-bottom: 0;
+    max-width: 160px;
   }
   .Invoice {
     max-width: 100%;
@@ -956,12 +986,12 @@ h4 {
     margin: 0 auto;
   }
   .App {
-    display: grid;
+    /* display: grid; */
     grid-template-columns: 10vw 90vw;
     grid-template-rows: auto;
-    grid-template-areas:
+    /* grid-template-areas:
       "NavBar homeHeader"
-      "NavBar invoiceList";
+      "NavBar invoiceList"; */
   }
 
   .Invoice {
@@ -1003,5 +1033,31 @@ h4 {
   }
   .total {
     max-width: 100%;
+  }
+  .paymentDue {
+    margin-bottom: 2rem;
+  }
+  .viewInvoiceBody {
+    display: grid;
+    height: auto;
+    grid-template-columns: 25% 45% 15% 15%;
+    grid-template-rows: 10% 10% 10% auto 10%;
+    grid-template-areas:
+      "tagAndProdDe . . senderAddress"
+      "invoiceDate billToAddress sentTo sentTo"
+      "paymentDue billToAddress . ."
+      "invoiceItemsWrapper invoiceItemsWrapper invoiceItemsWrapper invoiceItemsWrapper"
+      "grandTotal grandTotal grandTotal grandTotal";
+    grid-area: viewInvoiceBody;
+
+    width: 900px;
+  }
+  .viewInvoice {
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
