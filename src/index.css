@@ -20,6 +20,12 @@ h4 {
 .invoiceStatusButtons {
   display: none;
 }
+.Invoice:hover {
+  cursor: pointer;
+}
+.newInvoiceBody {
+  grid-area: newInvoiceBody;
+}
 .invoiceDate {
   grid-area: invoiceDate;
   margin-top: 1rem;
@@ -56,6 +62,7 @@ h4 {
 }
 .paymentDue {
   grid-area: paymentDue;
+  margin-left: 1rem;
 }
 .paymentDueP {
   margin: 1rem 0 0.5rem 0;
@@ -507,12 +514,15 @@ h4 {
   color: white;
   font-family: "League Spartan", sans-serif;
   align-items: center;
+  align-self: center;
+  padding-top: 1rem;
   margin-right: 1rem;
   padding: 0.5rem;
   padding-right: 0.5rem;
 }
 .newButtonText > h4 {
   font-family: "League Spartan", sans-serif;
+  align-self: center;
   font-weight: 700;
   font-size: 1rem;
 }
@@ -530,10 +540,13 @@ h4 {
 }
 .newInvoiceBody {
   padding: 1rem;
+  background: transparent;
 }
 .newInvoice {
   background-color: white;
   height: 100%;
+  width: 100%;
+  overflow: scroll;
 }
 .formLabel {
   padding: 1rem;
@@ -545,7 +558,24 @@ h4 {
 .purpleText {
   color: #7c5dfa;
 }
+.alert-danger {
+  background-color: red;
+  height: 3vh;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+
+  top: 0;
+  left: 0;
+  margin-bottom: 1rem;
+}
 .BackButton {
+  padding-top: 2rem;
   grid-area: BackButton;
   display: flex;
   gap: 0.5rem;
@@ -740,6 +770,7 @@ h4 {
 .Invoice {
   overflow: hidden;
   background-color: white;
+  gap: 1rem;
   display: flex;
   margin: 1rem;
   border-radius: 15px;
@@ -768,15 +799,51 @@ h4 {
   .invoiceArrow {
     display: none;
   }
+  .newInvoice {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1440px) and (orientation: landscape) {
+  .Invoice {
+    height: 10vh !important;
+  }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1440px) {
+  .alert-danger {
+    background-color: red;
+    height: 5vh;
+    width: 50%;
+    position: fixed;
+    margin-top: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+
+    top: 0;
+    left: 0;
+  }
+  .viewInvoice {
+    padding: 1rem;
+  }
+  .mainContent {
+    padding: 1rem;
+  }
   .Invoice {
     display: grid;
+    justify-content: space-evenly;
+    /* min-height: 10vh; */
     grid-template-rows: 8vh;
-    grid-template-columns: 15% 15% 25% 15% 20% 5%;
+    grid-template-columns: 15% 15% 25% 15% 15% 5%;
     grid-template-areas: " invoiceID paymentDue clientsName total status invoiceArrow";
     align-items: center;
+    align-content: center;
+
     height: fit-content;
   }
   .viewInvoiceBody {
@@ -812,6 +879,14 @@ h4 {
       "ccountry ccountry ccountry"
       "bottomInvoice bottomInvoice bottomInvoice"
       "buttons buttons buttons";
+  }
+  .newInvoice {
+    display: flex;
+    grid-template-columns: 10vw 90vw;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "NavBar BackButton"
+      "NavBar newInvoiceBody";
   }
   .Alert {
     max-width: 400px;
@@ -853,8 +928,10 @@ h4 {
   }
   .status {
     /* padding: 0; */
+    max-height: 90%;
     margin: 0;
     min-width: 15vw;
+    max-width: 200px;
   }
   .Filter {
     right: auto;
@@ -919,8 +996,58 @@ h4 {
   .viewInvoiceButtons {
     display: none;
   }
+  .buttons {
+    display: flex;
+    width: 50%;
+    position: fixed;
+  }
+  .newInvoice {
+    margin-top: 10vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    top: 0;
+    width: 50%;
+    overflow: scroll;
+    padding-bottom: 10rem;
+  }
+  .background {
+    margin-top: 10vh;
+    background: black;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .BackButton {
+    align-self: start;
+    padding-left: 1rem;
+  }
 }
 @media screen and (min-width: 1440px) {
+  .AddressForm {
+    /* gap: 1rem; */
+    max-width: 100%;
+    margin: 0;
+    padding: 1rem;
+    grid-template-columns: 35% 30% 35%;
+    display: grid;
+    grid-template-areas:
+      "billFrom billFrom billFrom"
+      "street street street"
+      "city state zip"
+      "country country country"
+      "billTo billTo billTo"
+      "clientsName clientsName clientsName"
+      "clientsEmail clientsEmail clientsEmail"
+      "cstreet cstreet cstreet"
+      "ccity cstate czip "
+      "ccountry ccountry ccountry"
+      "bottomInvoice bottomInvoice bottomInvoice"
+      "buttons buttons buttons";
+  }
   .invoiceStatusButtons > button {
     width: 15vw;
     padding: 1rem;
@@ -931,12 +1058,41 @@ h4 {
     display: flex;
     align-items: center;
   }
+  .AddressForm {
+    width: 100%;
+  }
   .viewInvoiceButtons {
     display: none;
   }
   .invoiceStatusButtons {
     display: flex;
   }
+  .newInvoice {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 50%;
+    margin-left: 110px;
+    padding-bottom: 8rem;
+    overflow: scroll;
+  }
+  .background {
+    background: black;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 110px;
+    top: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .newInvoiceBody {
+    grid-area: newInvoiceBody;
+  }
+  .mainContent {
+    grid-area: wrapper;
+    margin-left: 110px;
+  }
+
   .invoiceList {
     margin: 0 auto;
     display: flex;
@@ -945,6 +1101,9 @@ h4 {
     justify-content: center;
     align-items: center;
     max-width: 900px;
+  }
+  .name {
+    padding: 0;
   }
   .Filter {
     right: auto;
@@ -972,9 +1131,7 @@ h4 {
     margin-bottom: 0;
     max-width: 160px;
   }
-  .Invoice {
-    max-width: 100%;
-  }
+
   .paymentDue {
     max-width: 100%;
   }
@@ -993,15 +1150,27 @@ h4 {
       "NavBar homeHeader"
       "NavBar invoiceList"; */
   }
+  .buttons {
+    width: 50%;
+    margin-left: 110px;
+  }
 
   .Invoice {
+    margin-bottom: 0;
+    max-width: 100%;
     display: grid;
     width: 100%;
     grid-template-rows: 10vh;
-    grid-template-columns: 15% 15% 25% 15% 20% 5%;
+    grid-template-columns: 15% 15% 25% 15% 15% 5%;
     grid-template-areas: " invoiceID paymentDue clientsName total status invoiceArrow";
     align-items: center;
     height: fit-content;
+  }
+  .invoiceID {
+    padding: 0 0 0 1rem;
+  }
+  .total {
+    padding: 0;
   }
   .status > p {
     max-width: 100%;
@@ -1035,7 +1204,7 @@ h4 {
     max-width: 100%;
   }
   .paymentDue {
-    margin-bottom: 2rem;
+    /* margin-bottom: 2rem; */
   }
   .viewInvoiceBody {
     display: grid;
@@ -1054,10 +1223,48 @@ h4 {
   }
   .viewInvoice {
     margin: 0 auto;
+
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .dropDownContent {
+    width: 200px;
+  }
+  .addItemBtn {
+    width: 70%;
+    margin: 0 auto;
+  }
+  .filterBtn > h2::after {
+    content: "\20 by status";
+  }
+  .newButtonText > h4::after {
+    content: "\20 Invoice ";
+  }
+  .bottomInvoice {
+    max-width: 100%;
+  }
+  .backArrow {
+    /* height: 50px;
+    width: 50px; */
+    /* justify-self: center; */
+  }
+  .alert-danger {
+    background-color: red;
+    height: 5vh;
+    width: 50%;
+    position: fixed;
+    margin-left: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+
+    top: 0;
+    left: 0;
   }
 }

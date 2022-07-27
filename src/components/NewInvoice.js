@@ -19,7 +19,7 @@ import AddItemBtn from "./AddItemBtn.js";
 import { Form, Formik } from "formik";
 import { set } from "@firebase/database";
 
-export default function NewInvoice({ setPage }) {
+export default function NewInvoice({ setPage, action, page }) {
   const {
     clientFormRef,
     dueDate,
@@ -43,7 +43,9 @@ export default function NewInvoice({ setPage }) {
     indexer,
     grandTotal,
     setGrandTotal,
+    setShowNewInvoice,
   } = useContext(GlobalContext);
+  console.log(page);
   const [tag, setTag] = useState();
   const [showAlert, setShowAlert] = useState(false);
   const alertRef = useRef();
@@ -54,13 +56,8 @@ export default function NewInvoice({ setPage }) {
 
   const itemRef = useRef([]);
 
-  // const notValid = (isValid, validateForm) => {
-  //   validateForm().then(() => {
-  //     !isValid && console.log("hello");
-  //   });
-  // };
-
   const handleDraftClick = (resetForm, values) => {
+    setShowNewInvoice(false);
     values.status = "Draft";
     values.items = currentItems;
     values.tag = tag;
@@ -68,7 +65,6 @@ export default function NewInvoice({ setPage }) {
     setDoc(dbRef, values);
     setItemsArr([]);
     resetForm();
-    setPage("home");
   };
 
   useEffect(() => {
@@ -119,8 +115,8 @@ export default function NewInvoice({ setPage }) {
 
   return (
     <div className="newInvoice">
-      <NavBar />
-      <BackButton setPage={setPage} name="home" />
+      {/* <NavBar /> */}
+      <BackButton action={action} name="home" />
       <div className="newInvoiceBody">
         <h1>New Invoice</h1>
 
@@ -150,6 +146,7 @@ export default function NewInvoice({ setPage }) {
             timeStamp: serverTimestamp(),
           }}
           onSubmit={(values, { resetForm }) => {
+            setShowNewInvoice(false);
             const dbRef = doc(collection(db, "form"));
             values.items = currentItems;
             values.dueDate = dueDate;

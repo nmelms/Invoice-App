@@ -48,6 +48,8 @@ export function GlobalProvider({ children }) {
   const [currentItems, setCurrentItems] = useState([]);
   const [itemTag, setItemTag] = useState("");
   const alertRef = useRef();
+  const [showNewInvoice, setShowNewInvoice] = useState(false);
+  const [showEditInvoice, setShowEditInvoice] = useState(false);
   const clientFormRef = useRef(null);
   const formRef = useRef(null);
 
@@ -271,6 +273,10 @@ export function GlobalProvider({ children }) {
         // setFilteredList,
         dataRef,
         data,
+        showNewInvoice,
+        setShowNewInvoice,
+        showEditInvoice,
+        setShowEditInvoice,
       }}
     >
       {children}

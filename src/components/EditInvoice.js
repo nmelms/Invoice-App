@@ -1,5 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import GlobalContext from "../GlobalContext";
+import FormAlert from "./FormAlert";
 import NavBar from "./NavBar";
 import BackButton from "./BackButton";
 import AddItemBtn from "./AddItemBtn";
@@ -15,7 +16,7 @@ import { useFormik, Formik } from "formik";
 import Item from "./Item.js";
 import "../index.css";
 
-export default function EditInvoice({ setPage }) {
+export default function EditInvoice({ setPage, action }) {
   const [currentItems, setCurrentItems] = useState([]);
   const {
     formik,
@@ -66,7 +67,11 @@ export default function EditInvoice({ setPage }) {
     setGrandTotal,
     grandTotal,
     itemId,
+    setShowEditInvoice,
   } = useContext(GlobalContext);
+  console.log(list);
+  const [showAlert, setShowAlert] = useState(true);
+  const alertRef = useRef();
   const item = list.find((item) => item.id === itemId);
   const itemsArr = item.items;
   const itemRef = doc(db, "form", `${item.id}`);
@@ -74,11 +79,6 @@ export default function EditInvoice({ setPage }) {
   useEffect(() => {
     setCurrentItems(itemsArr);
   }, []);
-
-  // const handleSave = async () => {
-  //   formik2.validateForm();
-  //   formik2.isValid ? console.log("valid") : console.log("false");
-  // };
 
   const handleCancel = (setFieldValue) => {
     setFieldValue("street", item.street);
@@ -137,8 +137,7 @@ export default function EditInvoice({ setPage }) {
 
   return (
     <div className="newInvoice">
-      <NavBar />
-      <BackButton setPage={setPage} name="viewInvoice" />
+      <BackButton action={action} name="viewInvoice" />
       <div className="newInvoiceBody">
         <h1>Edit #{item.tag}</h1>
         <p>bill from</p>
@@ -166,7 +165,7 @@ export default function EditInvoice({ setPage }) {
           onSubmit={(values, { resetForm }) => {
             const dbRef = doc(db, "form", item.id);
             values.items = currentItems;
-            values.status = "pending";
+            values.status = "Pending";
             updateDoc(dbRef, values);
           }}
           validate={(values) => {
@@ -392,6 +391,18 @@ export default function EditInvoice({ setPage }) {
                   />
                 </div>
               </div>
+
+              {showAlert && (
+                <FormAlert
+                  isValid={props.isValid}
+                  setShowAlert={setShowAlert}
+                  showAlert={showAlert}
+                  alertRef={alertRef}
+                />
+              )}
+              {!props.isValid && props.submitCount > 0
+                ? setShowAlert(true)
+                : setShowAlert(false)}
               <div className="buttons">
                 <button
                   className="editCancelBtn"
@@ -422,7 +433,6 @@ export default function EditInvoice({ setPage }) {
               handleDeleteClick={handleDeleteClick}
               currentItems={currentItems}
               setCurrentItems={setCurrentItems}
-              // handleSave={handleSave}
             />
           );
         })}

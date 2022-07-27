@@ -1,11 +1,14 @@
-import React from 'react'
-import backArrow from '../assets/icon-arrow-left.svg'
+import React, { useContext } from "react";
+import backArrow from "../assets/icon-arrow-left.svg";
+import GlobalContext from "../GlobalContext";
 
-export default function BackButton({ setPage, name }) {
+export default function BackButton({ action, name }) {
   return (
-    <button onClick={() => setPage(name)} className="BackButton">
-      <img src={backArrow} />
+    <button onClick={() => action()} className="BackButton">
+      <div c>
+        <img style={{ width: "40px", height: "50px" }} src={backArrow} />
+      </div>
       <h3>Go back</h3>
     </button>
-  )
+  );
 }

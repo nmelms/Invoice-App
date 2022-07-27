@@ -29,7 +29,7 @@ function App() {
     <GlobalProvider>
       <div className="App">
         {page == "home" && <Home page={page} setPage={setPage} />}
-        {page == "newInvoice" && <NewInvoice setPage={setPage} />}
+        {page == "newInvoice" && <NewInvoice page={page} setPage={setPage} />}
         {page == "viewInvoice" && <ViewInvoice page={page} setPage={setPage} />}
         {page === "editInvoice" && <EditInvoice setPage={setPage} />}
       </div>

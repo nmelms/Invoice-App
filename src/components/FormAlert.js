@@ -15,7 +15,7 @@ export default function FormAlert({
 
   return (
     <div ref={alertRef} className="alert-danger">
-      all fields must be complete in order to submit. Try saving as draft
+      All fields must be complete in order to submit. Try saving as draft
     </div>
   );
 }

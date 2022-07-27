@@ -36,22 +36,6 @@ export default function Filter({ setFilterBy, filteredList, setFilteredList }) {
 
   const filterClick = (filterString) => {
     setFilter(filterString);
-    // console.log("fetch");
-    // const newArr = [...list];
-    // if (filterString != "") {
-    //   const filteredList = newArr.filter((item) => {
-    //     return item.status === `${filterString}`;
-    //   });
-    //   setFilter(`${filterString}`);
-    //   setFilterBy(filterString);
-    //   setFilteredList(filteredList);
-    //   console.log(filteredList);
-    // } else {
-    //   setFilter("none");
-    //   setFilterBy("");
-    //   setFilteredList(list);
-    //   console.log("second");
-    // }
   };
 
   return (
