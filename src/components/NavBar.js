@@ -14,9 +14,9 @@ export default function NavBar() {
       <div className="logo">
         <img src={logo} />
       </div>
-      <div onClick={handleClick} className="theme">
+      {/* <div onClick={handleClick} className="theme">
         {theme ? <img src={moon} /> : <img src={sun} />}
-      </div>
+      </div> */}
       <div className="avatar">
         <img alt="profile avatar" className="avatarImg" src={avatar} />
       </div>

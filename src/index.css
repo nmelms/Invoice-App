@@ -748,6 +748,8 @@ h4 {
 }
 .avatar {
   border-left: 1px solid gray;
+  margin-right: 0;
+  margin-left: auto;
 }
 .logo {
   display: flex;
@@ -805,13 +807,13 @@ h4 {
     top: 0;
   }
 }
-@media screen and (min-width: 768px) and (max-width: 1440px) and (orientation: landscape) {
+@media screen and (min-width: 768px) and (max-width: 1100px) and (orientation: landscape) {
   .Invoice {
     height: 10vh !important;
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1440px) {
+@media screen and (min-width: 768px) and (max-width: 1100px) {
   .alert-danger {
     background-color: red;
     height: 5vh;
@@ -824,7 +826,6 @@ h4 {
     color: white;
     font-size: 1rem;
     font-weight: bold;
-
     top: 0;
     left: 0;
   }
@@ -1026,7 +1027,11 @@ h4 {
     padding-left: 1rem;
   }
 }
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1100px) {
+  .avatar {
+    border-left: none;
+    margin: 0 auto;
+  }
   .AddressForm {
     /* gap: 1rem; */
     max-width: 100%;
