@@ -17,6 +17,33 @@ p {
 h4 {
   margin: 0;
 }
+
+.login {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loginWrapper {
+  position: relative;
+  height: 50vh;
+  width: 40vw;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+}
+.emailAndPassword {
+  position: absolute;
+  bottom: 20%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+.loginBtn {
+  width: 40%;
+  margin-top: 1rem;
+}
 .invoiceStatusButtons {
   display: none;
 }

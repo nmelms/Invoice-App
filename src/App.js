@@ -3,6 +3,7 @@ import Home from "./components/Home.js";
 import NewInvoice from "./components/NewInvoice.js";
 import NavBar from "./components/NavBar.js";
 import EditInvoice from "./components/EditInvoice.js";
+import Login from "./components/Login.js";
 import InvoiceTitle from "./components/InvoiceTitle.js";
 import Filter from "./components/Filter.js";
 import NewButton from "./components/NewButton.js";
@@ -21,17 +22,22 @@ import {
 } from "firebase/firestore";
 import GlobalContext from "./GlobalContext.js";
 import { GlobalProvider } from "./GlobalContext";
+import Register from "./components/Register.js";
 
 function App() {
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState("login");
 
   return (
     <GlobalProvider>
       <div className="App">
-        {page == "home" && <Home page={page} setPage={setPage} />}
-        {page == "newInvoice" && <NewInvoice page={page} setPage={setPage} />}
-        {page == "viewInvoice" && <ViewInvoice page={page} setPage={setPage} />}
+        {page === "home" && <Home page={page} setPage={setPage} />}
+        {page === "newInvoice" && <NewInvoice page={page} setPage={setPage} />}
+        {page === "viewInvoice" && (
+          <ViewInvoice page={page} setPage={setPage} />
+        )}
         {page === "editInvoice" && <EditInvoice setPage={setPage} />}
+        {page === "login" && <Login setPage={setPage} />}
+        {page === "register" && <Register setPage={setPage} />}
       </div>
     </GlobalProvider>
   );

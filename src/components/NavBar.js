@@ -3,6 +3,7 @@ import logo from "../assets/logo.svg";
 import avatar from "../assets/image-avatar.jpg";
 import moon from "../assets/icon-moon.svg";
 import sun from "../assets/icon-sun.svg";
+import { logout } from "../firebase";
 export default function NavBar() {
   const [theme, setTheme] = useState(true);
   const handleClick = () => {
@@ -18,7 +19,12 @@ export default function NavBar() {
         {theme ? <img src={moon} /> : <img src={sun} />}
       </div> */}
       <div className="avatar">
-        <img alt="profile avatar" className="avatarImg" src={avatar} />
+        <img
+          onClick={() => logout()}
+          alt="profile avatar"
+          className="avatarImg"
+          src={avatar}
+        />
       </div>
     </div>
   );
