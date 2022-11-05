@@ -16,6 +16,7 @@ import GlobalContext from "../GlobalContext";
 
 export default function ViewInvoice({ setPage, page }) {
   const {
+    userId,
     itemId,
     list,
     setList,
@@ -41,10 +42,8 @@ export default function ViewInvoice({ setPage, page }) {
   current.setDate(current.getDate() + Number(item.paymentTerms));
   item.dueDate = current.toDateString().split(" ").splice(1).join(" ");
   setItemTag(item.tag);
-  console.log(showEditInvoice);
 
   const onDeleteClick = () => {
-    console.log(alert);
     setAlert(true);
   };
   const [color, setColor] = useState("");
@@ -59,15 +58,12 @@ export default function ViewInvoice({ setPage, page }) {
   });
 
   useEffect(() => {
-    console.log(alert);
     if (userResponse === "yes") {
-      console.log("yes");
-      deleteDoc(doc(db, "form", item.id));
+      deleteDoc(doc(db, userId, item.id));
       setUserResponse("");
       setPage("home");
       setAlert(false);
     } else if (userResponse === "no") {
-      console.log("no");
       document.querySelector(".Alert").style.display = "hidden";
       setUserResponse("");
     }
@@ -75,9 +71,7 @@ export default function ViewInvoice({ setPage, page }) {
   }, [userResponse]);
 
   const handleEditClick = () => {
-    console.log("working");
     setShowEditInvoice(true);
-    console.log(showEditInvoice);
   };
 
   const action = () => {
@@ -87,13 +81,12 @@ export default function ViewInvoice({ setPage, page }) {
   let colRef = collection(db, "form");
 
   const handleStatusClick = async () => {
-    console.log("click");
     if (item.status === "Pending") {
-      await updateDoc(doc(db, "form", item.id), {
+      await updateDoc(doc(db, userId, item.id), {
         status: "Complete",
       });
     } else if (item.status === "Complete") {
-      await updateDoc(doc(db, "form", item.id), {
+      await updateDoc(doc(db, userId, item.id), {
         status: "Pending",
       });
     }

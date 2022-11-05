@@ -49,18 +49,17 @@ export function GlobalProvider({ children }) {
   const [currentItems, setCurrentItems] = useState([]);
   const [itemTag, setItemTag] = useState("");
   const [dataId, setDataId] = useState(" ");
-  const [newUser, setNewUser] = useState("form");
+  const [userId, setUserId] = useState("form");
   const alertRef = useRef();
   const [showNewInvoice, setShowNewInvoice] = useState(false);
   const [showEditInvoice, setShowEditInvoice] = useState(false);
   const clientFormRef = useRef(null);
   const formRef = useRef(null);
-  let dataRef = collection(db, newUser);
+  let dataRef = collection(db, userId);
 
-  useEffect(() => {
-    console.log(newUser);
-    // let dataRef = collection(db, newUser);
-  }, [newUser]);
+  // useEffect(() => {
+  //   // let dataRef = collection(db, newUser);
+  // }, [newUser]);
 
   const formik = useFormik({
     validateOnChange: false,
@@ -202,18 +201,17 @@ export function GlobalProvider({ children }) {
   };
 
   useEffect(() => {
-    console.log();
     onSnapshot(query(dataRef, orderBy("timeStamp")), (snapshot) => {
       setList(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       setLoading(false);
     });
-  }, [newUser]);
+  }, [userId]);
 
   return (
     <GlobalContext.Provider
       value={{
-        newUser,
-        setNewUser,
+        userId,
+        setUserId,
         itemTag,
         setItemTag,
         clientFormRef,

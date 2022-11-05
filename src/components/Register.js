@@ -12,7 +12,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export default function Register({ setPage }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { newUser, setNewUser } = useContext(GlobalContext);
+  const { userId, setUserId } = useContext(GlobalContext);
   const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function Register({ setPage }) {
       return;
     }
     if (user) {
-      setNewUser(user.uid);
+      setUserId(user.uid);
       setPage("home");
     }
   }, [user, loading]);

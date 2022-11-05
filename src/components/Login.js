@@ -9,7 +9,7 @@ export default function Login({ setPage }) {
 
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
-  const { newUser, setNewUser } = useContext(GlobalContext);
+  const { userId, setUserId } = useContext(GlobalContext);
 
   useEffect(() => {
     if (loading) {
@@ -17,7 +17,7 @@ export default function Login({ setPage }) {
       return;
     }
     if (user) {
-      setNewUser(user.uid);
+      setUserId(user.uid);
       setPage("home");
     }
   }, [user, loading]);

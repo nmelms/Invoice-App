@@ -22,6 +22,7 @@ import { getAuth } from "firebase/auth";
 
 export default function NewInvoice({ setPage, action, page }) {
   const {
+    userId,
     clientFormRef,
     dueDate,
     formRef,
@@ -46,9 +47,9 @@ export default function NewInvoice({ setPage, action, page }) {
     setGrandTotal,
     setShowNewInvoice,
   } = useContext(GlobalContext);
-  const auth = getAuth();
-  const user = auth.currentUser;
-  const uid = user.uid;
+  // const auth = getAuth();
+  // const user = auth.currentUser;
+  // const uid = user.uid;
 
   const [tag, setTag] = useState();
   const [showAlert, setShowAlert] = useState(false);
@@ -65,7 +66,7 @@ export default function NewInvoice({ setPage, action, page }) {
     values.status = "Draft";
     values.items = currentItems;
     values.tag = tag;
-    const dbRef = doc(collection(db, uid));
+    const dbRef = doc(collection(db, userId));
     setDoc(dbRef, values);
     setItemsArr([]);
     resetForm();
@@ -151,7 +152,7 @@ export default function NewInvoice({ setPage, action, page }) {
           }}
           onSubmit={(values, { resetForm }) => {
             setShowNewInvoice(false);
-            const dbRef = doc(collection(db, uid));
+            const dbRef = doc(collection(db, userId));
             values.items = currentItems;
             values.dueDate = dueDate;
             values.tag = makeId();

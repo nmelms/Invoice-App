@@ -19,6 +19,7 @@ import "../index.css";
 export default function EditInvoice({ setPage, action }) {
   const [currentItems, setCurrentItems] = useState([]);
   const {
+    userId,
     formik,
     city,
     items,
@@ -69,12 +70,11 @@ export default function EditInvoice({ setPage, action }) {
     itemId,
     setShowEditInvoice,
   } = useContext(GlobalContext);
-  console.log(list);
   const [showAlert, setShowAlert] = useState(true);
   const alertRef = useRef();
   const item = list.find((item) => item.id === itemId);
   const itemsArr = item.items;
-  const itemRef = doc(db, "form", `${item.id}`);
+  const itemRef = doc(db, userId, `${item.id}`);
 
   useEffect(() => {
     setCurrentItems(itemsArr);
@@ -122,7 +122,6 @@ export default function EditInvoice({ setPage, action }) {
     let id = e.target.id;
     let currentItem = newArr[index];
 
-    console.log(currentItem);
     if (id === "itemName") {
       currentItem.itemName = value;
     } else if (id === "qty") {
@@ -163,7 +162,7 @@ export default function EditInvoice({ setPage, action }) {
             status: "pending",
           }}
           onSubmit={(values, { resetForm }) => {
-            const dbRef = doc(db, "form", item.id);
+            const dbRef = doc(db, userId, item.id);
             values.items = currentItems;
             values.status = "Pending";
             updateDoc(dbRef, values);

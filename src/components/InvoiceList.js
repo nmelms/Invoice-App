@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import GlobalContext from "../GlobalContext";
 import Invoice from "./Invoice.js";
-import data from "../data/data.json";
 import empty from "../assets/illustration-empty.svg";
 
 export default function InvoiceList({ setPage, page, filterBy }) {
