@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect, useRef } from "react";
 import { useFormik, Formik } from "formik";
+import { getAuth } from "firebase/auth";
 import {
   collection,
   onSnapshot,
@@ -47,11 +48,19 @@ export function GlobalProvider({ children }) {
   const [filter, setFilter] = useState("");
   const [currentItems, setCurrentItems] = useState([]);
   const [itemTag, setItemTag] = useState("");
+  const [dataId, setDataId] = useState(" ");
+  const [newUser, setNewUser] = useState("form");
   const alertRef = useRef();
   const [showNewInvoice, setShowNewInvoice] = useState(false);
   const [showEditInvoice, setShowEditInvoice] = useState(false);
   const clientFormRef = useRef(null);
   const formRef = useRef(null);
+  let dataRef = collection(db, newUser);
+
+  useEffect(() => {
+    console.log(newUser);
+    // let dataRef = collection(db, newUser);
+  }, [newUser]);
 
   const formik = useFormik({
     validateOnChange: false,
@@ -159,13 +168,10 @@ export function GlobalProvider({ children }) {
 
     for (var i = 0; i < 4; i++) {
       result += Math.floor(Math.random() * (9 - 0 + 1)) + 0;
-      console.log(result);
     }
 
     return result;
   };
-
-  const dataRef = collection(db, "form");
 
   const data = {
     street,
@@ -196,15 +202,18 @@ export function GlobalProvider({ children }) {
   };
 
   useEffect(() => {
+    console.log();
     onSnapshot(query(dataRef, orderBy("timeStamp")), (snapshot) => {
       setList(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       setLoading(false);
     });
-  }, []);
+  }, [newUser]);
 
   return (
     <GlobalContext.Provider
       value={{
+        newUser,
+        setNewUser,
         itemTag,
         setItemTag,
         clientFormRef,

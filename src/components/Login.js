@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import GlobalContext from "../GlobalContext";
 import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -6,13 +7,17 @@ export default function Login({ setPage }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
+  const { newUser, setNewUser } = useContext(GlobalContext);
 
   useEffect(() => {
     if (loading) {
       // maybe trigger a loading screen
       return;
     }
-    if (user) setPage("home");
+    if (user) {
+      setNewUser(user.uid);
+      setPage("home");
+    }
   }, [user, loading]);
 
   return (

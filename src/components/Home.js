@@ -7,9 +7,12 @@ import NewButton from "./NewButton";
 import NewInvoice from "./NewInvoice";
 import InvoiceList from "./InvoiceList";
 import EditInvoice from "./EditInvoice";
+import { getAuth } from "firebase/auth";
 
 export default function Home({ setPage, page }) {
   const {
+    uid,
+    setUid,
     fetchData,
     setClickedIndex,
     loading,

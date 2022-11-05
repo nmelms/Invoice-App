@@ -18,6 +18,7 @@ import GlobalContext from "../GlobalContext";
 import AddItemBtn from "./AddItemBtn.js";
 import { Form, Formik } from "formik";
 import { set } from "@firebase/database";
+import { getAuth } from "firebase/auth";
 
 export default function NewInvoice({ setPage, action, page }) {
   const {
@@ -45,7 +46,10 @@ export default function NewInvoice({ setPage, action, page }) {
     setGrandTotal,
     setShowNewInvoice,
   } = useContext(GlobalContext);
-  console.log(page);
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const uid = user.uid;
+
   const [tag, setTag] = useState();
   const [showAlert, setShowAlert] = useState(false);
   const alertRef = useRef();
@@ -61,7 +65,7 @@ export default function NewInvoice({ setPage, action, page }) {
     values.status = "Draft";
     values.items = currentItems;
     values.tag = tag;
-    const dbRef = doc(collection(db, "form"));
+    const dbRef = doc(collection(db, uid));
     setDoc(dbRef, values);
     setItemsArr([]);
     resetForm();
@@ -147,7 +151,7 @@ export default function NewInvoice({ setPage, action, page }) {
           }}
           onSubmit={(values, { resetForm }) => {
             setShowNewInvoice(false);
-            const dbRef = doc(collection(db, "form"));
+            const dbRef = doc(collection(db, uid));
             values.items = currentItems;
             values.dueDate = dueDate;
             values.tag = makeId();
