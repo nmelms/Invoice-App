@@ -13,36 +13,69 @@ p {
   font-weight: 500;
   color: #888eb0;
 }
+ul {
+  list-style-type: none;
+  padding: 0;
+}
 
 h4 {
   margin: 0;
 }
 
-.login {
+.loginPage {
   height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #7c5dfa;
 }
 .loginWrapper {
+  border-radius: 25px;
   position: relative;
-  height: 50vh;
-  width: 40vw;
-  border: 2px solid black;
+  height: fit-content;
+  width: 80vw;
+  max-width: 400px;
+  background-color: #f8f8fb;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 .emailAndPassword {
-  position: absolute;
   bottom: 20%;
-  width: 50%;
+  width: 70%;
   display: flex;
   flex-direction: column;
 }
+.emailAndPassword input {
+  padding: 0.5rem;
+  margin: 0.25rem;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+.loginButtons {
+  position: relative;
+  top: 90%;
+  width: 70%;
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem 0 1rem 0;
+  align-items: center;
+}
 .loginBtn {
-  width: 40%;
-  margin-top: 1rem;
+  background-color: #7c5dfa;
+  padding: 1rem;
+  border-radius: 25px;
+  width: 100%;
+  border: none;
+  color: white;
+}
+.userIcon {
+  height: auto;
+  margin: 2rem;
+  max-height: 250px;
+  max-width: 80%;
 }
 .invoiceStatusButtons {
   display: none;
