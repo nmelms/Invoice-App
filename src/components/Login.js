@@ -50,7 +50,19 @@ export default function Login({ setPage }) {
             </button>
           </li>
           <li>
-            <button className="loginBtn">Sign up</button>
+            <button onClick={() => setPage("register")} className="loginBtn">
+              Sign up
+            </button>
+          </li>
+          <li>
+            <button
+              className="loginBtn"
+              onClick={() =>
+                logInWithEmailAndPassword("guest@gmail.com", "123456")
+              }
+            >
+              Continue as guest
+            </button>
           </li>
         </ul>
       </div>
