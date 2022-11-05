@@ -6,30 +6,12 @@ import Filter from "./Filter";
 import NewButton from "./NewButton";
 import NewInvoice from "./NewInvoice";
 import InvoiceList from "./InvoiceList";
-import EditInvoice from "./EditInvoice";
-import { getAuth } from "firebase/auth";
 
 export default function Home({ setPage, page }) {
-  const {
-    uid,
-    setUid,
-    fetchData,
-    setClickedIndex,
-    loading,
-    list,
-    clickedIndex,
-    setItem,
-    item,
-    showNewInvoice,
-    setShowNewInvoice,
-    showEditInvoice,
-  } = useContext(GlobalContext);
-  useEffect(() => {
-    // fetchData();
-  }, []);
-
+  const { list, showNewInvoice, setShowNewInvoice } = useContext(GlobalContext);
   const [filterBy, setFilterBy] = useState("");
   const [filteredList, setFilteredList] = useState([...list]);
+
   const action = () => {
     setShowNewInvoice(false);
   };

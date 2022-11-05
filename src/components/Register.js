@@ -12,7 +12,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export default function Register({ setPage }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { userId, setUserId } = useContext(GlobalContext);
+  const { setUserId } = useContext(GlobalContext);
   const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {

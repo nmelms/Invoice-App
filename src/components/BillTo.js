@@ -1,5 +1,4 @@
-import React from 'react'
-import AddressForm from './AddressForm.js'
+import React from "react";
 
 export default function BillTo() {
   return (
@@ -13,5 +12,5 @@ export default function BillTo() {
         <input type="email" id="email" />
       </div>
     </div>
-  )
+  );
 }

@@ -1,75 +1,17 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import GlobalContext from "../GlobalContext";
 import FormAlert from "./FormAlert";
-import NavBar from "./NavBar";
 import BackButton from "./BackButton";
 import AddItemBtn from "./AddItemBtn";
 import { db } from "../firebase";
-import {
-  doc,
-  setDoc,
-  updateDoc,
-  serverTimestamp,
-  collection,
-} from "firebase/firestore";
-import { useFormik, Formik } from "formik";
+import { doc, updateDoc } from "firebase/firestore";
+import { Formik } from "formik";
 import Item from "./Item.js";
 import "../index.css";
 
 export default function EditInvoice({ setPage, action }) {
   const [currentItems, setCurrentItems] = useState([]);
-  const {
-    userId,
-    formik,
-    city,
-    items,
-    data,
-    fetchData,
-    itemIndex,
-    itemName,
-    list,
-    qty,
-    setItemIndex,
-    price,
-    setItemName,
-    setQty,
-    setPrice,
-    setStreet,
-    cStreet,
-    cCity,
-    setCity,
-    setState,
-    setZip,
-    setCountry,
-    setClientsName,
-    setCState,
-    setClientsEmail,
-    setCStreet,
-    setCCity,
-    setCZip,
-    setCCountry,
-    setInvoiceDate,
-    clickedIndex,
-    street,
-    setPaymentTerms,
-    setIndexer,
-    setProdDes,
-    state,
-    zip,
-    country,
-    clientsName,
-    clientsEmail,
-    cZip,
-    cCountry,
-    paymentTerms,
-    prodDes,
-    setList,
-    invoiceDate,
-    setGrandTotal,
-    grandTotal,
-    itemId,
-    setShowEditInvoice,
-  } = useContext(GlobalContext);
+  const { userId, list, itemId } = useContext(GlobalContext);
   const [showAlert, setShowAlert] = useState(true);
   const alertRef = useRef();
   const item = list.find((item) => item.id === itemId);

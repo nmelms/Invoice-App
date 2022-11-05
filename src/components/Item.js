@@ -1,5 +1,3 @@
-import { updateDoc, doc } from "@firebase/firestore";
-import { db } from "../firebase";
 import React, { useEffect, useState, useRef } from "react";
 import trashCan from "../assets/icon-delete.svg";
 let total = 0;
@@ -7,14 +5,10 @@ let total = 0;
 export default function Item({
   defaultName,
   defaultQty,
-  setItemsArr,
   defaultPrice,
-  itemsArr,
   onChange,
   total,
   handleDeleteClick,
-  setCurrentItems,
-  currentItems,
   index,
   id,
 }) {

@@ -16,40 +16,23 @@ import { doc, collection, setDoc, serverTimestamp } from "firebase/firestore";
 import Item from "./Item.js";
 import GlobalContext from "../GlobalContext";
 import AddItemBtn from "./AddItemBtn.js";
-import { Form, Formik } from "formik";
-import { set } from "@firebase/database";
-import { getAuth } from "firebase/auth";
+import { Formik } from "formik";
 
 export default function NewInvoice({ setPage, action, page }) {
   const {
     userId,
-    clientFormRef,
     dueDate,
-    formRef,
-    setColor,
     currentItems,
     setCurrentItems,
     formik,
-    list,
     itemsArr,
-    itemName,
     makeId,
-    qty,
-    price,
-    setIndexer,
-    setItemIndex,
     setItemsArr,
     setItemName,
     setQty,
     setPrice,
-    indexer,
-    grandTotal,
-    setGrandTotal,
     setShowNewInvoice,
   } = useContext(GlobalContext);
-  // const auth = getAuth();
-  // const user = auth.currentUser;
-  // const uid = user.uid;
 
   const [tag, setTag] = useState();
   const [showAlert, setShowAlert] = useState(false);
@@ -58,8 +41,6 @@ export default function NewInvoice({ setPage, action, page }) {
   useEffect(() => {
     setTag(makeId());
   }, []);
-
-  const itemRef = useRef([]);
 
   const handleDraftClick = (resetForm, values) => {
     setShowNewInvoice(false);

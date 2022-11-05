@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import backArrow from "../assets/icon-arrow-left.svg";
-import GlobalContext from "../GlobalContext";
 
 export default function BackButton({ action, name }) {
   return (

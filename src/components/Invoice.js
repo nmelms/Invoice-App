@@ -6,22 +6,9 @@ import { useContext } from "react";
 import rightArrow from "../assets/icon-arrow-right.svg";
 
 export default function Invoice({ setPage, index, page, id, whichList }) {
-  const {
-    setItemId,
-    filteredList,
-    fetchData,
-    paymentDue,
-    list,
-    clickedIndex,
-    clientName,
-    status,
-    setClickedIndex,
-    data,
-    paymentTerms,
-    item,
-    setItem,
-  } = useContext(GlobalContext);
+  const { setItemId, list } = useContext(GlobalContext);
   const [color, setColor] = useState("");
+
   useEffect(() => {
     if (whichList[index].status === "Draft") {
       setColor("0,0,0");
@@ -31,7 +18,7 @@ export default function Invoice({ setPage, index, page, id, whichList }) {
       setColor("255,165,0");
     }
   }, []);
-  const [updatedDate, setUpdatedDate] = useState();
+
   let total = 0;
   const handleClick = (e) => {
     setPage("viewInvoice");

@@ -4,7 +4,7 @@ import Invoice from "./Invoice.js";
 import empty from "../assets/illustration-empty.svg";
 
 export default function InvoiceList({ setPage, page, filterBy }) {
-  const { list, loading, setClickedIndex, filter } = useContext(GlobalContext);
+  const { list, loading, filter } = useContext(GlobalContext);
   let filteredList = [];
   let grandTotal = 0;
 

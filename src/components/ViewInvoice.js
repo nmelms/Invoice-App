@@ -19,24 +19,14 @@ export default function ViewInvoice({ setPage, page }) {
     userId,
     itemId,
     list,
-    setList,
-    clickedIndex,
-    itemsArr,
-    fetchData,
-    filteredList,
-    setItem,
-    alertRef,
     setItemTag,
     setShowEditInvoice,
     showEditInvoice,
   } = useContext(GlobalContext);
 
   let grandTotal = 0;
-  const [clickedItem, setClickedItem] = useState();
   const [alert, setAlert] = useState(false);
   const [userResponse, setUserResponse] = useState("");
-  const [total, setTotal] = useState(0);
-  const [currentItem, setCurrentItem] = useState();
   const item = list.find((item) => item.id === itemId);
   const current = new Date(item.invoiceDate);
   current.setDate(current.getDate() + Number(item.paymentTerms));

@@ -1,14 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 
-export default function FormAlert({
-  alertRef,
-  setShowAlert,
-  isValid,
-  submitCount,
-  showAlert,
-}) {
-  // const [showAlert, setShowAlert] = useState(false);
-
+export default function FormAlert({ alertRef, setShowAlert }) {
   const hideAlert = () => {
     setShowAlert(false);
   };

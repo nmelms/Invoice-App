@@ -15,6 +15,7 @@ export default function NavBar() {
       <div className="logo">
         <img src={logo} />
       </div>
+      {/*code to add dark and light theme. Current disabled*/}
       {/* <div onClick={handleClick} className="theme">
         {theme ? <img src={moon} /> : <img src={sun} />}
       </div> */}
