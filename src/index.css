@@ -3,6 +3,9 @@
   box-sizing: border-box;
   font-family: "League Spartan", sans-serif;
 }
+:root {
+  --app-height: 100vh;
+}
 body {
   margin: 0;
   display: block;
@@ -23,7 +26,7 @@ h4 {
 }
 
 .loginPage {
-  height: 100vh;
+  height: var(--app-height);
   width: 100vw;
   display: flex;
   justify-content: center;

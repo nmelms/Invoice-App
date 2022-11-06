@@ -27,6 +27,14 @@ import Register from "./components/Register.js";
 function App() {
   const [page, setPage] = useState("login");
 
+  const appHeight = () =>
+    document.documentElement.style.setProperty(
+      "--app-height",
+      `${window.innerHeight}px`
+    );
+  window.addEventListener("resize", appHeight);
+  appHeight();
+
   return (
     <GlobalProvider>
       <div className="App">
