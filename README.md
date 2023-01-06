@@ -1,6 +1,18 @@
-<h1>Invoice App</h1>
+# Invoice App
+I am excited to share this full stack CRUD app that I created using React and Firebase. Throughout the development process, I learned an incredible amount and was able to apply my skills in new ways.
 
-This is a full stack CRUD app I created using React and Firebase. I learned an insane amount on this project. I quickly realized how big a hassle passing props can be so I decided to use the Context API. I went with the Context API over something like Redux because Context seemed a little more light-weight and I didn't need any crazy state management, this worked perfectly for my project. Instead of using the local storage, I decided to add a back-end to this project. I settled on Firebase and while it was a bit of a learning curve I managed to get it up and running pretty smoothly. The design was given to me via Figma file. Overall I'm happy with the way it turned out.
+One challenge that I faced was the difficulty of passing props between components. To solve this issue, I decided to utilize the Context API. In comparison to other state management tools like Redux, I found the Context API to be more lightweight and suitable for my project's needs. It allowed me to efficiently manage my app's state without the added complexity of a more robust solution.
 
-<h2>How to use the app</h2>
-Currently you dont need to sign in so everyone uses the same database. You can create, edit and delete invoices. Feel free to create a new invoice by clicking on the New button.
+In addition to using the Context API, I also decided to incorporate a back-end into my project. Rather than relying on local storage, I chose to implement Firebase. While there was a learning curve involved, I was able to get the back-end up and running smoothly.
+
+The design for the app was provided to me through a Figma file. Overall, I am pleased with the final result and feel that the app turned out well.
+
+# Features
+* Create new invoices
+* Edit existing invoices
+* Save invoices as drafts
+* Delete invoices
+# How to Use the App
+The app is hosted [HERE](https://nmelmsinvoice.netlify.app). When you first open the app, you can sign in with an existing username or create a new account. If you prefer, you can also use the "continue as guest" option to test out the app without creating an account.
+
+To create a new invoice, click "new invoice" and fill out the fields. When you are finished, you can save the invoice or choose "save as draft" to finish it later. To edit an invoice, click on it from the main screen and choose "edit". You can also delete invoices by clicking the "delete" button.
